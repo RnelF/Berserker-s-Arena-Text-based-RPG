@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Berserker's Arena RPG</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="martial-artist.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="header">
+        
+        <div>
+          <p class="game-title">Berserker's Arena<span>&#8482;</span></p>
+        </div>
+        
+        <div class="navbar">
+          <div class="nav-link-left">
+          <a href="">About</a>
+        </div>
+
+        <div class="nav-link-middle">
+          <a href="">Contact</a>
+        </div>    
+
+        <div class="nav-link-right">
+          <a href="">Forum</a>  
+        </div>
+        </div>
+        
+
+    </div>
+
+    <div id="game">
+
+      <div id="stats">
+
+            <div class="stat-container">
+                <span class="stat">lvl: 
+                  <strong>
+                    <span id="levelText"></span>
+                  </strong>
+                </span>
+            </div>
+           
+            <div class="stat-container">
+                <span class="stat">XP: 
+                  <strong>
+                    <span id="xpText">0</span>
+                  </strong>
+                </span>
+            </div>
+          
+            <div class="stat-container">
+                <span class="stat">❤️: 
+                  <strong>
+                    <span id="healthText"></span>
+                  </strong>
+                </span>
+            </div>
+
+            <div class="stat-container">
+                <span class="stat">⚡: 
+                  <strong>
+                    <span id="energyText"></span>
+                  </strong>
+                </span>
+            </div>
+            
+            <div class="stat-container">
+                <span class="stat">💰: 
+                  <strong>
+                    <span id="goldText"></span>
+                  </strong>
+                </span>
+            </div>
+            
+
+      </div>
+
+      
+
+      <div id="monster-stats">
+
+          <div id="monster-stats-container">
+
+              <h2 id="monster-fight-notif">Oh no! a Wild Monster Appears!</h2>
+
+              <div class='monster-img-container'>
+					<img id="monster-img"/>
+              </div>
+			  
+			  
+
+				  <span class="monster-stat">Monster Name: 
+				  <strong>
+				  <span id="monsterName"></span>
+				  </strong></span>
+
+				  <span class="monster-stat">Health: 
+				  <strong>
+				  <span id="monsterHealth"></span>
+				  </strong>
+				  </span>
+
+				  <span class="monster-stat last">Level: 
+				  <strong>
+				  <span id="monsterLevel"></span>
+				  </strong>
+				  </span>
+			  
+			  
+
+          </div>
+
+          <div id="monster-stats-btn-container">
+            <button class="fight-monster-btn" id="fight-monster-btn">Fight</button>
+            <button class="flee-monster-btn" id="flee-monster-btn">Flee</button>
+          </div>    
+
+      </div>
+	  
+		  
+
+      <div id="map-nav">
+
+        <div id="controls">
+
+          <button class="bttn" id="dark-valley-btn">Go to Dark Valley</button>
+
+          <button class="bttn" id="valley-btn">Go to The Valley</button>
+
+          <button class="bttn" id="arena-btn">Go to Arena</button>
+
+          <button class="bttn" id="town-btn">Go to Town</button>
+          
+        </div>
+
+        <div id="notif-container">
+          <span id="notifications"></span>
+          <button id="notif-back-button">Go back</button>
+        </div>
+
+      </div>
+
+      <!--dark valley map-->
+
+      <div id="dark-valley-map">
+
+          <div id="dv-initial-btns">
+
+              <button id="dv-enter-btn">Enter Dark Valley</button>
+              <button id="dv-back-btn">Go Back</button>
+
+          </div>
+
+      </div>
+
+      <div id="dark-valley-map-inner">
+
+          <div id="dv-inner-btns">
+
+            <button id="dv-go-left">Go Left</button>
+            <button id="dv-go-middle">Go Middle</button>
+            <button id="dv-go-right">Go Right</button>
+            <button id="dv-inner-back-btn">Go Back</button>
+            
+          </div>
+            
+      </div>
+
+      <!--Valley Map-->
+      <div id="valley-map">
+
+        <div id="valley-map-initial-btns">
+          <button id="enter-valley">Enter The Valley</button>
+          <button id="valley-go-back-btn">Go Back</button>
+        </div>
+
+      </div>
+
+      <div id="valley-map-inner">
+
+        <div id="valley-inner-btns-container">
+
+          <button id="go-swamp-btn">Go to Swamp Area</button>
+          <button id="go-grassland-btn">Go to Grasslands</button>
+          <button id="valley-inner-back-btn">Go Back</button>
+
+        </div>
+		
+		<div class='valey-map-notif-container'>
+			<div id='valley-map-notif'>
+			</div>
+			
+			<button id='valley-map-notif-btn'>Confirm</button>
+		</div>
+
+      </div>
+
+      <!--Town Map-->
+
+      <div id="town-map">
+
+        <div id="town-map-btns">
+          <button id="alchemist-store-btn">Alchemy Shop</button>
+          <button id="blacksmith-store-btn">Blacksmith</button>
+          <button id="swordsmith-store-btn">Swordsmith</button>
+          <button id="temple-btn">Temple</button>
+          <button id="town-back-btn">Go Back</button>
+        </div>
+
+      </div>
+
+      <div id="alchemist-store">
+          
+          <div id="alchemy-store-btns-container">
+            <button id="buy-health-potion">Buy Health Potion</button>
+            <button id="buy-energy-potion">Buy Energy Potion</button>
+          </div>
+
+          <button id="alchemist-store-back-btn">Back to Town</button>
+
+          
+          <div id="alchemy-store-notif-container">
+
+            <span id="alchemy-store-notif"></span>
+            <button id="alchemy-store-notif-bck-btn">Confirm</button>
+            
+          </div>
+
+           <div id="buy-health-potion-btns">
+            <button id="buy-health-potion-minus">-</button>
+            <input id="health-potion-quantity" type="number" value="0" min="0">
+            <button id="buy-health-potion-plus">+</button>
+            <button id="hp-confirm-btn">Confirm</button>
+            <button id="hp-cancel-btn">Cancel</button>
+          </div>
+
+          <div id="buy-energy-potion-btns">
+              <button id="buy-energy-potion-minus">-</button>
+              <input id="energy-potion-quantity" type="number" value="0" min="0">
+              <button id="buy-energy-potion-plus">+</button>
+              <button id="energy-confirm-btn">Confirm</button>
+              <button id="energy-cancel-btn">Cancel</button>
+          </div>  
+
+
+      </div>
+
+      <div id="blacksmith-store">
+
+          <div id="blacksmith-store-btns-container">
+
+            <button id="buy-breastplate">Buy Breastplate</button>
+            <button id="buy-gauntlet">Buy Gauntlet</button>
+            <button id="buy-armored-boots">Buy Armored Boots</button>
+            <button id="buy-great-helm">Buy Great Helm</button>
+            <button id="buy-shield">Buy Shield</button>
+
+          </div>
+
+          <button id="blacksmith-store-back-btn">Back to Town</button>
+
+          <div id="blacksmith-store-notif-container">
+
+            <span id="blacksmith-store-notif"></span>
+            <button id="blacksmith-store-notif-bck-btn">Confirm</button>
+            
+          </div>  
+
+      </div>
+
+      <div id="swordsmith-store">
+
+        <div id="swordsmith-store-btns-container">
+            <button id="buy-sword">Buy Sword</button>
+            <button id="buy-dagger">Buy Dagger</button>
+            <button id="buy-crossbow">Buy Crossbow</button>
+            <button id="buy-katana">Buy Katana</button>
+            <button id="buy-nunchuks">Buy Nun-chuks</button>
+        </div>
+
+        <button id="swordsmith-store-back-btn">Back to Town</button>
+
+      </div>
+
+      
+	  
+	  <!-- fighting Display-->
+	  
+	  <div id='fighting-display-container'>
+			
+			  <div id='fighting-display-main-container'>
+		  
+            <div id='player-stats-display-container'>
+            
+              <div class='player-img-container'>
+                <img id="player-img" src='../images/martial artist/ma-img.jpg'/>
+              </div>
+            
+            
+
+              <span class="player-stat">
+              <strong>
+              <span id="player-name"></span>
+              </strong></span>
+
+              <span class="player-stat">Health: 
+              <strong>
+              <span id="player-health"></span>
+              </strong>
+              </span>
+
+              <span class="player-stat">Level: 	
+              <strong>
+              <span id="player-level"></span>
+              </strong>
+              </span>
+
+              <span class="player-stat last">Energy: 	
+              <strong>
+              <span id="player-energy"></span>
+              </strong>
+              </span>
+              
+            </div>
+
+				
+				    <div id="fight-story" style="white-space: pre-line;"><p>this is where the fight happens, but only on text</p></div>
+				
+				  <div id="fighting-monster-stats-container">
+
+                  <div class='fighting-monster-img-container'>
+                    <img id="fighting-monster-img"/>
+                  </div>
+              
+              
+
+                <span class="fighting-monster-stat"> 
+                <strong>
+                <span id="fighting-monster-name"></span>
+                </strong></span>
+
+                <span class="fighting-monster-stat">Health: 
+                <strong>
+                <span id="fighting-monster-health"></span>
+                </strong>
+                </span>
+
+                <span class="fighting-monster-stat">Level: 
+                <strong>
+                <span id="fighting-monster-level"></span>
+                </strong>
+                </span>
+
+                <span class="fighting-monster-stat last">Energy: 
+                <strong>
+                <span id="fighting-monster-energy"></span>
+                </strong>
+                </span>
+			  
+			  
+
+				  </div>
+				
+			  </div>	
+          <div id="fighting-btns-container">
+            
+              <button id="basic-attack-btn">Basic Attack</button>
+              <button id="use-hpotion-btn">Use ❤️ Potion</button>
+              <button id="use-epotion-btn">Use ⚡ Potion</button>
+              <button id="check-inv">Inventory</button>
+
+              <div id="inventory-container"></div>
+
+              <div id="skills-btns">
+
+              </div>
+          </div>
+			
+		  </div>
+	</div>
+    
+
+
+    <script src="sample.js"></script>
+  </body>
+</html>

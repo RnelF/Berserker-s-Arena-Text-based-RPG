@@ -1,0 +1,508 @@
+body{
+  margin:0;
+  padding: 0;
+  background: linear-gradient(to right,#452c08,#966212) ;
+  position: relative;
+  font-family: Cinzel,arial,sans-serif;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid black;
+  width: 100%;
+}
+
+.game-title{
+  font-family: 'Marcellus SC', serif;
+  font-size: 2rem;
+  background-color: #b76e00;display: inline-block;
+  text-wrap: nowrap;
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-weight: bold;
+  margin:10px 10px;
+}
+
+.game-title span{
+  font-size: 1.7rem;
+  font-weight: normal;
+}
+
+.navbar{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.navbar a{
+  text-decoration: none;
+  color: black;
+  font-size: 1.7rem;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.navbar a:hover{
+  border-radius: 30px;
+  padding:3px 10px;
+  background-color: rgb(207, 128, 60)
+}
+
+.nav-link-left{
+  margin-right: 10px;
+}
+
+.nav-link-right{
+  margin-left: 10px;
+}
+
+.nav-link-middle{
+  margin: 5px 20px;
+}
+
+#stats{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: antiquewhite;
+  width: 60vw;
+  border: 3px solid black;
+  margin: 0 auto;
+  
+} 
+
+.stat-container{
+  width:10vw;
+}
+
+.stat{
+  font-size: 1.7rem;
+  font-weight: 500;
+  text-wrap: nowrap;
+}
+
+#game{
+  text-align: center;
+  margin-top: 50px;
+}
+
+#map-nav{ 
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+  background-image: url(../images/map/map.jpg);
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#dark-valley-map{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/dark-valley.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#dv-initial-btns{
+  display: flex;  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-top: 250px;
+}
+
+#dark-valley-map-inner{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/dark-valley-inner.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#valley-map{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/valley.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#valley-map-inner{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/valley-inner.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+.valey-map-notif-container{
+	margin-top: 200px;
+}
+
+#valley-map-notif-btn{
+	display:none;
+}
+
+  /* Fighting display Styles*/
+#fighting-display-container{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/valley-grasslands.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#fighting-display-main-container{
+	display:flex;
+	justify-content: space-between;
+	align-items:center;
+}
+
+#player-img, #fighting-monster-img{
+	border: 2px solid black;
+	width: 100px;
+	height: 100px;
+}
+
+.fighting-monster-img-container, .player-img-container{
+	padding:10px 10px;
+}
+
+#player-stats-display-container{
+		width:300px;
+		display:flex;
+		flex-direction: column;
+	   	text-align:left;
+		font-size: 0.8rem;
+		color: white;
+		text-wrap: no wrap;
+}
+
+ #fighting-monster-stats-container{
+		width:300px;
+		display:flex;
+		flex-direction: column;
+		font-size: 0.8rem;
+		color: white;
+		
+ }
+#fighting-monster-stat{
+	text-align:left;
+	text-wrap: no wrap;
+}
+
+
+#town-map{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/town-main.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#town-map-btns{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.21);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.1px);
+  -webkit-backdrop-filter: blur(5.1px);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  margin-top: 35%;
+  margin-left: 27%;
+  padding: 20px;
+}
+
+/*alchemist store*/
+
+#alchemist-store{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/alchemy-shop.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#alchemy-store-notif-container{
+  background-color: white;
+  margin-top: 100px;
+  padding: 20px 20px;
+  border-radius: 20px;
+  border: 2px solid black;
+  display:none;
+}
+
+#alchemy-store-notif{
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+#alchemy-store-notif-bck-btn{
+  margin-top: 15px;
+}
+
+#buy-health-potion-btns, #buy-energy-potion-btns{
+  display: none;
+}
+
+/*blacksmith store*/
+
+#blacksmith-store{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/blacksmith-shop.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#blacksmith-store-notif-container{
+  background-color: white;
+  margin-top: 100px;
+  padding: 20px 20px;
+  border-radius: 20px;
+  border: 2px solid black;
+  display:none;
+}
+
+#blacksmith-store-notif{
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+#blacksmith-store-notif-bck-btn{
+  margin-top: 15px;
+}
+
+/*swordsmith store*/
+
+#swordsmith-store{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/swordsmith-shop.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+
+#monster-stats{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-image: url(../images/map/valley-grasslands.jpg);
+  display:none;
+  background-size: cover;
+  width: 550px;
+  height: 550px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+.monster-stat{
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-wrap: nowrap;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.last{
+  margin-bottom: 10px;
+}
+
+.monster-img-container{
+	display:inline-block;
+}
+
+#monster-img{
+  width: 150px;
+  height: 150px;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #ff7e5f, #feb47b, #ffeda3);
+  border-image-slice: 1;
+  margin-bottom:10px;
+}
+
+
+#monster-stats-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:  #E8DED1;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 3px solid #BFAA8C;
+  margin: 20px 20px;
+}
+
+.fight-monster-btn,
+.flee-monster-btn {
+  width: 100px;
+  height: 40px;
+  font-size: 1.2rem;
+  background: #E8DED1;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 3px solid #BFAA8C;
+  cursor: pointer;
+  transition:0.5s;
+}
+
+.fight-monster-btn:hover,
+.flee-monster-btn:hover {
+  background: #BFAA8C;
+  color: white;
+  border: 3px solid white;
+}
+
+#inventory-container{
+  background-color: white;
+  display: none;
+}
+
+#controls{
+  position: relative;
+}
+
+#dark-valley-btn{
+  position: absolute;
+  top: 160px;
+  left:60px;
+  color: white;
+  font-weight: bold;
+  padding:5px 10px;
+  box-shadow: 0px 0px 5px white;
+  background-color:rgb(67, 75, 81);
+  border-radius: 40px;
+  transition: 0.3s ease;
+}
+
+#dark-valley-btn:hover{
+  background-color: aliceblue;
+  color:black;
+  box-shadow: 0px 0px 5px black;
+}
+
+#valley-btn{
+  position: absolute;
+  top:160px;
+  right:70px;
+   color: white;
+  font-weight: bold;
+  padding:5px 10px;
+  box-shadow: 0px 0px 5px white;
+  background-color:rgb(67, 75, 81);
+  border-radius: 40px;
+  transition: 0.3s ease;
+}
+
+#valley-btn:hover{
+  background-color: aliceblue;
+  color:black;
+  box-shadow: 0px 0px 5px black;
+}
+
+#arena-btn{
+  position: absolute;
+  top:220px;
+  right: 220px;
+  color: white;
+  font-weight: bold;
+  padding:5px 10px;
+  box-shadow: 0px 0px 5px white;
+  background-color:rgb(67, 75, 81);
+  border-radius: 40px;
+  transition: 0.3s ease;
+}
+
+#arena-btn:hover{
+  background-color: aliceblue;
+  color:black;
+  box-shadow: 0px 0px 5px black;
+}
+
+#town-btn{
+  position: absolute;
+  top:450px;
+  right: 225px;
+  color: white;
+  font-weight: bold;
+  padding:5px 10px;
+  box-shadow: 0px 0px 5px white;
+  background-color:rgb(67, 75, 81);
+  border-radius: 40px;
+  transition: 0.3s ease;
+}
+
+#town-btn:hover{
+  background-color: aliceblue;
+  color:black;
+  box-shadow: 0px 0px 5px black;
+}
+
+.bttn{
+  font-family:Cinzel,arial,sans-serif;
+  cursor: pointer;
+}
+
+#notif-container{
+  color:black;
+  font-size: 15px;
+  font-weight: bold;
+  display:none;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 20px;
+  padding: 10px 10px;
+}
+
+#notif-back-button{
+  display: block;
+  margin-left: 43%;
+  margin-top: 15px;
+}
