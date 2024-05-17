@@ -1,0 +1,396 @@
+body{
+  margin-bottom: 30px;
+  padding: 0;
+  background: linear-gradient(to right,#452c08,#966212) ;
+  font-family:Cinzel,arial,sans-serif;
+  font-family: 'Marcellus SC', serif;
+}
+
+
+.navbar{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  border-bottom: 2px solid black;
+}
+
+.navbar a{
+  text-decoration: none;
+  color: black;
+  font-size: 1.7rem;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.navbar a:hover{
+  border-radius: 30px;
+  padding:3px 10px;
+  background-color: rgb(207, 128, 60)
+}
+
+.nav-link-left{
+  margin-right: 10px;
+}
+
+.nav-link-right{
+  margin-left: 10px;
+}
+
+.nav-link-middle{
+  margin: 5px 20px;
+}
+
+.class-img{
+  width: 100%;
+  height: 500px;  
+  object-fit:cover;
+  border: 7px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  box-shadow: 0px 0px 3px white;
+}
+
+#header .game-title{
+  font-family: 'Marcellus SC', serif;
+  font-size: 4rem;
+  background-color: #b76e00;display: inline-block;
+  text-wrap: nowrap;
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-weight: bold;
+  margin:10px 0px;
+}
+
+#header .game-subtitle{
+  font-size: 1.6rem;
+  font-style: italic;
+  margin: 0;
+}
+
+.game-title span{
+  font-size: 1.7rem;
+  font-weight: normal;
+}
+
+#header{
+  text-align: center;
+  margin:0;
+}
+
+@media (max-width:570px){
+  #header .game-title{
+  font-size: 3rem;
+}
+
+#header .game-subtitle{
+  font-size: 1rem;
+}
+
+.game-title span{
+  font-size: 1rem;
+} 
+
+#header{
+  text-align: center;
+}
+}
+
+@media (max-width:375px){
+   #header .game-title{
+  font-size: 1.7rem;
+}
+
+#header .game-subtitle{
+  font-size: 0.5rem;
+}
+
+.game-title span{
+  font-size: 0.5rem;
+} 
+
+#header{
+  text-align: center;
+}
+}
+
+.breakline{
+  width: 85%;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.introduction{
+  font-family: Cinzel,arial,sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+#class-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
+.martial-artists-class{
+  position: relative;
+  width: 20%;
+  margin: 0px 20px;
+  padding: 0;
+  height: auto;
+  
+}
+
+.martial-artists-class .class-tooltip{
+  background-color: rgba(0,0,0,0.75);
+  position: absolute;
+  width: 103%;
+  display: flex;
+  cursor: pointer;
+  border-radius: 5px;
+  left: 0%;
+  right: 0%;
+  bottom:0%;
+  overflow: hidden;
+  height: 0;
+  transition: .5s ease;
+  margin: 0px;
+  
+}
+
+.martial-artists-class:hover .class-tooltip{
+  height: 100%;
+}
+
+.martial-artists-class .tooltip-img{
+  object-position:50%;
+}
+
+
+.barbarian-class{
+  position: relative;
+  width: 20%;
+  margin: 0px 20px;
+  height: auto;
+}
+
+.barbarian-class .class-tooltip{
+  background-color: rgba(0,0,0,0.75);
+  position: absolute;
+  width: 103%;
+  display: flex;
+  cursor: pointer;
+  border-radius: 5px;
+  left: 0%;
+  right: 0%;
+  bottom:0%;
+  overflow: hidden;
+  height: 0;
+  transition: .5s ease;
+  margin: 0px;
+}
+
+.barbarian-class:hover .class-tooltip{
+  height: 100%;
+}
+
+.barbarian-class .tooltip-img{
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  object-position: 50%;
+}
+
+.barbarian-class .class-img{
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+
+.barbarian-class .class-att{
+  display: flex;
+  flex-direction: column;
+  font-size: 0.6rem;
+  text-align: justify;
+  color:white;
+  line-height: 20px;
+}
+
+.thief-class{
+  position: relative;
+  width: 20%;
+  margin: 0px 20px;
+  height: auto;
+}
+
+.thief-class .class-tooltip{
+  background-color: rgba(0,0,0,0.75);
+  position: absolute;
+  width: 103%;
+  display: flex;
+  cursor: pointer;
+  border-radius: 5px;
+  left: 0%;
+  right: 0%;
+  bottom:0%;
+  overflow:hidden;
+  height: 0;
+  transition: .5s ease;
+  margin: 0px;
+}
+
+.thief-class:hover .class-tooltip{
+  height: 100%;
+}
+
+.thief-class .tooltip-img{
+  object-position: 43%;
+}
+
+@media (max-width:680px){
+  #class-container{
+    flex-direction: column;
+    gap: 30px;
+    margin-right: 200px;
+  }
+
+  .martial-artists-class .class-tooltip{
+    width: 42vw;
+  }
+  
+  .barbarian-class .class-tooltip{
+    width: 42vw;
+
+  }
+  
+  
+  .thief-class .class-tooltip{
+    width: 42vw;
+
+  }
+
+  .class-img{
+    width: 40vw;
+    height: 500px;  
+  }
+
+}
+
+
+@media (max-width:1300px){
+
+  .martial-artists-class .class-att, .barbarian-class .class-att, .thief-class .class-att {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+  text-align: justify;
+  color:white;
+  line-height: 20px;
+  margin-left: 10px;
+}
+
+.class-backstory{
+  font-family: Cinzel,arial,sans-serif;
+  margin-top:30px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: left;
+}
+
+.tooltip-img{
+  display: none;
+}
+
+}
+
+
+
+.class-backstory p{
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  text-align: left;
+  
+}
+.class-name{
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+#select-class-container{
+  margin: auto auto;
+  text-align: center;
+}
+
+
+.tooltip-img{
+  width:100px;
+  height: 475px;
+  object-fit: cover;
+  margin:20px 10px;
+  border: 3px solid white;
+  border-radius: 40px;
+  
+}
+
+@media only screen and (min-width: 2000px){
+
+.tooltip-img{
+  width:200px;
+  height: 475px;
+  object-fit: cover;
+  margin: 10px;
+  border: 3px solid white;
+  }
+
+}
+
+.class-stats{
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+  text-align: justify;
+  color:white;
+  font-family: Cinzel,arial,sans-serif;
+}
+
+
+#select-button{
+  padding: 5px 10px;
+  background-color: rgb(87, 26, 3);
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: Cinzel,arial,sans-serif;
+  transition: 0.4s ease;
+  text-decoration: none;
+  border: 2px solid black;
+  
+}
+
+#select-button:hover{
+  background: rgb(142, 83, 32);
+  color: black;
+  padding:10px 15px;
+}
+
+.class-name2{
+  font-size: 2rem;
+  font-family: Cinzel,arial,sans-serif;
+  cursor: pointer;
+}
+
+.class-main{
+  display: flex;
+}
+
+.select-button-container{
+  margin-top: 50px;
+  text-align: center;
+}
