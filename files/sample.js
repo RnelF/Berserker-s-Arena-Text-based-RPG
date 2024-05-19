@@ -366,36 +366,65 @@ const valleyMonstersList = [
   }
 ];
 
+// Function to handle fighting valley monsters
+
+const fightMonsterBtn = document.getElementById('fight-monster-btn');
+const fleeMonsterBtn = document.getElementById('flee-monster-btn');
+
+const fleeNotif = document.getElementById('valley-map-notif');
+const fleeConfirmBtn = document.getElementById('valley-map-notif-btn');
+
+const fightingDisplay = document.getElementById('fighting-display-container');
+const fightingConfirmBtn = document.getElementById('fighting-confirm-btn');
+
+let selectedMonster = null;
+
+const deepCopyMonster = (monster) => {
+  return JSON.parse(JSON.stringify(monster));
+};
+
+const monsterRandomPicker = () => {
+  let minLevel = 1; // Minimum monster level
+  let maxLevel = Math.min(playerLvl + 1, valleyMonstersList.length); // Maximum monster level based on player's level
+
+  // Filter monsters based on the level range
+  let availableMonsters = valleyMonstersList.filter(monster => monster.monsterLevel >= minLevel && monster.monsterLevel <= maxLevel);
+
+  // Randomly select a monster from the available monsters
+  let randomIndex = Math.floor(Math.random() * availableMonsters.length);
+  return deepCopyMonster(availableMonsters[randomIndex]); // Return a deep copy of the selected monster
+};
+
 
 
 
 //Fighting Monster Functions
 // Function to update monster stats on the UI
 const updateMonsterStatsUI = (monster) => {
-		  const monsterName = document.getElementById('monsterName');
-		  const monsterHealth = document.getElementById('monsterHealth');
-		  const monsterLevel = document.getElementById('monsterLevel');
-		  const monsterImage = document.getElementById('monster-img');
-		  
-		  const fightingMonsterName = document.getElementById('fighting-monster-name');
-		  const fightingMonsterHealth = document.getElementById('fighting-monster-health');
-		  const fightingMonsterLevel = document.getElementById('fighting-monster-level');
-		  const fightingMonsterImg= document.getElementById('fighting-monster-img');
-		  const fightingMonsterEnergy = document.getElementById('fighting-monster-energy');
+  const monsterName = document.getElementById('monsterName');
+  const monsterHealth = document.getElementById('monsterHealth');
+  const monsterLevel = document.getElementById('monsterLevel');
+  const monsterImage = document.getElementById('monster-img');
 
-		  monsterName.textContent = monster.name;
-		  monsterHealth.textContent = monster.health;
-		  monsterLevel.textContent = monster.monsterLevel;
-		  
-		  fightingMonsterName.textContent = monster.name;
-		  fightingMonsterHealth.textContent = monster.health;
-		  fightingMonsterLevel.textContent = monster.monsterLevel;
-		  fightingMonsterEnergy.textContent = monster.monsterEnergy;
+  const fightingMonsterName = document.getElementById('fighting-monster-name');
+  const fightingMonsterHealth = document.getElementById('fighting-monster-health');
+  const fightingMonsterLevel = document.getElementById('fighting-monster-level');
+  const fightingMonsterImg = document.getElementById('fighting-monster-img');
+  const fightingMonsterEnergy = document.getElementById('fighting-monster-energy');
 
-		  // Set the monster image src
-		  monsterImage.src = monster.monsterImg;
-		  fightingMonsterImg.src = monster.monsterImg;
-		};
+  monsterName.textContent = monster.name;
+  monsterHealth.textContent = monster.health;
+  monsterLevel.textContent = monster.monsterLevel;
+
+  fightingMonsterName.textContent = monster.name;
+  fightingMonsterHealth.textContent = monster.health;
+  fightingMonsterLevel.textContent = monster.monsterLevel;
+  fightingMonsterEnergy.textContent = monster.monsterEnergy;
+
+  // Set the monster image src
+  monsterImage.src = monster.monsterImg;
+  fightingMonsterImg.src = monster.monsterImg;
+};
 
 const updatePlayerStatsUI = () => {
 		  const gold = document.getElementById('gold');
@@ -419,47 +448,6 @@ const updatePlayerStatsUI = () => {
 		  fightingPlayerEnergy.textContent = playerEnergy; // Update with player's energy during fight
 		};
 
-    const resetUIAndFightStory = () => {
-  // Reset fight story content
-  document.getElementById('fight-story').textContent = "";
-
-  // Reset monster and player health display
-  document.getElementById('fighting-monster-health').textContent = "";
-  document.getElementById('player-health').textContent = "";
-
-  // Hide the fighting display and confirm button
-  fightingDisplay.style.display = 'none';
-  fightingConfirmBtn.style.display = 'none';
-
-  // Enable all buttons in the fighting button container
-  const buttons = document.querySelectorAll('#fighting-btns-container button');
-  buttons.forEach(button => {
-    button.disabled = false;
-  });
-
-  // Hide notifications
-  document.getElementById('monster-fight-notif').textContent = '';
-  fleeNotif.style.display = 'none';
-  fleeConfirmBtn.style.display = 'none';
-
-  // Show map navigation and inner valley map
-  mapNav.style.display = 'inline-block';
-  valleyMapInner.style.display = 'inline-block';
-};
-
-
-
-
-// Function to handle fighting valley monsters
-
-const fightMonsterBtn = document.getElementById('fight-monster-btn');
-const fleeMonsterBtn = document.getElementById('flee-monster-btn');
-
-const fleeNotif = document.getElementById('valley-map-notif');
-const fleeConfirmBtn = document.getElementById('valley-map-notif-btn');
-
-const fightingDisplay = document.getElementById('fighting-display-container');
-const fightingConfirmBtn = document.getElementById('fighting-confirm-btn');
 
 
 const valleyMonstersFightFunction = () => {
@@ -468,20 +456,8 @@ const valleyMonstersFightFunction = () => {
   valleyMap.style.display = 'none';
   valleyMapInner.style.display = 'none';
 
-  const monsterRandomPicker = () => {
-    let minLevel = 1; // Minimum monster level
-    let maxLevel = Math.min(playerLvl + 1, valleyMonstersList.length); // Maximum monster level based on player's level
-
-    // Filter monsters based on the level range
-    let availableMonsters = valleyMonstersList.filter(monster => monster.monsterLevel >= minLevel && monster.monsterLevel <= maxLevel);
-
-    // Randomly select a monster from the available monsters
-    let randomIndex = Math.floor(Math.random() * availableMonsters.length);
-    return availableMonsters[randomIndex]; // Return the selected monster
-  };
-
-  // Get the selected monster from monsterRandomPicker
-  const selectedMonster = monsterRandomPicker();
+  selectedMonster = monsterRandomPicker();
+  updateMonsterStatsUI(selectedMonster);
 
 
 		// Function to calculate player damage
@@ -558,6 +534,8 @@ const valleyMonstersFightFunction = () => {
 			});
 
       document.getElementById('fight-story').textContent += `You are fighting ${selectedMonster.name}`;
+
+      resetMonsterStats(valleyMonstersList);
 			// You can use selectedMonster here if needed
 		  });
 		  
@@ -639,10 +617,12 @@ const valleyMonstersFightFunction = () => {
     disableAllButtons();
     fightingConfirmBtn.style.display = "inline-block";
 
-    // Reset UI and fight story after a delay or immediate as needed
     fightingConfirmBtn.addEventListener('click', () => {
-      resetUIAndFightStory();
+      valleyMapInner.style.display = 'inline-block';
+      fightingDisplay.style.display = 'none';
     });
+
+
 
   } else if (selectedMonster.health <= 0) {
     // Monster is defeated
@@ -656,10 +636,12 @@ const valleyMonstersFightFunction = () => {
     playerGold += selectedMonster.monsterGoldReward;
     playerXp += selectedMonster.monsterExpReward;
 
-    // Reset UI and fight story after a delay or immediate as needed
     fightingConfirmBtn.addEventListener('click', () => {
-      resetUIAndFightStory();
+      valleyMapInner.style.display = 'inline-block';
+      fightingDisplay.style.display = 'none';
     });
+
+    
 
   } else {
     // Neither player nor monster is defeated, continue the fight
