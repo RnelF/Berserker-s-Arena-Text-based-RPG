@@ -380,6 +380,8 @@ body{
   margin: 20px 20px;
 }
 
+/*Fighting*/
+
 .fight-monster-btn,
 .flee-monster-btn {
   width: 100px;
@@ -408,6 +410,20 @@ body{
 #controls{
   position: relative;
 }
+
+#fight-story{
+  font-weight: bold;
+  font-size: .8em;
+  background-color: white;
+  border: 2px solid orangered;
+  padding: 10px 10px;
+}
+
+#fighting-confirm-btn{
+  display: none;
+}
+
+/*Dark valley map*/
 
 #dark-valley-btn{
   position: absolute;
