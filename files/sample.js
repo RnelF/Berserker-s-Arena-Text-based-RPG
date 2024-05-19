@@ -3,6 +3,9 @@ let playerXp = 0;
 let playerHealth = 100;
 let playerGold = 50;
 
+const requiredExpToLvlUp = 30;
+     
+
 let playerStr = 10;
 let playerAgi = 10;
 let playerDef = 30;
@@ -373,9 +376,11 @@ const fleeMonsterBtn = document.getElementById('flee-monster-btn');
 
 const fleeNotif = document.getElementById('valley-map-notif');
 const fleeConfirmBtn = document.getElementById('valley-map-notif-btn');
+const fightStory = document.getElementById('fight-story');
 
 const fightingDisplay = document.getElementById('fighting-display-container');
 const fightingConfirmBtn = document.getElementById('fighting-confirm-btn');
+
 
 let selectedMonster = null;
 
@@ -448,6 +453,16 @@ const updatePlayerStatsUI = () => {
 		  fightingPlayerEnergy.textContent = playerEnergy; // Update with player's energy during fight
 		};
 
+    const resetFightStory = () => {
+          fightStory.textContent = `You are fighting ${selectedMonster.name}\n`;
+    };
+
+    const resetPlayerHealth = () => {
+      
+        playerHealth = 50;
+      
+    };
+
 
 
 const valleyMonstersFightFunction = () => {
@@ -458,6 +473,8 @@ const valleyMonstersFightFunction = () => {
 
   selectedMonster = monsterRandomPicker();
   updateMonsterStatsUI(selectedMonster);
+  resetFightStory();
+  fightingConfirmBtn.style.display = "none";
 
 
 		// Function to calculate player damage
@@ -535,7 +552,7 @@ const valleyMonstersFightFunction = () => {
 
       document.getElementById('fight-story').textContent += `You are fighting ${selectedMonster.name}`;
 
-      resetMonsterStats(valleyMonstersList);
+      resetFightStory();
 			// You can use selectedMonster here if needed
 		  });
 		  
@@ -551,7 +568,7 @@ const valleyMonstersFightFunction = () => {
 				// Remove the health potion from player's inventory
 				playerInv.splice(healthPotionIndex, 1);
 				updatePlayerStatsUI();
-				document.getElementById('fight-story').textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP`;
+				fightStory.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP`;
 				// Update UI or any other relevant game logic
 			} else {
 				// Handle the case where the player does not have any health potions
@@ -590,20 +607,20 @@ const valleyMonstersFightFunction = () => {
   // Update UI with fight results
   if (playerEvade) {
     // Player evaded the attack
-    document.getElementById('fight-story').textContent += "Player evaded the attack!\n";
+    fightStory.textContent += "Player evaded the attack!\n";
   } else {
     // Player got hit
     playerHealth -= monsterDamage;
-    document.getElementById('fight-story').textContent += `Monster hit the player for ${monsterDamage} damage!\n`;
+    fightStory.textContent += `Monster hit the player for ${monsterDamage} damage!\n`;
   }
 
   if (monsterEvade) {
     // Monster evaded the attack
-    document.getElementById('fight-story').textContent += "Monster evaded the attack!\n";
+    fightStory.textContent += "Monster evaded the attack!\n";
   } else {
     // Monster got hit
     selectedMonster.health -= playerDamage;
-    document.getElementById('fight-story').textContent += `Player hit the monster for ${playerDamage} damage!\n`;
+   fightStory.textContent += `Player hit the monster for ${playerDamage} damage!\n`;
   }
 
   // Update UI with current health of player and monster
@@ -613,23 +630,27 @@ const valleyMonstersFightFunction = () => {
   // Check if player or monster is defeated
   if (playerHealth <= 0) {
     // Player is defeated
-    document.getElementById('fight-story').textContent += "Player is defeated!\n";
+    fightStory.textContent += "Player is defeated!\n";
     disableAllButtons();
+    resetPlayerHealth();
+    
     fightingConfirmBtn.style.display = "inline-block";
 
     fightingConfirmBtn.addEventListener('click', () => {
       valleyMapInner.style.display = 'inline-block';
       fightingDisplay.style.display = 'none';
+      
     });
 
 
 
   } else if (selectedMonster.health <= 0) {
     // Monster is defeated
-    document.getElementById('fight-story').textContent += `Monster ${selectedMonster.name} is defeated!\n`;
-    document.getElementById('fight-story').textContent += `You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`;
+    fightStory.textContent += `Monster ${selectedMonster.name} is defeated!\n`;
+    fightStory.textContent += `You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`;
 
     disableAllButtons();
+    
     fightingConfirmBtn.style.display = "inline-block";
 
     // Update player stats with rewards
@@ -639,6 +660,7 @@ const valleyMonstersFightFunction = () => {
     fightingConfirmBtn.addEventListener('click', () => {
       valleyMapInner.style.display = 'inline-block';
       fightingDisplay.style.display = 'none';
+      
     });
 
     
@@ -1096,3 +1118,7 @@ const townBtnFunction = () => {
 const townBtn = document.getElementById('town-btn').addEventListener('click',townBtnFunction);
 
 
+ if(playerXp >= requiredExpToLvlUp){
+          playerLvl++;
+          requiredExpToLvlUp + 30;
+      }
