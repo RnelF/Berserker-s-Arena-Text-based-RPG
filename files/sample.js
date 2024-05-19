@@ -2,8 +2,6 @@ let playerLvl = 1;
 let playerXp = 0;
 let playerHealth = 100;
 let playerGold = 50;
-
-const requiredExpToLvlUp = 30;
      
 
 let playerStr = 10;
@@ -463,6 +461,20 @@ const updatePlayerStatsUI = () => {
       
     };
 
+    const checkAndHandleLevelUp = () => {
+      const requiredExpToLvlUp = 30;
+    while (playerXp >= requiredExpToLvlUp) {
+    playerXp -= requiredExpToLvlUp;
+    playerLvl += 1;
+    requiredExpToLvlUp += 20;
+
+    // You can also include additional logic for what happens when the player levels up, such as increasing health or stats
+    fightStory.textContent += `Congratulations! You've reached level ${playerLvl}\n`;
+  }
+  // Update the player stats UI to reflect changes
+  updatePlayerStatsUI();
+};
+
 
 
 const valleyMonstersFightFunction = () => {
@@ -656,6 +668,8 @@ const valleyMonstersFightFunction = () => {
     // Update player stats with rewards
     playerGold += selectedMonster.monsterGoldReward;
     playerXp += selectedMonster.monsterExpReward;
+
+    checkAndHandleLevelUp();
 
     fightingConfirmBtn.addEventListener('click', () => {
       valleyMapInner.style.display = 'inline-block';
@@ -1118,7 +1132,3 @@ const townBtnFunction = () => {
 const townBtn = document.getElementById('town-btn').addEventListener('click',townBtnFunction);
 
 
- if(playerXp >= requiredExpToLvlUp){
-          playerLvl++;
-          requiredExpToLvlUp + 30;
-      }
