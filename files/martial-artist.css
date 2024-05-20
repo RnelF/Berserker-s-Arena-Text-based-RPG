@@ -412,11 +412,14 @@ body{
 }
 
 #fight-story{
+  width: 450px;
+  height:300px;
   font-weight: bold;
   font-size: .8em;
   background-color: white;
   border: 2px solid orangered;
   padding: 10px 10px;
+  overflow: scroll;
 }
 
 #fighting-confirm-btn{

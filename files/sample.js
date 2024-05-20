@@ -456,10 +456,10 @@ const updatePlayerStatsUI = () => {
     };
 
     const resetPlayerHealth = () => {
-      
-        playerHealth = 50;
-      
+      playerHealth = 50;
+      updatePlayerStatsUI();
     };
+
 
     const checkAndHandleLevelUp = () => {
       const requiredExpToLvlUp = 30;
@@ -642,17 +642,18 @@ const valleyMonstersFightFunction = () => {
   // Check if player or monster is defeated
   if (playerHealth <= 0) {
     // Player is defeated
+    
     fightStory.textContent += "Player is defeated!\n";
     disableAllButtons();
-    resetPlayerHealth();
-    
-    fightingConfirmBtn.style.display = "inline-block";
 
-    fightingConfirmBtn.addEventListener('click', () => {
-      valleyMapInner.style.display = 'inline-block';
-      fightingDisplay.style.display = 'none';
+    setTimeout(function playerDefeated(){
       
-    });
+        mapNav.style.display = 'inline-block';
+        notifContainer.style.display = 'block';
+        fightingDisplay.style.display = 'none';
+        notifications.textContent = `You have been Defeated, A Stranger saw you and brought you to the hospital. \n your HP is reduced by 50%`;
+
+    },3000)
 
 
 
@@ -776,7 +777,9 @@ const darkValleyBtn = document.getElementById('dark-valley-btn').addEventListene
 });
 
 const backButton = document.getElementById('notif-back-button').addEventListener('click',() => {
-  if(notifContainer.style.display === 'block'){
+  if(playerHealth <= 0){
+    resetPlayerHealth();
+  }else if(notifContainer.style.display === 'block'){
     notifications.textContent = '';
     notifContainer.style.display = 'none';
     return;
