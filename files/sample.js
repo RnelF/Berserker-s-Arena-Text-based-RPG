@@ -4,7 +4,7 @@ let playerHealth = 100;
 let playerGold = 50;
      
 
-let playerStr = 10;
+let playerStr = 30;
 let playerAgi = 10;
 let playerDef = 30;
 let playerLuck = 30;
@@ -463,14 +463,30 @@ const updatePlayerStatsUI = () => {
 
     const checkAndHandleLevelUp = () => {
       const requiredExpToLvlUp = 30;
+      notifContainer.style.display = 'block';
+
+      notifications.textContent += `Congratulations! You've reached level ${playerLvl}\n 
+      100 points added to your HP! \n
+      You have Received 10 Gold \n
+      + 3 Defense \n
+      + 3 Agility
+      + 3 Strength
+      + 3 Luck
+      `;
+      
     while (playerXp >= requiredExpToLvlUp) {
     playerXp -= requiredExpToLvlUp;
     playerLvl += 1;
     requiredExpToLvlUp += 20;
-
-    // You can also include additional logic for what happens when the player levels up, such as increasing health or stats
-    fightStory.textContent += `Congratulations! You've reached level ${playerLvl}\n`;
+    playerDef += 3;
+    playerAgi += 3;
+    playerLuck += 3;
+    playerStr += 3;
+    playerGold += 20;
+    playerHealth += 100;
+    
   }
+  
   // Update the player stats UI to reflect changes
   updatePlayerStatsUI();
 };
@@ -663,6 +679,7 @@ const valleyMonstersFightFunction = () => {
     fightStory.textContent += `You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`;
 
     disableAllButtons();
+    checkAndHandleLevelUp();
     
     fightingConfirmBtn.style.display = "inline-block";
 
@@ -670,7 +687,7 @@ const valleyMonstersFightFunction = () => {
     playerGold += selectedMonster.monsterGoldReward;
     playerXp += selectedMonster.monsterExpReward;
 
-    checkAndHandleLevelUp();
+    
 
     fightingConfirmBtn.addEventListener('click', () => {
       valleyMapInner.style.display = 'inline-block';
