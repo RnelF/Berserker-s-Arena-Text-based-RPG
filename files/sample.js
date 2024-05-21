@@ -609,7 +609,6 @@ const valleyMonstersFightFunction = () => {
 			}
 		};
 
-		let playerTurn = true; // Flag to track whose turn it is
 
     let gameState = "playerTurn"; // Initial state: player's turn
 
