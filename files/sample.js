@@ -611,81 +611,91 @@ const valleyMonstersFightFunction = () => {
 
 		let playerTurn = true; // Flag to track whose turn it is
 
+    let gameState = "playerTurn"; // Initial state: player's turn
+
     const fight = () => {
-        if (playerTurn) {
-            // Player's turn
-            const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
-            const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
+        switch (gameState) {
+            case "playerTurn":
+                // Player's turn
+                const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
+                const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
 
-            if (monsterEvade) {
-                fightStory.textContent += "Monster evaded the attack!\n";
-            } else {
-                selectedMonster.health -= playerDamage;
-                fightStory.textContent += `Player hit the monster for ${playerDamage} damage!\n`;
-            }
+                if (monsterEvade) {
+                    fightStory.textContent += "Monster evaded the attack!\n";
+                } else {
+                    selectedMonster.health -= playerDamage;
+                    fightStory.textContent += `Player hit the monster for ${playerDamage} damage!\n`;
+                }
 
-            // Update UI with current health of monster
-            document.getElementById('fighting-monster-health').textContent = selectedMonster.health;
+                // Update UI with current health of monster
+                document.getElementById('fighting-monster-health').textContent = selectedMonster.health;
 
-            // Check if monster is defeated
-            if (selectedMonster.health <= 0) {
-                // Monster is defeated
-                fightStory.textContent += `Monster ${selectedMonster.name} is defeated!\n`;
-                fightStory.textContent += `You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`;
+                // Check if monster is defeated
+                if (selectedMonster.health <= 0) {
+                    // Monster is defeated
+                    fightStory.textContent += `Monster ${selectedMonster.name} is defeated!\n`;
+                    fightStory.textContent += `You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`;
 
-                disableAllButtons();
-                checkAndHandleLevelUp();
+                    disableAllButtons();
+                    checkAndHandleLevelUp();
 
-                fightingConfirmBtn.style.display = "inline-block";
+                    fightingConfirmBtn.style.display = "inline-block";
 
-                // Update player stats with rewards
-                playerGold += selectedMonster.monsterGoldReward;
-                playerXp += selectedMonster.monsterExpReward;
+                    // Update player stats with rewards
+                    playerGold += selectedMonster.monsterGoldReward;
+                    playerXp += selectedMonster.monsterExpReward;
 
-                fightingConfirmBtn.addEventListener('click', () => {
-                    valleyMapInner.style.display = 'inline-block';
-                    fightingDisplay.style.display = 'none';
-                });
-            } else {
-                // Neither player nor monster is defeated, switch to monster's turn
-                playerTurn = false;
-                fight(); // Proceed to the monster's turn
-            }
-        } else {
-            // Monster's turn
-            const monsterDamage = calculateMonsterDamage(selectedMonster.monsterStr, selectedMonster.monsterAgi, playerDef);
-            const playerEvade = checkEvasion(playerAgi, playerLuck);
+                    fightingConfirmBtn.addEventListener('click', () => {
+                        valleyMapInner.style.display = 'inline-block';
+                        fightingDisplay.style.display = 'none';
+                    });
 
-            if (playerEvade) {
-                fightStory.textContent += "Player evaded the attack!\n";
-            } else {
-                playerHealth -= monsterDamage;
-                fightStory.textContent += `Monster hit the player for ${monsterDamage} damage!\n`;
-            }
+                    gameState = "fightEnded"; // Set game state to fight ended
+                } else {
+                    // Neither player nor monster is defeated, switch to monster's turn
+                    gameState = "monsterTurn";
+                }
+                break;
 
-            // Update UI with current health of player
-            document.getElementById('player-health').textContent = playerHealth;
+            case "monsterTurn":
+                // Monster's turn
+                const monsterDamage = calculateMonsterDamage(selectedMonster.monsterStr, selectedMonster.monsterAgi, playerDef);
+                const playerEvade = checkEvasion(playerAgi, playerLuck);
 
-            // Check if player is defeated
-            if (playerHealth <= 0) {
-                // Player is defeated
-                fightStory.textContent += "Player is defeated!\n";
-                disableAllButtons();
+                if (playerEvade) {
+                    fightStory.textContent += "Player evaded the attack!\n";
+                } else {
+                    playerHealth -= monsterDamage;
+                    fightStory.textContent += `Monster hit the player for ${monsterDamage} damage!\n`;
+                }
 
-                setTimeout(function playerDefeated() {
-                    mapNav.style.display = 'inline-block';
-                    notifContainer.style.display = 'block';
-                    fightingDisplay.style.display = 'none';
-                    notifications.textContent = `You have been Defeated, A Stranger saw you and brought you to the hospital. \n your HP is reduced by 50%`;
+                // Update UI with current health of player
+                document.getElementById('player-health').textContent = playerHealth;
 
-                }, 3000);
+                // Check if player is defeated
+                if (playerHealth <= 0) {
+                    // Player is defeated
+                    fightStory.textContent += "Player is defeated!\n";
+                    disableAllButtons();
 
-                playerTurn = false;
+                    setTimeout(function playerDefeated() {
+                        mapNav.style.display = 'inline-block';
+                        notifContainer.style.display = 'block';
+                        fightingDisplay.style.display = 'none';
+                        notifications.textContent = `You have been Defeated, A Stranger saw you and brought you to the hospital. \n your HP is reduced by 50%`;
 
-            } else {
-                // Neither player nor monster is defeated, switch back to player's turn
-                playerTurn = true;
-            }
+                    }, 3000);
+
+                    gameState = "fightEnded"; // Set game state to fight ended
+                } else {
+                    // Neither player nor monster is defeated, switch back to player's turn
+                    gameState = "playerTurn";
+                }
+                break;
+
+            case "fightEnded":
+                // Do nothing, fight has ended
+                break;
         }
 
         // Attach event listeners to health and energy potion buttons
