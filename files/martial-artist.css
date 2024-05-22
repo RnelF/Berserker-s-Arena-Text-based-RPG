@@ -442,6 +442,22 @@ body{
   margin-bottom: 10px;
 }
 
+#fighting-notif{
+  color:black;
+  font-size: 15px;
+  font-weight: bold;
+  display:none;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 20px;
+  padding: 10px 10px;
+}
+
+#fight-notif-back-button{
+  display: block;
+  margin-left: 43%;
+  margin-top: 15px;
+}
 
 
 /*Dark valley map*/

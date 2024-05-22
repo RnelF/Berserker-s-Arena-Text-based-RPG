@@ -1,6 +1,6 @@
 let playerLvl = 1;
 let playerXp = 0;
-let playerHealth = 100;
+let playerHealth = 200;
 let playerGold = 50;
      
 
@@ -451,6 +451,10 @@ const updatePlayerStatsUI = () => {
 		  fightingPlayerEnergy.textContent = playerEnergy; // Update with player's energy during fight
 		};
 
+    const fightingNotifContainer = document.getElementById('fight-notif');
+    const fightingNotif = document.getElementById('fight-notifications');
+    const fightingNotifBtn = document.getElementById('fight-notif-back-button');
+
     const resetFightStory = () => {
           fightStory.textContent = `You are fighting ${selectedMonster.name}\n`;
     };
@@ -462,24 +466,55 @@ const updatePlayerStatsUI = () => {
 
 
     const checkAndHandleLevelUp = () => {
-      const requiredExpToLvlUp = 30;
+      const requiredExpToLvlUp = 10;
+      const rewardAttributes = 3;
       
     while (playerXp >= requiredExpToLvlUp) {
     playerXp -= requiredExpToLvlUp;
     playerLvl += 1;
     requiredExpToLvlUp += 20;
-    playerDef += 3;
-    playerAgi += 3;
-    playerLuck += 3;
-    playerStr += 3;
+    playerDef += rewardAttributes;
+    playerAgi += rewardAttributes;
+    playerLuck += rewardAttributes;
+    playerStr += rewardAttributes;
     playerHealth += 100;
     
   }
-  
+
+  return rewardAttributes;
+
   // Update the player stats UI to reflect changes
+  lvlUpNotif();
   updatePlayerStatsUI();
 };
 
+  const lvlUpNotif = () => {
+
+  if(checkAndHandleLevelUp){
+
+      fightingNotifContainer.style.display = "inline-block";
+      fightingNotif.textContent = `
+          You leveled up \n
+          You have gained \n
+          ${rewardAttributes} Defense \n
+          ${rewardAttributes} Agility \n
+          ${rewardAttributes} Strength \n
+          ${rewardAttributes} Luck \n
+        `;
+
+        return;
+      }
+
+  };
+  
+
+  fightingNotifBtn.addEventListener('click',() => {
+      if(fightingNotifContainer.style.display === 'block'){
+        fightingNotif.textContent = '';
+        fightingNotifContainer.style.display = 'none';
+        return;
+      }
+    });
 
 
 const valleyMonstersFightFunction = () => {
@@ -759,6 +794,7 @@ const toggleInventoryUI = () => {
             const itemElement = document.createElement('p');
             itemElement.textContent = item; // Assuming each item is a string
 
+
             // Create a button to use the item
             const itemBtn = document.createElement('button');
             itemBtn.innerHTML = 'Use Item';
@@ -769,6 +805,8 @@ const toggleInventoryUI = () => {
                     useHealthPotion();
                 } else if (item === 'energy_potion') {
                     useEnergyPotion();
+                }else{
+
                 }
             });
 
@@ -804,9 +842,7 @@ const darkValleyBtn = document.getElementById('dark-valley-btn').addEventListene
 });
 
 const backButton = document.getElementById('notif-back-button').addEventListener('click',() => {
-  if(playerHealth <= 0){
-    resetPlayerHealth();
-  }else if(notifContainer.style.display === 'block'){
+  if(notifContainer.style.display === 'block'){
     notifications.textContent = '';
     notifContainer.style.display = 'none';
     return;
