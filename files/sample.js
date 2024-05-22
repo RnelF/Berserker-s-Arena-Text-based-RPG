@@ -683,7 +683,7 @@ const valleyMonstersFightFunction = () => {
                         fightingDisplay.style.display = 'none';
                         notifications.textContent = `You have been Defeated, A Stranger saw you and brought you to the hospital. \n your HP is reduced by 50%`;
 
-                    }, 3000);
+                    }, 2000);
 
                     gameState = "fightEnded"; // Set game state to fight ended
                 } else {
@@ -751,14 +751,36 @@ const toggleInventoryUI = () => {
             inventoryContainer.style.display = 'block';
 
             playerInv.forEach(item => {
-                // Create a new paragraph element to display the item
-                const itemElement = document.createElement('p');
-                itemElement.textContent = item; // Assuming each item is a string
+            // Create a container for the item and the button
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('item-container');
 
-                // Append the item element to the inventory container
-                inventoryContainer.appendChild(itemElement);
-          
+            // Create a new paragraph element to display the item
+            const itemElement = document.createElement('p');
+            itemElement.textContent = item; // Assuming each item is a string
+
+            // Create a button to use the item
+            const itemBtn = document.createElement('button');
+            itemBtn.innerHTML = 'Use Item';
+
+            // Add an event listener to the button
+            itemBtn.addEventListener('click', () => {
+                if (item === 'health_potion') {
+                    useHealthPotion();
+                } else if (item === 'energy_potion') {
+                    useEnergyPotion();
+                }
+            });
+
+            // Append the item element and button to the container
+            itemContainer.appendChild(itemElement);
+            itemContainer.appendChild(itemBtn);
+
+            // Append the item container to the inventory container
+            inventoryContainer.appendChild(itemContainer);
         });
+
+            
         }
     };
 

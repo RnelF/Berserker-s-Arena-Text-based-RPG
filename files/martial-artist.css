@@ -402,11 +402,6 @@ body{
   border: 3px solid white;
 }
 
-#inventory-container{
-  background-color: white;
-  display: none;
-}
-
 #controls{
   position: relative;
 }
@@ -425,6 +420,29 @@ body{
 #fighting-confirm-btn{
   display: none;
 }
+
+#inventory-container{
+  background-color: white;
+  display: none;
+  overflow: scroll;
+  margin:10px 10px;
+  border: 2px solid orangered;
+  border-radius: 10px;
+  height: 180px;
+}
+
+.item-container{
+    display: flex;
+    align-items: center;
+}
+
+.item-container p{
+  margin-left: 200px;
+  margin-right: 10px ;
+  margin-bottom: 10px;
+}
+
+
 
 /*Dark valley map*/
 
