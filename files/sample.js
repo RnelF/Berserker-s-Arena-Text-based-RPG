@@ -379,6 +379,9 @@ const fightStory = document.getElementById('fight-story');
 const fightingDisplay = document.getElementById('fighting-display-container');
 const fightingConfirmBtn = document.getElementById('fighting-confirm-btn');
 
+const hpPotionText = document.getElementById('hp-text');
+const ePotionText = document.getElementById('e-text');
+
 
 let selectedMonster = null;
 
@@ -516,6 +519,44 @@ const updatePlayerStatsUI = () => {
       }
     });
 
+    const useHealthPotion = () => {
+      
+			const healthPotionIndex = playerInv.indexOf('health_potion');
+			
+			if (healthPotionIndex !== -1) {
+				// Assuming using a health potion increases player's health by a certain amount
+				playerHealth += healthPotionHealAmount;
+				// Remove the health potion from player's inventory
+				playerInv.splice(healthPotionIndex, 1);
+				updatePlayerStatsUI();
+				hpPotionText.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP`;
+				// Update UI or any other relevant game logic
+			} else {
+				// Handle the case where the player does not have any health potions
+				hpPotionText.textContent += "You don't have any health potions.";
+			}
+		};
+
+		// Function to use an energy potion
+		const useEnergyPotion = () => {
+      
+			const energyPotionIndex = playerInv.indexOf('energy_potion');
+			if (energyPotionIndex !== -1) {
+				// Assuming using an energy potion restores player's energy by a certain amount
+				playerEnergy += energyPotionRestoreAmount;
+				// Remove the energy potion from player's inventory
+				playerInv.splice(energyPotionIndex, 1);
+				updatePlayerStatsUI();
+        ePotionText.textContent += `You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy`;
+				// Update UI or any other relevant game logic
+			} else {
+				// Handle the case where the player does not have any energy potions
+				ePotionText.textContent += "You don't have any energy potions.";
+			}
+		};
+
+
+
 
 const valleyMonstersFightFunction = () => {
   monsterStats.style.display = 'inline-block';
@@ -608,42 +649,6 @@ const valleyMonstersFightFunction = () => {
 			// You can use selectedMonster here if needed
 		  });
 		  
-
-    
-		
-		const useHealthPotion = () => {
-			const healthPotionIndex = playerInv.indexOf('health_potion');
-			
-			if (healthPotionIndex !== -1) {
-				// Assuming using a health potion increases player's health by a certain amount
-				playerHealth += healthPotionHealAmount;
-				// Remove the health potion from player's inventory
-				playerInv.splice(healthPotionIndex, 1);
-				updatePlayerStatsUI();
-				fightStory.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP`;
-				// Update UI or any other relevant game logic
-			} else {
-				// Handle the case where the player does not have any health potions
-				console.log("You don't have any health potions.");
-			}
-		};
-
-		// Function to use an energy potion
-		const useEnergyPotion = () => {
-			const energyPotionIndex = playerInv.indexOf('energy_potion');
-			if (energyPotionIndex !== -1) {
-				// Assuming using an energy potion restores player's energy by a certain amount
-				playerEnergy += energyPotionRestoreAmount;
-				// Remove the energy potion from player's inventory
-				playerInv.splice(energyPotionIndex, 1);
-				updatePlayerStatsUI();
-				// Update UI or any other relevant game logic
-			} else {
-				// Handle the case where the player does not have any energy potions
-				console.log("You don't have any energy potions.");
-			}
-		};
-
 
     let gameState = "playerTurn"; // Initial state: player's turn
 

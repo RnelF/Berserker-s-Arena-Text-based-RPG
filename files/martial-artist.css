@@ -406,7 +406,7 @@ body{
   position: relative;
 }
 
-#fight-story{
+#fight-story-container{
   width: 450px;
   height:300px;
   font-weight: bold;
@@ -458,7 +458,6 @@ body{
   margin-left: 43%;
   margin-top: 15px;
 }
-
 
 /*Dark valley map*/
 
