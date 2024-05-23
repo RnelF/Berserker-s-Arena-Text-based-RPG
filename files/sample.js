@@ -374,11 +374,12 @@ const fleeMonsterBtn = document.getElementById('flee-monster-btn');
 
 const fleeNotif = document.getElementById('valley-map-notif');
 const fleeConfirmBtn = document.getElementById('valley-map-notif-btn');
-const fightStory = document.getElementById('fight-story');
+const fightStoryContainer = document.getElementById('fight-story-container');
 
 const fightingDisplay = document.getElementById('fighting-display-container');
 const fightingConfirmBtn = document.getElementById('fighting-confirm-btn');
 
+const fightStory = document.getElementById('fight-story');
 const hpPotionText = document.getElementById('hp-text');
 const ePotionText = document.getElementById('e-text');
 
@@ -460,6 +461,8 @@ const updatePlayerStatsUI = () => {
 
     const resetFightStory = () => {
           fightStory.textContent = `You are fighting ${selectedMonster.name}\n`;
+           hpPotionText.textContent = '';
+           ePotionText.textContent = '';
     };
 
     const resetPlayerHealth = () => {
@@ -529,11 +532,11 @@ const updatePlayerStatsUI = () => {
 				// Remove the health potion from player's inventory
 				playerInv.splice(healthPotionIndex, 1);
 				updatePlayerStatsUI();
-				hpPotionText.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP`;
+				hpPotionText.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP\n`;
 				// Update UI or any other relevant game logic
 			} else {
 				// Handle the case where the player does not have any health potions
-				hpPotionText.textContent += "You don't have any health potions.";
+				hpPotionText.textContent += "You don't have any health potions.\n";
 			}
 		};
 
@@ -547,11 +550,11 @@ const updatePlayerStatsUI = () => {
 				// Remove the energy potion from player's inventory
 				playerInv.splice(energyPotionIndex, 1);
 				updatePlayerStatsUI();
-        ePotionText.textContent += `You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy`;
+        ePotionText.textContent += `You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy\n`;
 				// Update UI or any other relevant game logic
 			} else {
 				// Handle the case where the player does not have any energy potions
-				ePotionText.textContent += "You don't have any energy potions.";
+				ePotionText.textContent += "You don't have any energy potions.\n";
 			}
 		};
 
