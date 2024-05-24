@@ -4,10 +4,10 @@ let playerHealth = 200;
 let playerGold = 50;
      
 
-let playerStr = 10;
-let playerAgi = 10;
+let playerStr = 20;
+let playerAgi = 20;
 let playerDef = 10;
-let playerLuck = 10;
+let playerLuck = 100;
 let playerEnergy = 100;
 
 let playerInv = [];
@@ -381,6 +381,10 @@ const fightingConfirmBtn = document.getElementById('fighting-confirm-btn');
 
 const fightStory = document.getElementById('fight-story');
 
+const fightingNotifContainer = document.getElementById('fight-notif');
+const fightingNotif = document.getElementById('fight-notifications');
+const fightingNotifBtn = document.getElementById('fight-notif-back-button');
+
 
 
 let selectedMonster = null;
@@ -454,9 +458,7 @@ const updatePlayerStatsUI = () => {
 		  fightingPlayerEnergy.textContent = playerEnergy; // Update with player's energy during fight
 		};
 
-    const fightingNotifContainer = document.getElementById('fight-notif');
-    const fightingNotif = document.getElementById('fight-notifications');
-    const fightingNotifBtn = document.getElementById('fight-notif-back-button');
+    
 
     const resetFightStory = () => {
           fightStory.textContent = `You are fighting ${selectedMonster.name}\n`;
@@ -486,15 +488,14 @@ const updatePlayerStatsUI = () => {
   }
 
   return rewardAttributes;
+  lvlUpNotif();
 
   // Update the player stats UI to reflect changes
-  lvlUpNotif();
   updatePlayerStatsUI();
+
 };
 
   const lvlUpNotif = () => {
-
-  if(checkAndHandleLevelUp){
 
       fightingNotifContainer.style.display = "inline-block";
       fightingNotif.textContent = `
@@ -506,8 +507,7 @@ const updatePlayerStatsUI = () => {
           ${rewardAttributes} Luck \n
         `;
 
-        return;
-      }
+        fightingNotifBtn();
 
   };
   
