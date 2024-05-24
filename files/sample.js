@@ -380,8 +380,7 @@ const fightingDisplay = document.getElementById('fighting-display-container');
 const fightingConfirmBtn = document.getElementById('fighting-confirm-btn');
 
 const fightStory = document.getElementById('fight-story');
-const hpPotionText = document.getElementById('hp-text');
-const ePotionText = document.getElementById('e-text');
+
 
 
 let selectedMonster = null;
@@ -461,8 +460,7 @@ const updatePlayerStatsUI = () => {
 
     const resetFightStory = () => {
           fightStory.textContent = `You are fighting ${selectedMonster.name}\n`;
-           hpPotionText.textContent = '';
-           ePotionText.textContent = '';
+           
     };
 
     const resetPlayerHealth = () => {
@@ -532,11 +530,18 @@ const updatePlayerStatsUI = () => {
 				// Remove the health potion from player's inventory
 				playerInv.splice(healthPotionIndex, 1);
 				updatePlayerStatsUI();
-				hpPotionText.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP\n`;
+
+        const useHpText = document.createElement('span');
+        useHpText.style.color = 'red';
+				useHpText.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP\n`;
 				// Update UI or any other relevant game logic
+        fightStory.appendChild(useHpText);
 			} else {
+        const noHpText = document.createElement('span');
+        noHpText.style.color = 'red';
 				// Handle the case where the player does not have any health potions
-				hpPotionText.textContent += "You don't have any health potions.\n";
+				noHpText.textContent += "You don't have any health potions.\n";
+        fightStory.appendChild(noHpText);
 			}
 		};
 
@@ -550,11 +555,21 @@ const updatePlayerStatsUI = () => {
 				// Remove the energy potion from player's inventory
 				playerInv.splice(energyPotionIndex, 1);
 				updatePlayerStatsUI();
-        ePotionText.textContent += `You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy\n`;
+
+        const useEPotion = document.createElement('span');
+        useEPotion.style.color = 'green';
+
+        useEPotion.textContent += `You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy\n`;
+
+        fightStory.appendChild(useEPotion);
 				// Update UI or any other relevant game logic
 			} else {
+        const noEPotion = document.createElement('span');
+        noEPotion.style.color = 'green';
 				// Handle the case where the player does not have any energy potions
-				ePotionText.textContent += "You don't have any energy potions.\n";
+				noEPotion.textContent += "You don't have any energy potions.\n";
+
+        fightStory.appendChild(noEPotion);
 			}
 		};
 
