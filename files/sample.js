@@ -471,45 +471,44 @@ const updatePlayerStatsUI = () => {
     };
 
 
+    const rewardAttributes = 3;
+
     const checkAndHandleLevelUp = () => {
-      const requiredExpToLvlUp = 10;
-      const rewardAttributes = 3;
+
+      let requiredExpToLvlUp = 10;
+      
       
     while (playerXp >= requiredExpToLvlUp) {
-    playerXp -= requiredExpToLvlUp;
-    playerLvl += 1;
-    requiredExpToLvlUp += 20;
-    playerDef += rewardAttributes;
-    playerAgi += rewardAttributes;
-    playerLuck += rewardAttributes;
-    playerStr += rewardAttributes;
-    playerHealth += 100;
-    
-  }
 
-  return rewardAttributes;
-  lvlUpNotif();
-
-  // Update the player stats UI to reflect changes
-  updatePlayerStatsUI();
-
-};
-
-  const lvlUpNotif = () => {
+      playerXp -= requiredExpToLvlUp;
+      playerLvl += 1;
+      requiredExpToLvlUp += 20;
+      playerDef += rewardAttributes;
+      playerAgi += rewardAttributes;
+      playerLuck += rewardAttributes;
+      playerStr += rewardAttributes;
+      playerHealth += 100;
+      
+      
 
       fightingNotifContainer.style.display = "inline-block";
       fightingNotif.textContent = `
-          You leveled up \n
+          You leveled up! \n
           You have gained \n
           ${rewardAttributes} Defense \n
           ${rewardAttributes} Agility \n
           ${rewardAttributes} Strength \n
           ${rewardAttributes} Luck \n
         `;
+    
+  }
 
-        fightingNotifBtn();
+  updatePlayerStatsUI();
 
-  };
+
+};
+
+  
   
 
   fightingNotifBtn.addEventListener('click',() => {
@@ -693,8 +692,7 @@ const valleyMonstersFightFunction = () => {
                     fightStory.textContent += `Monster ${selectedMonster.name} is defeated!\n`;
                     fightStory.textContent += `You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`;
 
-                    disableAllButtons();
-                    checkAndHandleLevelUp();
+                    disableAllButtons(); 
 
                     fightingConfirmBtn.style.display = "inline-block";
 
@@ -705,6 +703,7 @@ const valleyMonstersFightFunction = () => {
                     fightingConfirmBtn.addEventListener('click', () => {
                         valleyMapInner.style.display = 'inline-block';
                         fightingDisplay.style.display = 'none';
+                        checkAndHandleLevelUp();
                     });
 
                     gameState = "fightEnded"; // Set game state to fight ended
