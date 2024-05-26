@@ -1,7 +1,5 @@
-# Berserker-s-Arena-Text-based
-# this is a text based rpg game which you can pick any of the the 3 classes with different starting attributes I doing this proj while I'm currently studying Vanilla Javascript which also the only language I've used from the meantime I think..
+#Welcome to Berserker's Arena, a text-based RPG game where you can choose from three unique classes, each with distinct starting attributes. This project is part of my journey in learning Vanilla JavaScript, which is currently the only programming language I've used.
 
-# I'm in the middle of developing this little project of mine when I finished mostly the basics of javascript soI decided to start learning Git, so here we are.. 
+#I'm excited to share that I'm developing this game while diving deep into the basics of JavaScript. Recently, I also started learning Git to manage my code effectively, and here we are!
 
-# and I honestly didn't think this was like a medium sized proj and it was too late when I realized it, I've already put so much time and effort getting here, but I'm determined to finish this.
-
+#What began as a small project has grown into a medium-sized endeavor, and although it was a bit overwhelming at first, I've already invested a significant amount of time and effort into it. I'm determined to see it through to completion.
