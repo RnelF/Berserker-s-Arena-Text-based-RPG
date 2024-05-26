@@ -381,7 +381,7 @@ const fightingConfirmBtn = document.getElementById('fighting-confirm-btn');
 
 const fightStory = document.getElementById('fight-story');
 
-const fightingNotifContainer = document.getElementById('fight-notif');
+const fightingNotifContainer = document.getElementById('fighting-notif');
 const fightingNotif = document.getElementById('fight-notifications');
 const fightingNotifBtn = document.getElementById('fight-notif-back-button');
 
@@ -478,7 +478,7 @@ const updatePlayerStatsUI = () => {
       let requiredExpToLvlUp = 10;
       
       
-    while (playerXp >= requiredExpToLvlUp) {
+    if (playerXp >= requiredExpToLvlUp) {
 
       playerXp -= requiredExpToLvlUp;
       playerLvl += 1;
@@ -488,8 +488,6 @@ const updatePlayerStatsUI = () => {
       playerLuck += rewardAttributes;
       playerStr += rewardAttributes;
       playerHealth += 100;
-      
-      
 
       fightingNotifContainer.style.display = "inline-block";
       fightingNotif.textContent = `
@@ -500,8 +498,10 @@ const updatePlayerStatsUI = () => {
           ${rewardAttributes} Strength \n
           ${rewardAttributes} Luck \n
         `;
-    
+      
   }
+    
+    
 
   updatePlayerStatsUI();
 
@@ -512,7 +512,7 @@ const updatePlayerStatsUI = () => {
   
 
   fightingNotifBtn.addEventListener('click',() => {
-      if(fightingNotifContainer.style.display === 'block'){
+      if(fightingNotifContainer.style.display === 'inline-block'){
         fightingNotif.textContent = '';
         fightingNotifContainer.style.display = 'none';
         return;
