@@ -389,20 +389,25 @@ const fightingNotifBtn = document.getElementById('fight-notif-back-button');
 
 let selectedMonster = null;
 
-const deepCopyMonster = (monster) => {
-  return JSON.parse(JSON.stringify(monster));
-};
+    const deepCopyMonster = (monster) => {
+      return JSON.parse(JSON.stringify(monster));
+    };
 
-const monsterRandomPicker = () => {
-  let minLevel = 1; // Minimum monster level
-  let maxLevel = Math.min(playerLvl + 1, valleyMonstersList.length); // Maximum monster level based on player's level
+    const monsterRandomPicker = () => {
+      let minLevel = 1; // Minimum monster level
+      let maxLevel = Math.min(playerLvl + 1, valleyMonstersList.length); // Maximum monster level based on player's level
 
-  // Filter monsters based on the level range
-  let availableMonsters = valleyMonstersList.filter(monster => monster.monsterLevel >= minLevel && monster.monsterLevel <= maxLevel);
+      // Filter monsters based on the level range
+      let availableMonsters = valleyMonstersList.filter(monster => monster.monsterLevel >= minLevel && monster.monsterLevel <= maxLevel);
 
-  // Randomly select a monster from the available monsters
-  let randomIndex = Math.floor(Math.random() * availableMonsters.length);
-  return deepCopyMonster(availableMonsters[randomIndex]); // Return a deep copy of the selected monster
+      // Randomly select a monster from the available monsters
+      let randomIndex = Math.floor(Math.random() * availableMonsters.length);
+      return deepCopyMonster(availableMonsters[randomIndex]); // Return a deep copy of the selected monster
+    };
+
+    const getRandomSkill = (skills) => {
+  const randomIndex = Math.floor(Math.random() * skills.length);
+  return skills[randomIndex];
 };
 
 
@@ -410,53 +415,53 @@ const monsterRandomPicker = () => {
 
 //Fighting Monster Functions
 // Function to update monster stats on the UI
-const updateMonsterStatsUI = (monster) => {
-  const monsterName = document.getElementById('monsterName');
-  const monsterHealth = document.getElementById('monsterHealth');
-  const monsterLevel = document.getElementById('monsterLevel');
-  const monsterImage = document.getElementById('monster-img');
+    const updateMonsterStatsUI = (monster) => {
+      const monsterName = document.getElementById('monsterName');
+      const monsterHealth = document.getElementById('monsterHealth');
+      const monsterLevel = document.getElementById('monsterLevel');
+      const monsterImage = document.getElementById('monster-img');
 
-  const fightingMonsterName = document.getElementById('fighting-monster-name');
-  const fightingMonsterHealth = document.getElementById('fighting-monster-health');
-  const fightingMonsterLevel = document.getElementById('fighting-monster-level');
-  const fightingMonsterImg = document.getElementById('fighting-monster-img');
-  const fightingMonsterEnergy = document.getElementById('fighting-monster-energy');
+      const fightingMonsterName = document.getElementById('fighting-monster-name');
+      const fightingMonsterHealth = document.getElementById('fighting-monster-health');
+      const fightingMonsterLevel = document.getElementById('fighting-monster-level');
+      const fightingMonsterImg = document.getElementById('fighting-monster-img');
+      const fightingMonsterEnergy = document.getElementById('fighting-monster-energy');
 
-  monsterName.textContent = monster.name;
-  monsterHealth.textContent = monster.health;
-  monsterLevel.textContent = monster.monsterLevel;
+      monsterName.textContent = monster.name;
+      monsterHealth.textContent = monster.health;
+      monsterLevel.textContent = monster.monsterLevel;
 
-  fightingMonsterName.textContent = monster.name;
-  fightingMonsterHealth.textContent = monster.health;
-  fightingMonsterLevel.textContent = monster.monsterLevel;
-  fightingMonsterEnergy.textContent = monster.monsterEnergy;
+      fightingMonsterName.textContent = monster.name;
+      fightingMonsterHealth.textContent = monster.health;
+      fightingMonsterLevel.textContent = monster.monsterLevel;
+      fightingMonsterEnergy.textContent = monster.monsterEnergy;
 
-  // Set the monster image src
-  monsterImage.src = monster.monsterImg;
-  fightingMonsterImg.src = monster.monsterImg;
-};
+      // Set the monster image src
+      monsterImage.src = monster.monsterImg;
+      fightingMonsterImg.src = monster.monsterImg;
+    };
 
-const updatePlayerStatsUI = () => {
-		  const gold = document.getElementById('gold');
-		  const level = document.getElementById('level');
-		  const exp = document.getElementById('exp');
-		  const energy = document.getElementById('energy');
-		  const health = document.getElementById('health');
+    const updatePlayerStatsUI = () => {
+        const gold = document.getElementById('gold');
+        const level = document.getElementById('level');
+        const exp = document.getElementById('exp');
+        const energy = document.getElementById('energy');
+        const health = document.getElementById('health');
 
-		  gold.textContent = playerGold;
-		  level.textContent = playerLvl;
-		  exp.textContent = playerXp;
-		  energy.textContent = playerEnergy;
-		  health.textContent = playerHealth;
+        gold.textContent = playerGold;
+        level.textContent = playerLvl;
+        exp.textContent = playerXp;
+        energy.textContent = playerEnergy;
+        health.textContent = playerHealth;
 
-		  const fightingPlayerHealth = document.getElementById('player-health');
-		  const fightingPlayerLevel = document.getElementById('player-level');
-		  const fightingPlayerEnergy = document.getElementById('player-energy');
+        const fightingPlayerHealth = document.getElementById('player-health');
+        const fightingPlayerLevel = document.getElementById('player-level');
+        const fightingPlayerEnergy = document.getElementById('player-energy');
 
-		  fightingPlayerHealth.textContent = playerHealth; // Update with player's health during fight
-		  fightingPlayerLevel.textContent = playerLvl; // Update with player's level during fight
-		  fightingPlayerEnergy.textContent = playerEnergy; // Update with player's energy during fight
-		};
+        fightingPlayerHealth.textContent = playerHealth; // Update with player's health during fight
+        fightingPlayerLevel.textContent = playerLvl; // Update with player's level during fight
+        fightingPlayerEnergy.textContent = playerEnergy; // Update with player's energy during fight
+      };
 
     
 
@@ -477,50 +482,48 @@ const updatePlayerStatsUI = () => {
 
     const checkAndHandleLevelUp = () => {
       
-    if (playerXp >= requiredExpToLvlUp) {
+        if (playerXp >= requiredExpToLvlUp) {
 
-      playerXp -= requiredExpToLvlUp;
-      playerLvl += 1;
-      requiredExpToLvlUp += 20;
-      playerDef += rewardAttributes;
-      playerAgi += rewardAttributes;
-      playerLuck += rewardAttributes;
-      playerStr += rewardAttributes;
-      playerHealth += 100;
+          playerXp -= requiredExpToLvlUp;
+          playerLvl += 1;
+          requiredExpToLvlUp += 20;
+          playerDef += rewardAttributes;
+          playerAgi += rewardAttributes;
+          playerLuck += rewardAttributes;
+          playerStr += rewardAttributes;
+          playerHealth += 100;
 
-      fightingNotifContainer.style.display = "inline-block";
-      fightingNotif.textContent = `
-          You leveled up! \n
-          You have gained \n
-          ${rewardAttributes} Defense \n
-          ${rewardAttributes} Agility \n
-          ${rewardAttributes} Strength \n
-          ${rewardAttributes} Luck \n
-        `;
-
-        console.log(playerAgi);
-        console.log(playerStr);
-        console.log(playerLuck);
-      
-  }
-    
-    
-
-  updatePlayerStatsUI();
-
-
-};
-
-  
-  
-
-  fightingNotifBtn.addEventListener('click',() => {
-      if(fightingNotifContainer.style.display === 'inline-block'){
-        fightingNotif.textContent = '';
-        fightingNotifContainer.style.display = 'none';
-        return;
+          fightingNotifContainer.style.display = "inline-block";
+          fightingNotif.textContent = `
+              You leveled up! \n
+              You have gained \n
+              ${rewardAttributes} Defense \n
+              ${rewardAttributes} Agility \n
+              ${rewardAttributes} Strength \n
+              ${rewardAttributes} Luck \n
+            `;
+          
       }
-    });
+    
+    
+
+      updatePlayerStatsUI();
+
+
+    };
+
+    fightingNotifBtn.addEventListener('click',() => {
+          if(fightingNotifContainer.style.display === 'inline-block'){
+            fightingNotif.textContent = '';
+            fightingNotifContainer.style.display = 'none';
+            return;
+          }
+        });
+
+  
+  
+
+  
 
     const useHealthPotion = () => {
       
