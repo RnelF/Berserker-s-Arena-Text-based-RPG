@@ -471,12 +471,11 @@ const updatePlayerStatsUI = () => {
     };
 
 
+    let requiredExpToLvlUp = 10;
     const rewardAttributes = 3;
+    
 
     const checkAndHandleLevelUp = () => {
-
-      let requiredExpToLvlUp = 10;
-      
       
     if (playerXp >= requiredExpToLvlUp) {
 
@@ -498,6 +497,10 @@ const updatePlayerStatsUI = () => {
           ${rewardAttributes} Strength \n
           ${rewardAttributes} Luck \n
         `;
+
+        console.log(playerAgi);
+        console.log(playerStr);
+        console.log(playerLuck);
       
   }
     
