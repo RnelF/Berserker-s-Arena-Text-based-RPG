@@ -800,7 +800,7 @@ const valleyMonstersFightFunction = () => {
                     fightStory.textContent += "Monster evaded the attack!\n";
                 } else {
                     selectedMonster.health -= playerDamage;
-                    fightStory.textContent += `Player hit the monster for ${playerDamage} damage!\n`;
+                    fightStory.textContent += `You used basic attack and hit the monster for ${playerDamage} damage!\n`;
                 }
 
                 // Update UI with current health of monster
@@ -809,7 +809,7 @@ const valleyMonstersFightFunction = () => {
                 // Check if monster is defeated
                 if (selectedMonster.health <= 0) {
                     // Monster is defeated
-                    fightStory.textContent += `Monster ${selectedMonster.name} is defeated!\n`;
+                    fightStory.textContent += `${selectedMonster.name} is defeated!\n`;
                     fightStory.textContent += `You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`;
 
                     disableAllButtons(); 
@@ -843,7 +843,7 @@ const valleyMonstersFightFunction = () => {
 
                 if (playerEvade) {
 
-                    fightStory.textContent += "Player evaded the attack!\n";
+                    fightStory.textContent += "You evaded the attack!\n";
 
                 } else if (Math.floor(Math.random() * 100) >= 50) {
                     
@@ -856,7 +856,7 @@ const valleyMonstersFightFunction = () => {
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                       // Deduct monsterSkill damage to the player
                       const monsterSkillDamage = skill.skillDmg;
-                      playerHealth -= ((playerDef / 2) - monsterSkillDamage);
+                      playerHealth -= parseInt(((playerDef / 2) - monsterSkillDamage));
                       
                       
 
@@ -864,13 +864,13 @@ const valleyMonstersFightFunction = () => {
 
                     }else{
                       playerHealth -= monsterDamage;
-                      fightStory.textContent += `${selectedMonster.name} Doesn't have Energy left, uses it's basic attack and hit the player for ${monsterDamage} damage!\n`;
+                      fightStory.textContent += `${selectedMonster.name} Doesn't have Energy left, uses it's basic attack and hit's you for ${monsterDamage} damage!\n`;
                     }
 
                     
                   }else {
                      playerHealth -= monsterDamage;
-                    fightStory.textContent += `Monster hit the player for ${monsterDamage} damage!\n`;
+                    fightStory.textContent += `${selectedMonster.name} hit's you for ${monsterDamage} damage!\n`;
                   }
 
 
