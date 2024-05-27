@@ -4,10 +4,10 @@ let playerHealth = 200;
 let playerGold = 50;
      
 
-let playerStr = 20;
-let playerAgi = 20;
+let playerStr = 10;
+let playerAgi = 10;
 let playerDef = 10;
-let playerLuck = 100;
+let playerLuck = 10;
 let playerEnergy = 100;
 
 let playerInv = [];
@@ -515,19 +515,53 @@ let selectedMonster = null;
       return deepCopyMonster(availableMonsters[randomIndex]); // Return a deep copy of the selected monster
     };
 
-    const getRandomSkill = (skills) => {
-      const randomIndex = Math.floor(Math.random() * skills.length);
-      return skills[randomIndex];
-    };
+    
+
+    // Function to calculate player damage
+			const calculatePlayerDamage = (playerStr, playerAgi, playerCurrentWeapon, monsterDef) => {
+				let totalPlayerStr = playerStr;
+				let totalPlayerAgi = playerAgi;
+
+				if (playerCurrentWeapon !== undefined) {
+					// Add weapon damage if a weapon is equipped
+					totalPlayerStr += weapons[playerCurrentWeapon].weaponDmg;
+				}
+
+				// Generate a random number to determine the divisor for playerStr and playerAgi
+				const strDivisor = Math.random() < 0.5 ? 2 : 3;
+				const agiDivisor = Math.random() < 0.5 ? 2 : 3;
+
+				// Calculate player damage considering monster defense
+				return parseInt((totalPlayerStr / strDivisor) + (totalPlayerAgi / agiDivisor) - (monsterDef / 4));
+			};
+
+			// Function to calculate monster damage
+			const calculateMonsterDamage = (monsterStr, monsterAgi, playerDef) => {
+				// Generate a random number to determine the divisor for monsterStr and monsterAgi
+				const strDivisor = Math.random() < 0.5 ? 2 : 3;
+				const agiDivisor = Math.random() < 0.5 ? 2 : 3;
+
+				// Calculate monster damage considering player defense
+				return parseInt((monsterStr / strDivisor) + (monsterAgi / agiDivisor) - (playerDef / 4));
+			};
+
+		// Function to check evasion
+		const checkEvasion = (agility, luck) => {
+		  const evasionChance = Math.random() * 100;
+		  return evasionChance < (agility + luck) / 2;
+		};
 
 
     // Function to update monster stats on the UI
     const updateMonsterStatsUI = (monster) => {
+
+      //for the fight or flee UI
       const monsterName = document.getElementById('monsterName');
       const monsterHealth = document.getElementById('monsterHealth');
       const monsterLevel = document.getElementById('monsterLevel');
       const monsterImage = document.getElementById('monster-img');
 
+      //for fighting UI
       const fightingMonsterName = document.getElementById('fighting-monster-name');
       const fightingMonsterHealth = document.getElementById('fighting-monster-health');
       const fightingMonsterLevel = document.getElementById('fighting-monster-level');
@@ -701,39 +735,6 @@ const valleyMonstersFightFunction = () => {
   fightingConfirmBtn.style.display = "none";
 
 
-		// Function to calculate player damage
-			const calculatePlayerDamage = (playerStr, playerAgi, playerCurrentWeapon, monsterDef) => {
-				let totalPlayerStr = playerStr;
-				let totalPlayerAgi = playerAgi;
-
-				if (playerCurrentWeapon !== undefined) {
-					// Add weapon damage if a weapon is equipped
-					totalPlayerStr += weapons[playerCurrentWeapon].weaponDmg;
-				}
-
-				// Generate a random number to determine the divisor for playerStr and playerAgi
-				const strDivisor = Math.random() < 0.5 ? 2 : 3;
-				const agiDivisor = Math.random() < 0.5 ? 2 : 3;
-
-				// Calculate player damage considering monster defense
-				return parseInt((totalPlayerStr / strDivisor) + (totalPlayerAgi / agiDivisor) - (monsterDef / 4));
-			};
-
-			// Function to calculate monster damage
-			const calculateMonsterDamage = (monsterStr, monsterAgi, playerDef) => {
-				// Generate a random number to determine the divisor for monsterStr and monsterAgi
-				const strDivisor = Math.random() < 0.5 ? 2 : 3;
-				const agiDivisor = Math.random() < 0.5 ? 2 : 3;
-
-				// Calculate monster damage considering player defense
-				return parseInt((monsterStr / strDivisor) + (monsterAgi / agiDivisor) - (playerDef / 4));
-			};
-
-		// Function to check evasion
-		const checkEvasion = (agility, luck) => {
-		  const evasionChance = Math.random() * 100;
-		  return evasionChance < (agility + luck) / 2; // Adjust as needed based on your game mechanics
-		};
 		
 		const disableAllButtons = () => {
 			const buttons = document.querySelectorAll('#fighting-btns-container button');
@@ -779,6 +780,11 @@ const valleyMonstersFightFunction = () => {
       resetFightStory();
 			// You can use selectedMonster here if needed
 		  });
+
+      const getRandomSkill = (skills) => {
+      const randomIndex = Math.floor(Math.random() * skills.length);
+      return skills[randomIndex];
+    };
 		  
 
     let gameState = "playerTurn"; // Initial state: player's turn
@@ -832,12 +838,41 @@ const valleyMonstersFightFunction = () => {
                 const monsterDamage = calculateMonsterDamage(selectedMonster.monsterStr, selectedMonster.monsterAgi, playerDef);
                 const playerEvade = checkEvasion(playerAgi, playerLuck);
 
+                const skill = getRandomSkill(selectedMonster.monsterSkills);
+                
+
                 if (playerEvade) {
+
                     fightStory.textContent += "Player evaded the attack!\n";
-                } else {
-                    playerHealth -= monsterDamage;
+
+                } else if (Math.floor(Math.random() * 100) >= 50) {
+                    
+                    if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+                      
+                      fightStory.textContent += `${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} Energy!\n`;
+                      fightStory.textContent += `It deals ${skill.skillDmg} damage!\n`;
+                      
+                      // Deduct the energy used for the skill
+                      selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
+                      // Deduct monsterSkill damage to the player
+                      const monsterSkillDamage = skill.skillDmg;
+                      playerHealth -= ((playerDef / 2) - monsterSkillDamage);
+                      
+                      
+
+                      updateMonsterStatsUI(selectedMonster);
+
+                    }else{
+                      playerHealth -= monsterDamage;
+                      fightStory.textContent += `${selectedMonster.name} Doesn't have Energy left, uses it's basic attack and hit the player for ${monsterDamage} damage!\n`;
+                    }
+
+                    
+                  }else {
+                     playerHealth -= monsterDamage;
                     fightStory.textContent += `Monster hit the player for ${monsterDamage} damage!\n`;
-                }
+                  }
+
 
                 // Update UI with current health of player
                 document.getElementById('player-health').textContent = playerHealth;
