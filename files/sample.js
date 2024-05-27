@@ -65,7 +65,7 @@ const armors = {
   }
 };
 
-const darkValleymonstersList = [
+const darkValleyMonstersList = [
   {
     name: 'Ratooth',
     monsterLevel: 5,
@@ -77,6 +77,18 @@ const darkValleymonstersList = [
     monsterExpReward: 16,
     monsterGoldReward: 20,
     chanceToFlee: 40,
+    monsterSkills: [
+      {
+        skillName: 'gnaw',
+        skillDmg: 10,
+        skillEnergyConsumption: 10
+      },
+      {
+        skillName: 'quickStrike',
+        skillDmg: 15,
+        skillEnergyConsumption: 12
+      }
+    ]
   },
   {
     name: 'Lynkin',
@@ -89,6 +101,18 @@ const darkValleymonstersList = [
     monsterExpReward: 21,
     monsterGoldReward: 23,
     chanceToFlee: 35,
+    monsterSkills: [
+      {
+        skillName: 'pounce',
+        skillDmg: 12,
+        skillEnergyConsumption: 10
+      },
+      {
+        skillName: 'clawSwipe',
+        skillDmg: 18,
+        skillEnergyConsumption: 15
+      }
+    ]
   },
   {
     name: 'King',
@@ -99,8 +123,20 @@ const darkValleymonstersList = [
     monsterDef: 30,
     monsterLuck: 20,
     monsterExpReward: 26,
-     monsterGoldReward: 28,
-    chanceToFlee: 30
+    monsterGoldReward: 28,
+    chanceToFlee: 30,
+    monsterSkills: [
+      {
+        skillName: 'roar',
+        skillDmg: 15,
+        skillEnergyConsumption: 10
+      },
+      {
+        skillName: 'kingStrike',
+        skillDmg: 25,
+        skillEnergyConsumption: 20
+      }
+    ]
   },
   {
     name: 'Bajj',
@@ -111,8 +147,20 @@ const darkValleymonstersList = [
     monsterDef: 40,
     monsterLuck: 15,
     monsterExpReward: 30,
-     monsterGoldReward: 32,
+    monsterGoldReward: 32,
     chanceToFlee: 28,
+    monsterSkills: [
+      {
+        skillName: 'smash',
+        skillDmg: 20,
+        skillEnergyConsumption: 15
+      },
+      {
+        skillName: 'earthquake',
+        skillDmg: 35,
+        skillEnergyConsumption: 25
+      }
+    ]
   },
   {
     name: 'Mist Bob',
@@ -125,6 +173,18 @@ const darkValleymonstersList = [
     monsterExpReward: 33,
     monsterGoldReward: 36,
     chanceToFlee: 20,
+    monsterSkills: [
+      {
+        skillName: 'mistyStrike',
+        skillDmg: 30,
+        skillEnergyConsumption: 20
+      },
+      {
+        skillName: 'phantomBlow',
+        skillDmg: 45,
+        skillEnergyConsumption: 30
+      }
+    ]
   },
   {
     name: 'Ovladi',
@@ -137,6 +197,18 @@ const darkValleymonstersList = [
     monsterExpReward: 40,
     monsterGoldReward: 45,
     chanceToFlee: 10,
+    monsterSkills: [
+      {
+        skillName: 'shadowStrike',
+        skillDmg: 40,
+        skillEnergyConsumption: 20
+      },
+      {
+        skillName: 'darkPulse',
+        skillDmg: 60,
+        skillEnergyConsumption: 35
+      }
+    ]
   },
   {
     name: 'Wolf Knight',
@@ -149,8 +221,26 @@ const darkValleymonstersList = [
     monsterExpReward: 65,
     monsterGoldReward: 75,
     chanceToFlee: 5,
+    monsterSkills: [
+      {
+        skillName: 'knightSlash',
+        skillDmg: 50,
+        skillEnergyConsumption: 25
+      },
+      {
+        skillName: 'howlOfFury',
+        skillDmg: 80,
+        skillEnergyConsumption: 40
+      },
+      {
+        skillName: 'lunarStrike',
+        skillDmg: 100,
+        skillEnergyConsumption: 50
+      }
+    ]
   }
 ];
+
 
 const valleyMonstersList = [
   {
@@ -162,15 +252,16 @@ const valleyMonstersList = [
     monsterDef: 7,
     monsterLuck: 15,
     monsterExpReward: 5,
-    monsterGoldReward: 5, 
+    monsterGoldReward: 5,
     chanceToFlee: 90,
     monsterEnergy: 30,
-    monsterSkills: {
-      bite: {
+    monsterSkills: [
+      {
+        skillName: 'bite',
         skillDmg: 5,
         skillEnergyConsumption: 5
       }
-    },
+    ],
     monsterImg: '../images/monsters/valley-monsters/Rabituzah.jpg'
   },
   {
@@ -182,15 +273,16 @@ const valleyMonstersList = [
     monsterDef: 20,
     monsterLuck: 10,
     monsterExpReward: 6,
-     monsterGoldReward: 6,
+    monsterGoldReward: 6,
     chanceToFlee: 85,
     monsterEnergy: 40,
-    monsterSkills: {
-      slash: {
+    monsterSkills: [
+      {
+        skillName: 'slash',
         skillDmg: 7,
         skillEnergyConsumption: 6
       }
-    },
+    ],
     monsterImg: '../images/monsters/valley-monsters/Mantis.jpg'
   },
   {
@@ -202,19 +294,21 @@ const valleyMonstersList = [
     monsterDef: 20,
     monsterLuck: 17,
     monsterExpReward: 7,
-     monsterGoldReward: 8,
+    monsterGoldReward: 8,
     chanceToFlee: 70,
     monsterEnergy: 50,
-    monsterSkills: {
-      bite: {
+    monsterSkills: [
+      {
+        skillName: 'bite',
         skillDmg: 8,
         skillEnergyConsumption: 10
       },
-      clawStrike: {
+      {
+        skillName: 'clawStrike',
         skillDmg: 10,
         skillEnergyConsumption: 15
       }
-    },
+    ],
     monsterImg: '../images/monsters/valley-monsters/Skunky.jpg'
   },
   {
@@ -226,19 +320,21 @@ const valleyMonstersList = [
     monsterDef: 25,
     monsterLuck: 30,
     monsterExpReward: 10,
-     monsterGoldReward: 12,
+    monsterGoldReward: 12,
     chanceToFlee: 60,
     monsterEnergy: 50,
-    monsterSkills: {
-      bite: {
+    monsterSkills: [
+      {
+        skillName: 'bite',
         skillDmg: 10,
         skillEnergyConsumption: 15
       },
-      clawStrike: {
+      {
+        skillName: 'clawStrike',
         skillDmg: 13,
         skillEnergyConsumption: 17
       }
-    },
+    ],
     monsterImg: '../images/monsters/valley-monsters/Foxtrot.jpg'
   },
   {
@@ -253,20 +349,23 @@ const valleyMonstersList = [
     monsterGoldReward: 15,
     chanceToFlee: 50,
     monsterEnergy: 70,
-    monsterSkills: {
-      bite: {
+    monsterSkills: [
+      {
+        skillName: 'bite',
         skillDmg: 15,
         skillEnergyConsumption: 17
       },
-      clawGrab: {
+      {
+        skillName: 'clawGrab',
         skillDmg: 20,
         skillEnergyConsumption: 20
       },
-      clawStrike: {
+      {
+        skillName: 'clawStrike',
         skillDmg: 25,
         skillEnergyConsumption: 25
       }
-    },
+    ],
     monsterImg: '../images/monsters/valley-monsters/Wild-Bear.jpg'
   },
   {
@@ -281,20 +380,23 @@ const valleyMonstersList = [
     monsterGoldReward: 18,
     chanceToFlee: 40,
     monsterEnergy: 80,
-    monsterSkills: {
-      peck: {
+    monsterSkills: [
+      {
+        skillName: 'peck',
         skillDmg: 15,
         skillEnergyConsumption: 5
       },
-      poopBomb: {
+      {
+        skillName: 'poopBomb',
         skillDmg: 25,
         skillEnergyConsumption: 20
       },
-      deathDive: {
+      {
+        skillName: 'deathDive',
         skillDmg: 40,
         skillEnergyConsumption: 30
       }
-    },
+    ],
     monsterImg: '../images/monsters/valley-monsters/Giganto-Vultura.jpg'
   },
   {
@@ -309,21 +411,24 @@ const valleyMonstersList = [
     monsterGoldReward: 21,
     chanceToFlee: 30,
     monsterEnergy: 90,
-    monsterSkills: {
-      tailWhip: {
+    monsterSkills: [
+      {
+        skillName: 'tailWhip',
         skillDmg: 25,
         skillEnergyConsumption: 20
       },
-      stomp: {
+      {
+        skillName: 'stomp',
         skillDmg: 40,
         skillEnergyConsumption: 25
       },
-      stun: {
+      {
+        skillName: 'stun',
         skillDmg: 15,
         skillEnergyConsumption: 30,
         playerSkipTurn: true
       }
-    },
+    ],
     monsterImg: '../images/monsters/valley-monsters/Swamp-Lizard.jpg'
   },
   {
@@ -338,34 +443,39 @@ const valleyMonstersList = [
     monsterGoldReward: 35,
     chanceToFlee: 20,
     monsterEnergy: 100,
-    monsterSkills: {
-      earthSmash: {
+    monsterSkills: [
+      {
+        skillName: 'earthSmash',
         skillDmg: 40,
         skillEnergyConsumption: 20,
         playerSkipTurn: true
       },
-      stomp: {
+      {
+        skillName: 'stomp',
         skillDmg: 40,
         skillEnergyConsumption: 25
       },
-      stun: {
+      {
+        skillName: 'stun',
         skillDmg: 50,
         skillEnergyConsumption: 30,
         playerSkipTurn: true
       },
-      scaleHardening: {
+      {
+        skillName: 'scaleHardening',
         buff: true,
-        skillEnergyConsumption:20
+        skillEnergyConsumption: 20
       },
-      suplex: {
+      {
+        skillName: 'suplex',
         skillDmg: 100,
         skillEnergyConsumption: 70
       }
-
-    },
+    ],
     monsterImg: '../images/monsters/valley-monsters/Lizardo.jpg'
   }
 ];
+
 
 // Function to handle fighting valley monsters
 
@@ -406,15 +516,12 @@ let selectedMonster = null;
     };
 
     const getRandomSkill = (skills) => {
-  const randomIndex = Math.floor(Math.random() * skills.length);
-  return skills[randomIndex];
-};
+      const randomIndex = Math.floor(Math.random() * skills.length);
+      return skills[randomIndex];
+    };
 
 
-
-
-//Fighting Monster Functions
-// Function to update monster stats on the UI
+    // Function to update monster stats on the UI
     const updateMonsterStatsUI = (monster) => {
       const monsterName = document.getElementById('monsterName');
       const monsterHealth = document.getElementById('monsterHealth');
@@ -440,7 +547,7 @@ let selectedMonster = null;
       monsterImage.src = monster.monsterImg;
       fightingMonsterImg.src = monster.monsterImg;
     };
-
+    // Function to update player stats on the UI
     const updatePlayerStatsUI = () => {
         const gold = document.getElementById('gold');
         const level = document.getElementById('level');
@@ -464,22 +571,22 @@ let selectedMonster = null;
       };
 
     
-
+    // Resets the fight story
     const resetFightStory = () => {
           fightStory.textContent = `You are fighting ${selectedMonster.name}\n`;
            
     };
 
+    //resets the player health if the player is defeated
     const resetPlayerHealth = () => {
       playerHealth = 50;
       updatePlayerStatsUI();
     };
 
-
+    //Global variables to handle player level up
     let requiredExpToLvlUp = 10;
     const rewardAttributes = 3;
-    
-
+  
     const checkAndHandleLevelUp = () => {
       
         if (playerXp >= requiredExpToLvlUp) {
@@ -524,13 +631,13 @@ let selectedMonster = null;
   
 
   
-
+      //Function to use an health potion
     const useHealthPotion = () => {
       
 			const healthPotionIndex = playerInv.indexOf('health_potion');
 			
 			if (healthPotionIndex !== -1) {
-				// Assuming using a health potion increases player's health by a certain amount
+				
 				playerHealth += healthPotionHealAmount;
 				// Remove the health potion from player's inventory
 				playerInv.splice(healthPotionIndex, 1);
@@ -539,12 +646,12 @@ let selectedMonster = null;
         const useHpText = document.createElement('span');
         useHpText.style.color = 'red';
 				useHpText.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP\n`;
-				// Update UI or any other relevant game logic
+				
         fightStory.appendChild(useHpText);
 			} else {
         const noHpText = document.createElement('span');
         noHpText.style.color = 'red';
-				// Handle the case where the player does not have any health potions
+				
 				noHpText.textContent += "You don't have any health potions.\n";
         fightStory.appendChild(noHpText);
 			}
@@ -555,8 +662,9 @@ let selectedMonster = null;
       
 			const energyPotionIndex = playerInv.indexOf('energy_potion');
 			if (energyPotionIndex !== -1) {
-				// Assuming using an energy potion restores player's energy by a certain amount
+				
 				playerEnergy += energyPotionRestoreAmount;
+
 				// Remove the energy potion from player's inventory
 				playerInv.splice(energyPotionIndex, 1);
 				updatePlayerStatsUI();
@@ -567,11 +675,11 @@ let selectedMonster = null;
         useEPotion.textContent += `You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy\n`;
 
         fightStory.appendChild(useEPotion);
-				// Update UI or any other relevant game logic
+				
 			} else {
         const noEPotion = document.createElement('span');
         noEPotion.style.color = 'green';
-				// Handle the case where the player does not have any energy potions
+				
 				noEPotion.textContent += "You don't have any energy potions.\n";
 
         fightStory.appendChild(noEPotion);
@@ -972,257 +1080,257 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
 //Go to Town Functions
 
-const townMap = document.getElementById('town-map');
+    const townMap = document.getElementById('town-map');
 
-//alchemist 
-const alchemistStore = document.getElementById('alchemist-store');
-const alchemistStoreBtn = document.getElementById('alchemist-store-btn');
-const alchemistStoreBackBtn = document.getElementById('alchemist-store-back-btn');
-const buyHealthPotionBtn = document.getElementById('buy-health-potion');
-const buyEnergyPotionBtn = document.getElementById('buy-energy-potion');
-const alchemyStoreNotif = document.getElementById('alchemy-store-notif-container');
-const alchemyStoreNotifTxt = document.getElementById('alchemy-store-notif');
-const alchemyStoreNotifBckBtn = document.getElementById('alchemy-store-notif-bck-btn');
-const hpCancelBtn = document.getElementById('hp-cancel-btn');
-const energyCancelBtn = document.getElementById('energy-cancel-btn');
+    //alchemist 
+    const alchemistStore = document.getElementById('alchemist-store');
+    const alchemistStoreBtn = document.getElementById('alchemist-store-btn');
+    const alchemistStoreBackBtn = document.getElementById('alchemist-store-back-btn');
+    const buyHealthPotionBtn = document.getElementById('buy-health-potion');
+    const buyEnergyPotionBtn = document.getElementById('buy-energy-potion');
+    const alchemyStoreNotif = document.getElementById('alchemy-store-notif-container');
+    const alchemyStoreNotifTxt = document.getElementById('alchemy-store-notif');
+    const alchemyStoreNotifBckBtn = document.getElementById('alchemy-store-notif-bck-btn');
+    const hpCancelBtn = document.getElementById('hp-cancel-btn');
+    const energyCancelBtn = document.getElementById('energy-cancel-btn');
 
-const buyHealthPotionBtns = document.getElementById('buy-health-potion-btns');
-const buyEnergyPotionBtns = document.getElementById('buy-energy-potion-btns');
+    const buyHealthPotionBtns = document.getElementById('buy-health-potion-btns');
+    const buyEnergyPotionBtns = document.getElementById('buy-energy-potion-btns');
 
-const buyHealthPotionMinusBtn = document.getElementById('buy-health-potion-minus');
-const healthPotionQuantityInput = document.getElementById('health-potion-quantity');
-const buyHealthPotionPlusBtn = document.getElementById('buy-health-potion-plus');
-const healthPotionConfirmBtn = document.getElementById('hp-confirm-btn');
+    const buyHealthPotionMinusBtn = document.getElementById('buy-health-potion-minus');
+    const healthPotionQuantityInput = document.getElementById('health-potion-quantity');
+    const buyHealthPotionPlusBtn = document.getElementById('buy-health-potion-plus');
+    const healthPotionConfirmBtn = document.getElementById('hp-confirm-btn');
 
-const buyEnergyPotionMinusBtn = document.getElementById('buy-energy-potion-minus');
-const energyPotionQuantityInput = document.getElementById('energy-potion-quantity');
-const buyEnergyPotionPlusBtn = document.getElementById('buy-energy-potion-plus');
-const energyPotionConfirmBtn = document.getElementById('energy-confirm-btn');
-
-
-const blacksmitStoreBtn = document.getElementById('blacksmith-store-btn');
-const blacksmithStore = document.getElementById('blacksmith-store');
-const blacksmithStoreBackBtn = document.getElementById('blacksmith-store-back-btn');
-const blacksmithStoreNotif = document.getElementById('blacksmith-store-notif-container');
-const blacksmithStoreNotifTxt = document.getElementById('blacksmith-store-notif');
-const blacksmithStoreNotifBckBtn = document.getElementById('blacksmith-store-notif-bck-btn');
-const buyBreastplateBtn = document.getElementById('buy-breastplate');
-const buyGauntletBtn = document.getElementById('buy-gauntlet');
-const buyArmoredBootsBtn = document.getElementById('buy-armored-boots');
-const buyGreatHelmBtn = document.getElementById('buy-great-helm');
-const buyShieldBtn = document.getElementById('buy-shield');
-
-const swordsmithStoreBtn = document.getElementById('swordsmith-store-btn');
-const swordsmithStore = document.getElementById('swordsmith-store');
-const swordsmithStoreBackBtn = document.getElementById('swordsmith-store-back-btn');
-
-const townBackBtn = document.getElementById('town-back-btn');
+    const buyEnergyPotionMinusBtn = document.getElementById('buy-energy-potion-minus');
+    const energyPotionQuantityInput = document.getElementById('energy-potion-quantity');
+    const buyEnergyPotionPlusBtn = document.getElementById('buy-energy-potion-plus');
+    const energyPotionConfirmBtn = document.getElementById('energy-confirm-btn');
 
 
-const townBtnFunction = () => {
+    const blacksmitStoreBtn = document.getElementById('blacksmith-store-btn');
+    const blacksmithStore = document.getElementById('blacksmith-store');
+    const blacksmithStoreBackBtn = document.getElementById('blacksmith-store-back-btn');
+    const blacksmithStoreNotif = document.getElementById('blacksmith-store-notif-container');
+    const blacksmithStoreNotifTxt = document.getElementById('blacksmith-store-notif');
+    const blacksmithStoreNotifBckBtn = document.getElementById('blacksmith-store-notif-bck-btn');
+    const buyBreastplateBtn = document.getElementById('buy-breastplate');
+    const buyGauntletBtn = document.getElementById('buy-gauntlet');
+    const buyArmoredBootsBtn = document.getElementById('buy-armored-boots');
+    const buyGreatHelmBtn = document.getElementById('buy-great-helm');
+    const buyShieldBtn = document.getElementById('buy-shield');
 
-  mapNav.style.display = 'none';
-  townMap.style.display = 'inline-block';
+    const swordsmithStoreBtn = document.getElementById('swordsmith-store-btn');
+    const swordsmithStore = document.getElementById('swordsmith-store');
+    const swordsmithStoreBackBtn = document.getElementById('swordsmith-store-back-btn');
 
-  alchemistStoreBtn.addEventListener('click',() => {
-
-        mapNav.style.display = 'none';
-        townMap.style.display = 'none';
-        alchemistStore.style.display = 'inline-block';
-
-         alchemistStoreBackBtn.addEventListener('click',() => {
-
-            alchemistStore.style.display = 'none';
-            mapNav.style.display = 'none';
-            townMap.style.display = 'inline-block';   
-
-        });
-
-        hpCancelBtn.addEventListener('click', () => {
-          buyHealthPotionBtns.style.display = 'none';
-        });
-
-        energyCancelBtn.addEventListener('click', () => {
-          buyEnergyPotionBtns.style.display = 'none';
-        })
-
-        alchemyStoreNotifBckBtn.addEventListener('click', () => {
-            alchemyStoreNotif.style.display = 'none';
-        });
-
-       
-        // Event listener for "Buy Health Potion" button
-      buyHealthPotionBtn.addEventListener('click', () => {
-          buyHealthPotionBtns.style.display = 'block'; // Display the buttons for adjusting quantity
-      });
-
-      
-     // Event listener for "Confirm" button for buying health potion
-      healthPotionConfirmBtn.addEventListener('click', () => {
-          const healthPotionCost = 10;
-          const quantity = parseInt(healthPotionQuantityInput.value);
-
-          if (quantity > 0) {
-              if (playerGold >= healthPotionCost * quantity) {
-                  playerGold -= healthPotionCost * quantity;
-                  for (let i = 0; i < quantity; i++) {
-                      playerInv.push('health_potion');
-                  }
-                  gold.textContent = playerGold;
-                  alchemyStoreNotif.style.display = 'inline-block';
-                  alchemyStoreNotifTxt.textContent = 'You successfully bought ' + quantity + ' Health Potion(s)';
-                  buyHealthPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
-                  buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons for energy potion
-              } else {
-                  alchemyStoreNotif.style.display = 'inline-block';
-                  alchemyStoreNotifTxt.textContent = 'You don\'t have enough gold to buy ' + quantity + ' Health Potion(s)';
-              }
-          } else {
-              alchemyStoreNotif.style.display = 'inline-block';
-              alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
-          }
-      });
+    const townBackBtn = document.getElementById('town-back-btn');
 
 
+      const townBtnFunction = () => {
 
-      // Event listener for minus button for adjusting quantity
-      buyHealthPotionMinusBtn.addEventListener('click', () => {
-          let quantity = parseInt(healthPotionQuantityInput.value);
-          if (quantity > 0) {
-              quantity--;
-              healthPotionQuantityInput.value = quantity;
-          }
-      });
-
-      // Event listener for plus button for adjusting quantity
-      buyHealthPotionPlusBtn.addEventListener('click', () => {
-          let quantity = parseInt(healthPotionQuantityInput.value);
-          quantity++;
-          healthPotionQuantityInput.value = quantity;
-      });
-
-
-
-
-        // Event listener for "Buy Energy Potion" button
-      buyEnergyPotionBtn.addEventListener('click', () => {
-          buyEnergyPotionBtns.style.display = 'block'; // Display the buttons for adjusting quantity
-      });
-
-      
-     // Event listener for "Confirm" button for buying health potion
-      energyPotionConfirmBtn.addEventListener('click', () => {
-          const energyPotionCost = 10;
-          const quantity = parseInt(energyPotionQuantityInput.value);
-
-          if (quantity > 0) {
-              if (playerGold >= energyPotionCost * quantity) {
-                  playerGold -= energyPotionCost * quantity;
-                  for (let i = 0; i < quantity; i++) {
-                      playerInv.push('energy_potion');
-                  }
-                  gold.textContent = playerGold;
-                  alchemyStoreNotif.style.display = 'inline-block';
-                  alchemyStoreNotifTxt.textContent = 'You successfully bought ' + quantity + ' Energy Potion(s)';
-                  buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
-                  
-              } else {
-                  alchemyStoreNotif.style.display = 'inline-block';
-                  alchemyStoreNotifTxt.textContent = 'You don\'t have enough gold to buy ' + quantity + ' Energy Potion(s)';
-              }
-          } else {
-              alchemyStoreNotif.style.display = 'inline-block';
-              alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
-          }
-      });
-
-
-
-      // Event listener for minus button for adjusting quantity
-      buyEnergyPotionMinusBtn.addEventListener('click', () => {
-          let quantity = parseInt(energyPotionQuantityInput.value);
-          if (quantity > 0) {
-              quantity--;
-              energyPotionQuantityInput.value = quantity;
-          }
-      });
-
-      // Event listener for plus button for adjusting quantity
-      buyEnergyPotionPlusBtn.addEventListener('click', () => {
-          let quantity = parseInt(energyPotionQuantityInput.value);
-          quantity++;
-          energyPotionQuantityInput.value = quantity;
-      });
-
-    });
-
-    blacksmitStoreBtn.addEventListener('click',() => {
-
-      mapNav.style.display = 'none';
-      townMap.style.display = 'none';
-      blacksmithStore.style.display = 'inline-block';
-
-      blacksmithStoreBackBtn.addEventListener('click', () => {
         mapNav.style.display = 'none';
         townMap.style.display = 'inline-block';
-        blacksmithStore.style.display = 'none';
-      })
 
-      blacksmithStoreNotifBckBtn.addEventListener('click', () => {
-            blacksmithStoreNotif.style.display = 'none';
-        });
+        alchemistStoreBtn.addEventListener('click',() => {
 
-      const buyBreastplate = () => {
-    
-            const breastplateCost = 30;
+              mapNav.style.display = 'none';
+              townMap.style.display = 'none';
+              alchemistStore.style.display = 'inline-block';
 
-            if (playerGold >= breastplateCost) {
+              alchemistStoreBackBtn.addEventListener('click',() => {
 
-                playerGold -= breastplateCost;
+                  alchemistStore.style.display = 'none';
+                  mapNav.style.display = 'none';
+                  townMap.style.display = 'inline-block';   
 
-                blacksmithStoreNotif.style.display = 'inline-block';
-                playerArmorInv.breastplate = armors.breastplate;
+              });
 
-                gold.textContent = playerGold;
+              hpCancelBtn.addEventListener('click', () => {
+                buyHealthPotionBtns.style.display = 'none';
+              });
 
-                blacksmithStoreNotifTxt.textContent = 'You successfully bought a Breastplate';
+              energyCancelBtn.addEventListener('click', () => {
+                buyEnergyPotionBtns.style.display = 'none';
+              })
 
-                updatePlayerStatsUI();
+              alchemyStoreNotifBckBtn.addEventListener('click', () => {
+                  alchemyStoreNotif.style.display = 'none';
+              });
 
-            } else {
+            
+              // Event listener for "Buy Health Potion" button
+            buyHealthPotionBtn.addEventListener('click', () => {
+                buyHealthPotionBtns.style.display = 'block'; // Display the buttons for adjusting quantity
+            });
 
-                blacksmithStoreNotif.style.display = 'inline-block';
+            
+          // Event listener for "Confirm" button for buying health potion
+            healthPotionConfirmBtn.addEventListener('click', () => {
+                const healthPotionCost = 10;
+                const quantity = parseInt(healthPotionQuantityInput.value);
 
-                blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Breastplate';
+                if (quantity > 0) {
+                    if (playerGold >= healthPotionCost * quantity) {
+                        playerGold -= healthPotionCost * quantity;
+                        for (let i = 0; i < quantity; i++) {
+                            playerInv.push('health_potion');
+                        }
+                        gold.textContent = playerGold;
+                        alchemyStoreNotif.style.display = 'inline-block';
+                        alchemyStoreNotifTxt.textContent = 'You successfully bought ' + quantity + ' Health Potion(s)';
+                        buyHealthPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
+                        buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons for energy potion
+                    } else {
+                        alchemyStoreNotif.style.display = 'inline-block';
+                        alchemyStoreNotifTxt.textContent = 'You don\'t have enough gold to buy ' + quantity + ' Health Potion(s)';
+                    }
+                } else {
+                    alchemyStoreNotif.style.display = 'inline-block';
+                    alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
+                }
+            });
 
-            }
-        };
+
+
+            // Event listener for minus button for adjusting quantity
+            buyHealthPotionMinusBtn.addEventListener('click', () => {
+                let quantity = parseInt(healthPotionQuantityInput.value);
+                if (quantity > 0) {
+                    quantity--;
+                    healthPotionQuantityInput.value = quantity;
+                }
+            });
+
+            // Event listener for plus button for adjusting quantity
+            buyHealthPotionPlusBtn.addEventListener('click', () => {
+                let quantity = parseInt(healthPotionQuantityInput.value);
+                quantity++;
+                healthPotionQuantityInput.value = quantity;
+            });
+
+
+
+
+              // Event listener for "Buy Energy Potion" button
+            buyEnergyPotionBtn.addEventListener('click', () => {
+                buyEnergyPotionBtns.style.display = 'block'; // Display the buttons for adjusting quantity
+            });
+
+            
+          // Event listener for "Confirm" button for buying health potion
+            energyPotionConfirmBtn.addEventListener('click', () => {
+                const energyPotionCost = 10;
+                const quantity = parseInt(energyPotionQuantityInput.value);
+
+                if (quantity > 0) {
+                    if (playerGold >= energyPotionCost * quantity) {
+                        playerGold -= energyPotionCost * quantity;
+                        for (let i = 0; i < quantity; i++) {
+                            playerInv.push('energy_potion');
+                        }
+                        gold.textContent = playerGold;
+                        alchemyStoreNotif.style.display = 'inline-block';
+                        alchemyStoreNotifTxt.textContent = 'You successfully bought ' + quantity + ' Energy Potion(s)';
+                        buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
+                        
+                    } else {
+                        alchemyStoreNotif.style.display = 'inline-block';
+                        alchemyStoreNotifTxt.textContent = 'You don\'t have enough gold to buy ' + quantity + ' Energy Potion(s)';
+                    }
+                } else {
+                    alchemyStoreNotif.style.display = 'inline-block';
+                    alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
+                }
+            });
+
+
+
+            // Event listener for minus button for adjusting quantity
+            buyEnergyPotionMinusBtn.addEventListener('click', () => {
+                let quantity = parseInt(energyPotionQuantityInput.value);
+                if (quantity > 0) {
+                    quantity--;
+                    energyPotionQuantityInput.value = quantity;
+                }
+            });
+
+            // Event listener for plus button for adjusting quantity
+            buyEnergyPotionPlusBtn.addEventListener('click', () => {
+                let quantity = parseInt(energyPotionQuantityInput.value);
+                quantity++;
+                energyPotionQuantityInput.value = quantity;
+            });
+
+          });
+
+          blacksmitStoreBtn.addEventListener('click',() => {
+
+            mapNav.style.display = 'none';
+            townMap.style.display = 'none';
+            blacksmithStore.style.display = 'inline-block';
+
+            blacksmithStoreBackBtn.addEventListener('click', () => {
+              mapNav.style.display = 'none';
+              townMap.style.display = 'inline-block';
+              blacksmithStore.style.display = 'none';
+            })
+
+            blacksmithStoreNotifBckBtn.addEventListener('click', () => {
+                  blacksmithStoreNotif.style.display = 'none';
+              });
+
+            const buyBreastplate = () => {
+          
+                  const breastplateCost = 30;
+
+                  if (playerGold >= breastplateCost) {
+
+                      playerGold -= breastplateCost;
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      playerArmorInv.breastplate = armors.breastplate;
+
+                      gold.textContent = playerGold;
+
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Breastplate';
+
+                      updatePlayerStatsUI();
+
+                  } else {
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Breastplate';
+
+                  }
+              };
+              
+              buyBreastplateBtn.addEventListener('click', buyBreastplate);
+
+          });
+
+          swordsmithStoreBtn.addEventListener('click',() => {
+
+            mapNav.style.display = 'none';
+            townMap.style.display = 'none';
+            swordsmithStore.style.display = 'inline-block';
+
+            swordsmithStoreBackBtn.addEventListener('click', () => {
+              mapNav.style.display = 'none';
+            townMap.style.display = 'inline-block';
+            swordsmithStore.style.display = 'none';
+            })
+          });
+
+          townBackBtn.addEventListener('click', () => {
+              mapNav.style.display = 'inline-block';
+              townMap.style.display = 'none';
+          })
         
-        buyBreastplateBtn.addEventListener('click', buyBreastplate);
-
-    });
-
-    swordsmithStoreBtn.addEventListener('click',() => {
-
-      mapNav.style.display = 'none';
-      townMap.style.display = 'none';
-      swordsmithStore.style.display = 'inline-block';
-
-      swordsmithStoreBackBtn.addEventListener('click', () => {
-        mapNav.style.display = 'none';
-      townMap.style.display = 'inline-block';
-      swordsmithStore.style.display = 'none';
-      })
-    });
-
-    townBackBtn.addEventListener('click', () => {
-        mapNav.style.display = 'inline-block';
-        townMap.style.display = 'none';
-    })
-  
-};
+      };
 
 
-const townBtn = document.getElementById('town-btn').addEventListener('click',townBtnFunction);
+      const townBtn = document.getElementById('town-btn').addEventListener('click',townBtnFunction);
 
 
