@@ -1,6 +1,6 @@
 let playerLvl = 1;
 let playerXp = 0;
-let playerHealth = 200;
+let playerHealth = 100;
 let playerGold = 50;
      
 
@@ -550,6 +550,18 @@ let selectedMonster = null;
 		  const evasionChance = Math.random() * 100;
 		  return evasionChance < (agility + luck) / 2;
 		};
+    // function to check critical chance 
+    
+    const calculateMonsterCritChance = (monsterAgility, monsterLck, playerAgility, playerLck) => {
+      
+        const critChance = Math.floor(Math.random() * 100);
+        const monsterCritChance = parseInt((monsterAgility + monsterLck) - ((playerAgility + playerLck) / 4) )
+        if( monsterCritChance >= critChance){
+          return true;
+        }else{
+          return false;
+        }
+    };
 
 
     // Function to update monster stats on the UI
@@ -791,6 +803,7 @@ const valleyMonstersFightFunction = () => {
 
     const fight = () => {
         switch (gameState) {
+
             case "playerTurn":
                 // Player's turn
                 const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
@@ -801,10 +814,9 @@ const valleyMonstersFightFunction = () => {
                 } else {
                     selectedMonster.health -= playerDamage;
                     fightStory.textContent += `You used basic attack and hit the monster for ${playerDamage} damage!\n`;
-                }
 
-                // Update UI with current health of monster
-                document.getElementById('fighting-monster-health').textContent = selectedMonster.health;
+                    updateMonsterStatsUI(selectedMonster);
+                }
 
                 // Check if monster is defeated
                 if (selectedMonster.health <= 0) {
@@ -828,8 +840,9 @@ const valleyMonstersFightFunction = () => {
 
                     gameState = "fightEnded"; // Set game state to fight ended
                 } else {
-                    // Neither player nor monster is defeated, switch to monster's turn
+                    
                     gameState = "monsterTurn";
+                    fight();
                 }
                 break;
 
@@ -837,7 +850,7 @@ const valleyMonstersFightFunction = () => {
                 // Monster's turn
                 const monsterDamage = calculateMonsterDamage(selectedMonster.monsterStr, selectedMonster.monsterAgi, playerDef);
                 const playerEvade = checkEvasion(playerAgi, playerLuck);
-
+                const monsterCriticalChance = calculateMonsterCritChance(selectedMonster.monsterAgi, selectedMonster.monsterLuck, playerAgi, playerLuck);
                 const skill = getRandomSkill(selectedMonster.monsterSkills);
                 
 
@@ -846,8 +859,36 @@ const valleyMonstersFightFunction = () => {
                     fightStory.textContent += "You evaded the attack!\n";
 
                 } else if (Math.floor(Math.random() * 100) >= 50) {
-                    
-                    if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+
+                  if(monsterCriticalChance === true){
+
+                    if(skill.monsterEnergy >= skill.skillEnergyConsumption){
+
+                         if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+                      
+                          fightStory.textContent += `${selectedMonster.name} uses ${skill.skillName} CRITICAL!!\n`;
+                          fightStory.textContent += `It deals ${skill.skillDmg} damage!\n`;
+                          
+                          // Deduct the energy used for the skill
+                          selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
+                          // Deduct monsterSkill damage to the player
+                          const monsterSkillDamage = skill.skillDmg * 2;
+                          playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
+                          
+                          
+
+                          updateMonsterStatsUI(selectedMonster);
+                    }else{
+                      playerHealth -= monsterDamage * 2;
+                      fightStory.textContent += `${selectedMonster.name} Doesn't have Energy left, uses it's basic attack\n CRITICAL!! deals ${monsterDamage} damage!\n`;
+                    }
+
+                      
+                      
+
+                  }else{
+
+                       if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
                       
                       fightStory.textContent += `${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} Energy!\n`;
                       fightStory.textContent += `It deals ${skill.skillDmg} damage!\n`;
@@ -867,16 +908,23 @@ const valleyMonstersFightFunction = () => {
                       fightStory.textContent += `${selectedMonster.name} Doesn't have Energy left, uses it's basic attack and hit's you for ${monsterDamage} damage!\n`;
                     }
 
+                  }
+              
+
                     
                   }else {
-                     playerHealth -= monsterDamage;
-                    fightStory.textContent += `${selectedMonster.name} hit's you and deals ${monsterDamage} damage!\n`;
+                    if(monsterCriticalChance){
+                        playerHealth -= monsterDamage * 2;
+                        fightStory.textContent += `${selectedMonster.name} hit's you CRITICAL!!! and deals ${monsterDamage} damage!\n`;
+                    }else{
+
+                        playerHealth -= monsterDamage;
+                        fightStory.textContent += `${selectedMonster.name} hit's you and deals ${monsterDamage} damage!\n`;
+                    }
+                     
                   }
 
-
-                // Update UI with current health of player
-                document.getElementById('player-health').textContent = playerHealth;
-
+                }
                 // Check if player is defeated
                 if (playerHealth <= 0) {
                     // Player is defeated
@@ -887,7 +935,8 @@ const valleyMonstersFightFunction = () => {
                         mapNav.style.display = 'inline-block';
                         notifContainer.style.display = 'block';
                         fightingDisplay.style.display = 'none';
-                        notifications.textContent = `You have been Defeated, A Stranger saw you and brought you to the hospital. \n your HP is reduced by 50%`;
+                        notifications.textContent = `You have been Defeated, A Stranger saw you and brought you to the hospital. \n`;
+                        resetPlayerHealth();
 
                     }, 2000);
 
