@@ -799,178 +799,157 @@ const valleyMonstersFightFunction = () => {
     };
 		  
 
-    let gameState = "playerTurn"; // Initial state: player's turn
+          let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
 
-    const fight = () => {
-        switch (gameState) {
+          const playerAction = () => {
+         
+          const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
+          const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
 
-            case "playerTurn":
-                // Player's turn
-                const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
-                const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
+          if (monsterEvade) {
+              appendFightStory("Monster evaded the attack!");
+          } else {
+              selectedMonster.health -= playerDamage;
+              appendFightStory(`You used basic attack and hit the monster for ${playerDamage} damage!`);
+              updateMonsterStatsUI(selectedMonster);
+          }
 
-                if (monsterEvade) {
-                    fightStory.textContent += "Monster evaded the attack!\n";
-                } else {
-                    selectedMonster.health -= playerDamage;
-                    fightStory.textContent += `You used basic attack and hit the monster for ${playerDamage} damage!\n`;
+          // Check if monster is defeated
+          if (selectedMonster.health <= 0) {
+              appendFightStory(`${selectedMonster.name} is defeated!`);
+              appendFightStory(`You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`);
+              disableAllButtons();
+              fightingConfirmBtn.style.display = "inline-block";
 
-                    updateMonsterStatsUI(selectedMonster);
-                }
+              // Update player stats with rewards
+              playerGold += selectedMonster.monsterGoldReward;
+              playerXp += selectedMonster.monsterExpReward;
 
-                // Check if monster is defeated
-                if (selectedMonster.health <= 0) {
-                    // Monster is defeated
-                    fightStory.textContent += `${selectedMonster.name} is defeated!\n`;
-                    fightStory.textContent += `You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`;
+              fightingConfirmBtn.addEventListener('click', () => {
+                  valleyMapInner.style.display = 'inline-block';
+                  fightingDisplay.style.display = 'none';
+                  checkAndHandleLevelUp();
+              });
 
-                    disableAllButtons(); 
+              gameState = "fightEnded";
+          } else {
+              gameState = "monsterTurn";
+               setTimeout(monsterAction, 500);
+          
+          }
+      };
 
-                    fightingConfirmBtn.style.display = "inline-block";
+      const monsterAction = () => {
+          if (gameState !== "monsterTurn") return; // Ensure it's monster's turn
 
-                    // Update player stats with rewards
-                    playerGold += selectedMonster.monsterGoldReward;
-                    playerXp += selectedMonster.monsterExpReward;
+          // Monster's attack logic
+          const monsterDamage = calculateMonsterDamage(selectedMonster.monsterStr, selectedMonster.monsterAgi, playerDef);
+          const playerEvade = checkEvasion(playerAgi, playerLuck);
+          const monsterCriticalChance = calculateMonsterCritChance(selectedMonster.monsterAgi, selectedMonster.monsterLuck, playerAgi, playerLuck);
+          const skill = getRandomSkill(selectedMonster.monsterSkills);
 
-                    fightingConfirmBtn.addEventListener('click', () => {
-                        valleyMapInner.style.display = 'inline-block';
-                        fightingDisplay.style.display = 'none';
-                        checkAndHandleLevelUp();
-                    });
+          if (playerEvade) {
+              appendFightStory("You evaded the attack!");
+          } else {
+              if (monsterCriticalChance) {
 
-                    gameState = "fightEnded"; // Set game state to fight ended
-                } else {
-                    
-                    gameState = "monsterTurn";
-                    fight();
-                }
-                break;
+                  if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-            case "monsterTurn":
-                // Monster's turn
-                const monsterDamage = calculateMonsterDamage(selectedMonster.monsterStr, selectedMonster.monsterAgi, playerDef);
-                const playerEvade = checkEvasion(playerAgi, playerLuck);
-                const monsterCriticalChance = calculateMonsterCritChance(selectedMonster.monsterAgi, selectedMonster.monsterLuck, playerAgi, playerLuck);
-                const skill = getRandomSkill(selectedMonster.monsterSkills);
-                
-
-                if (playerEvade) {
-
-                    fightStory.textContent += "You evaded the attack!\n";
-
-                } else if (Math.floor(Math.random() * 100) >= 50) {
-
-                  if(monsterCriticalChance === true){
-
-                    if(skill.monsterEnergy >= skill.skillEnergyConsumption){
-
-                         if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
-                      
-                          fightStory.textContent += `${selectedMonster.name} uses ${skill.skillName} CRITICAL!!\n`;
-                          fightStory.textContent += `It deals ${skill.skillDmg} damage!\n`;
-                          
-                          // Deduct the energy used for the skill
-                          selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
-                          // Deduct monsterSkill damage to the player
-                          const monsterSkillDamage = skill.skillDmg * 2;
-                          playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
-                          
-                          
-
-                          updateMonsterStatsUI(selectedMonster);
-                    }else{
-                      playerHealth -= monsterDamage * 2;
-                      fightStory.textContent += `${selectedMonster.name} Doesn't have Energy left, uses it's basic attack\n CRITICAL!! deals ${monsterDamage} damage!\n`;
-                    }
-
-                      
-                      
-
-                  }else{
-
-                       if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
-                      
-                      fightStory.textContent += `${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} Energy!\n`;
-                      fightStory.textContent += `It deals ${skill.skillDmg} damage!\n`;
-                      
-                      // Deduct the energy used for the skill
+                      appendFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${skill.skillDmg} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
-                      // Deduct monsterSkill damage to the player
+                      const monsterSkillDamage = (skill.skillDmg * 2);
+                      playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
+
+                      updateMonsterStatsUI(selectedMonster);
+                  } else {
+                      playerHealth -= (monsterDamage * 2);
+                      appendFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterDamage} damage!`);
+                  }
+
+              } else {
+
+                  if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+
+                      appendFightStory(`${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} energy! It deals ${skill.skillDmg} damage!`);
+                      selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                       const monsterSkillDamage = skill.skillDmg;
                       playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
-                      
-                      
 
                       updateMonsterStatsUI(selectedMonster);
 
-                    }else{
+                  } else {
+
                       playerHealth -= monsterDamage;
-                      fightStory.textContent += `${selectedMonster.name} Doesn't have Energy left, uses it's basic attack and hit's you for ${monsterDamage} damage!\n`;
-                    }
-
+                      appendFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack and hits you for ${monsterDamage} damage!`);
                   }
-              
+              }
+          }
 
-                    
-                  }else {
-                    if(monsterCriticalChance){
-                        playerHealth -= monsterDamage * 2;
-                        fightStory.textContent += `${selectedMonster.name} hit's you CRITICAL!!! and deals ${monsterDamage} damage!\n`;
-                    }else{
+          // Check if player is defeated
+          if (playerHealth <= 0) {
 
-                        playerHealth -= monsterDamage;
-                        fightStory.textContent += `${selectedMonster.name} hit's you and deals ${monsterDamage} damage!\n`;
-                    }
-                     
-                  }
+              appendFightStory("Player is defeated!");
+              disableAllButtons();
 
-                }
-                // Check if player is defeated
-                if (playerHealth <= 0) {
-                    // Player is defeated
-                    fightStory.textContent += "Player is defeated!\n";
-                    disableAllButtons();
+              setTimeout(function playerDefeated() {
+                  mapNav.style.display = 'inline-block';
+                  notifContainer.style.display = 'block';
+                  fightingDisplay.style.display = 'none';
+                  notifications.textContent = `You have been defeated. A stranger saw you and brought you to the hospital.`;
+                  resetPlayerHealth();
+              }, 2000);
 
-                    setTimeout(function playerDefeated() {
-                        mapNav.style.display = 'inline-block';
-                        notifContainer.style.display = 'block';
-                        fightingDisplay.style.display = 'none';
-                        notifications.textContent = `You have been Defeated, A Stranger saw you and brought you to the hospital. \n`;
-                        resetPlayerHealth();
+              gameState = "fightEnded";
 
-                    }, 2000);
+          } else {
 
-                    gameState = "fightEnded"; // Set game state to fight ended
-                } else {
-                    // Neither player nor monster is defeated, switch back to player's turn
-                    gameState = "playerTurn";
-                }
-                break;
+              gameState = "playerTurn";
+          }
 
-            case "fightEnded":
-                // Do nothing, fight has ended
-                break;
-        }
+              updatePlayerStatsUI();
+        };
 
-        // Attach event listeners to health and energy potion buttons
-        const useHPPotionBtn = document.getElementById('use-hpotion-btn');
-        useHPPotionBtn.addEventListener('click', useHealthPotion);
 
-        const useEnergyPotionBtn = document.getElementById('use-epotion-btn');
-        useEnergyPotionBtn.addEventListener('click', useEnergyPotion);
+      // Attach event listeners to health and energy potion buttons
+          const useHPPotionBtn = document.getElementById('use-hpotion-btn');
+          useHPPotionBtn.addEventListener('click', useHealthPotion);
 
-        // Update player stats UI
-        updatePlayerStatsUI();
-    };
+          const useEnergyPotionBtn = document.getElementById('use-epotion-btn');
+          useEnergyPotionBtn.addEventListener('click', useEnergyPotion);
 
-    // Event listener for basic attack button
-    const basicAttackBtn = document.getElementById('basic-attack-btn');
-    basicAttackBtn.addEventListener('click', fight);
+          // Update player stats UI
+
+      // Function to append fight story with a new line
+      const appendFightStory = (text) => {
+          const fightStory = document.getElementById('fight-story');
+          const newEntry = document.createElement('div');
+          newEntry.className = 'fight-story-entry';
+          newEntry.textContent = text;
+          fightStory.appendChild(newEntry);
+          fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom
+      };
+
+
+// Bind player action to the button click
+const basicAttackBtn = document.getElementById('basic-attack-btn');
+basicAttackBtn.addEventListener('click', playerAction);
+
+
+ 
 
     // Update monster stats on the UI
     updateMonsterStatsUI(selectedMonster);
     updatePlayerStatsUI();
 };
+
+    const appendFightStory = (text) => {
+        const fightStory = document.getElementById('fight-story');
+        const newEntry = document.createElement('div');
+        newEntry.className = 'fight-story-entry';
+        newEntry.textContent = text;
+        fightStory.appendChild(newEntry);
+        fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom
+    };
 
 // check inventory function
 // Define the event listener for the "check-inv" button
