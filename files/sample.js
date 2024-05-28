@@ -536,13 +536,13 @@ let selectedMonster = null;
 			};
 
 			// Function to calculate monster damage
-			const calculateMonsterDamage = (monsterStr, monsterAgi, playerDef) => {
+			const calculateMonsterDamage = (monsterStrength, monsterAgility, playerDefense) => {
 				// Generate a random number to determine the divisor for monsterStr and monsterAgi
 				const strDivisor = Math.random() < 0.5 ? 2 : 3;
 				const agiDivisor = Math.random() < 0.5 ? 2 : 3;
 
 				// Calculate monster damage considering player defense
-				return parseInt((monsterStr / strDivisor) + (monsterAgi / agiDivisor) - (playerDef / 4));
+				return parseInt((monsterStrength / strDivisor) + (monsterAgility / agiDivisor) - (playerDefense / 4));
 			};
 
 		// Function to check evasion
@@ -856,7 +856,7 @@ const valleyMonstersFightFunction = () => {
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                       // Deduct monsterSkill damage to the player
                       const monsterSkillDamage = skill.skillDmg;
-                      playerHealth -= parseInt(((playerDef / 2) - monsterSkillDamage));
+                      playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
                       
                       
 
@@ -870,7 +870,7 @@ const valleyMonstersFightFunction = () => {
                     
                   }else {
                      playerHealth -= monsterDamage;
-                    fightStory.textContent += `${selectedMonster.name} hit's you for ${monsterDamage} damage!\n`;
+                    fightStory.textContent += `${selectedMonster.name} hit's you and deals ${monsterDamage} damage!\n`;
                   }
 
 
