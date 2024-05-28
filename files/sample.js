@@ -807,10 +807,10 @@ const valleyMonstersFightFunction = () => {
           const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
 
           if (monsterEvade) {
-              appendFightStory("Monster evaded the attack!");
+              appendFightStory(`${selectedMonster.name} evaded the attack!`);
           } else {
               selectedMonster.health -= playerDamage;
-              appendFightStory(`You used basic attack and hit the monster for ${playerDamage} damage!`);
+              appendFightStory(`You used basic attack and hit ${selectedMonster.name} for ${playerDamage} damage!`);
               updateMonsterStatsUI(selectedMonster);
           }
 
@@ -825,15 +825,18 @@ const valleyMonstersFightFunction = () => {
               playerGold += selectedMonster.monsterGoldReward;
               playerXp += selectedMonster.monsterExpReward;
 
+
               fightingConfirmBtn.addEventListener('click', () => {
                   valleyMapInner.style.display = 'inline-block';
                   fightingDisplay.style.display = 'none';
                   checkAndHandleLevelUp();
+                  gameState = "playerTurn";
               });
 
               gameState = "fightEnded";
           } else {
               gameState = "monsterTurn";
+
                setTimeout(monsterAction, 500);
           
           }
@@ -855,15 +858,16 @@ const valleyMonstersFightFunction = () => {
 
                   if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-                      appendFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${skill.skillDmg} damage!`);
+                      appendFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
-                      const monsterSkillDamage = (skill.skillDmg * 2);
+                      const monsterSkillDamage = skill.skillDmg * 2;
                       playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
 
                       updateMonsterStatsUI(selectedMonster);
                   } else {
-                      playerHealth -= (monsterDamage * 2);
-                      appendFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterDamage} damage!`);
+                    const monsterCritDmg = monsterDamage * 2;
+                      playerHealth -= monsterCritDmg;
+                      appendFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
                   }
 
               } else {
