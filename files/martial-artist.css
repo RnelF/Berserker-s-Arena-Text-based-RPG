@@ -200,7 +200,7 @@ body{
 		width:300px;
 		display:flex;
 		flex-direction: column;
-	   	text-align:left;
+	  text-align:center;
 		font-size: 0.8rem;
 		color: white;
 		text-wrap: no wrap;
@@ -408,13 +408,15 @@ body{
 
 #fight-story-container{
   width: 450px;
-  height:300px;
+  height:250px;
   font-weight: bold;
   font-size: .8em;
   background-color: white;
   border: 2px solid orangered;
   padding: 10px 10px;
   overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .fight-story-entry {

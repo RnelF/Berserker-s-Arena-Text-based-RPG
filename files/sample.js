@@ -838,6 +838,7 @@ const valleyMonstersFightFunction = () => {
                setTimeout(monsterAction, 500);
           
           }
+          
       };
 
       const monsterAction = () => {
@@ -861,11 +862,12 @@ const valleyMonstersFightFunction = () => {
                      appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                      
-                      playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
+                      playerHealth -= monsterSkillDamage;
 
                       updateMonsterStatsUI(selectedMonster);
+                      updatePlayerStatsUI();
                   } else {
-                    const monsterCritDmg = monsterDamage * 2;
+                    const monsterCritDmg = parseInt(monsterDamage * 2);
                       playerHealth -= monsterCritDmg;
                       appendCritDmgFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
                   }
@@ -874,13 +876,15 @@ const valleyMonstersFightFunction = () => {
 
                   if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-                      appendFightStory(`${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} energy! It deals ${skill.skillDmg} damage!`);
+                       const monsterSkillDamage = parseInt(skill.skillDmg - (playerDef / 3));
+
+                      appendFightStory(`${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} energy! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
-                      const monsterSkillDamage = skill.skillDmg;
-                      playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
+                     
+                      playerHealth -= monsterSkillDamage;
 
                       updateMonsterStatsUI(selectedMonster);
-
+                        updatePlayerStatsUI();
                   } else {
 
                       playerHealth -= monsterDamage;
