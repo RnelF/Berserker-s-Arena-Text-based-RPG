@@ -414,13 +414,34 @@ body{
   background-color: white;
   border: 2px solid orangered;
   padding: 10px 10px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .fight-story-entry {
     border-bottom: 2px solid #ad7a33; 
     padding: 5px 0;
     margin-bottom: 5px;
+}
+
+.crit-dmg-fight-story{
+  border-bottom: 2px solid #ad7a33; 
+  padding: 5px 0;
+  margin-bottom: 5px;
+  color: rgb(5, 161, 161);
+}
+
+.use-hp-potion-fight-story{
+  border-bottom: 2px solid #ad7a33; 
+  padding: 5px 0;
+  margin-bottom: 5px;
+  color: rgb(236, 11, 11);
+}
+
+.use-energy-potion-fight-story{
+  border-bottom: 2px solid #ad7a33; 
+  padding: 5px 0;
+  margin-bottom: 5px;
+  color: rgb(18, 240, 44);
 }
 
 #fighting-confirm-btn{

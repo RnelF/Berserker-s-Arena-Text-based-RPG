@@ -689,17 +689,14 @@ let selectedMonster = null;
 				playerInv.splice(healthPotionIndex, 1);
 				updatePlayerStatsUI();
 
-        const useHpText = document.createElement('span');
-        useHpText.style.color = 'red';
-				useHpText.textContent += `You used HP potion and Regenerated ${healthPotionHealAmount} HP\n`;
+        
+				appendUseHPFightStory(`You used HP potion and Regenerated ${healthPotionHealAmount} HP`);
 				
         fightStory.appendChild(useHpText);
 			} else {
-        const noHpText = document.createElement('span');
-        noHpText.style.color = 'red';
-				
-				noHpText.textContent += "You don't have any health potions.\n";
-        fightStory.appendChild(noHpText);
+      
+				appendUseHPFightStory("You don't have any health potions.");
+        
 			}
 		};
 
@@ -715,20 +712,14 @@ let selectedMonster = null;
 				playerInv.splice(energyPotionIndex, 1);
 				updatePlayerStatsUI();
 
-        const useEPotion = document.createElement('span');
-        useEPotion.style.color = 'green';
-
-        useEPotion.textContent += `You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy\n`;
+        appendUseEnergyFightStory(`You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy`);
 
         fightStory.appendChild(useEPotion);
 				
 			} else {
-        const noEPotion = document.createElement('span');
-        noEPotion.style.color = 'green';
-				
-				noEPotion.textContent += "You don't have any energy potions.\n";
 
-        fightStory.appendChild(noEPotion);
+				appendUseEnergyFightStory("You don't have any energy potions.");
+
 			}
 		};
 
@@ -867,7 +858,7 @@ const valleyMonstersFightFunction = () => {
 
                      const monsterSkillDamage = skill.skillDmg * 2;
 
-                      appendFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
+                     appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                      
                       playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
@@ -876,7 +867,7 @@ const valleyMonstersFightFunction = () => {
                   } else {
                     const monsterCritDmg = monsterDamage * 2;
                       playerHealth -= monsterCritDmg;
-                      appendFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
+                      appendCritDmgFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
                   }
 
               } else {
@@ -931,30 +922,43 @@ const valleyMonstersFightFunction = () => {
           const useEnergyPotionBtn = document.getElementById('use-epotion-btn');
           useEnergyPotionBtn.addEventListener('click', useEnergyPotion);
 
-          // Update player stats UI
 
-      // Function to append fight story with a new line
-      const appendFightStory = (text) => {
-          const fightStory = document.getElementById('fight-story');
-          const newEntry = document.createElement('div');
-          newEntry.className = 'fight-story-entry';
-          newEntry.textContent = text;
-          fightStory.appendChild(newEntry);
-          fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom
-      };
+      // Bind player action to the button click
+      const basicAttackBtn = document.getElementById('basic-attack-btn');
+      basicAttackBtn.addEventListener('click', playerAction);
 
 
-// Bind player action to the button click
-const basicAttackBtn = document.getElementById('basic-attack-btn');
-basicAttackBtn.addEventListener('click', playerAction);
-
-
- 
 
     // Update monster stats on the UI
     updateMonsterStatsUI(selectedMonster);
     updatePlayerStatsUI();
-};
+};  
+     const appendUseEnergyFightStory = (text) => {
+        const fightStory = document.getElementById('fight-story');
+        const newEntry = document.createElement('div');
+        newEntry.className = 'use-energy-potion-fight-story';
+        newEntry.textContent = text;
+        fightStory.appendChild(newEntry);
+        fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom
+    };
+
+    const appendUseHPFightStory = (text) => {
+        const fightStory = document.getElementById('fight-story');
+        const newEntry = document.createElement('div');
+        newEntry.className = 'use-hp-potion-fight-story';
+        newEntry.textContent = text;
+        fightStory.appendChild(newEntry);
+        fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom
+    };
+
+    const appendCritDmgFightStory = (text) => {
+        const fightStory = document.getElementById('fight-story');
+        const newEntry = document.createElement('div');
+        newEntry.className = 'crit-dmg-fight-story';
+        newEntry.textContent = text;
+        fightStory.appendChild(newEntry);
+        fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom
+    };
 
     const appendFightStory = (text) => {
         const fightStory = document.getElementById('fight-story');
