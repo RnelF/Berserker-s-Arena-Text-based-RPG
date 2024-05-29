@@ -778,6 +778,12 @@ const valleyMonstersFightFunction = () => {
     }
   });
 
+      let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
+
+      const fightEnded = () => {
+        return gameState = "notFighting";
+      };
+
 		  fightMonsterBtn.addEventListener('click', () => {
 			// Handle initiating the fight
 			monsterStats.style.display = 'none';
@@ -799,9 +805,9 @@ const valleyMonstersFightFunction = () => {
     };
 		  
 
-          let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
-
           const playerAction = () => {
+
+            if (gameState !== "playerTurn") return;
          
           const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
           const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
@@ -830,11 +836,12 @@ const valleyMonstersFightFunction = () => {
                   valleyMapInner.style.display = 'inline-block';
                   fightingDisplay.style.display = 'none';
                   checkAndHandleLevelUp();
-                  gameState = "playerTurn";
+                  gameState = "notFighting";
               });
 
-              gameState = "fightEnded";
+              
           } else {
+
               gameState = "monsterTurn";
 
                setTimeout(monsterAction, 500);
@@ -858,9 +865,11 @@ const valleyMonstersFightFunction = () => {
 
                   if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
+                     const monsterSkillDamage = skill.skillDmg * 2;
+
                       appendFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
-                      const monsterSkillDamage = skill.skillDmg * 2;
+                     
                       playerHealth -= parseInt(monsterSkillDamage - (playerDef / 2));
 
                       updateMonsterStatsUI(selectedMonster);
@@ -901,9 +910,10 @@ const valleyMonstersFightFunction = () => {
                   fightingDisplay.style.display = 'none';
                   notifications.textContent = `You have been defeated. A stranger saw you and brought you to the hospital.`;
                   resetPlayerHealth();
+                  fightEnded();
               }, 2000);
 
-              gameState = "fightEnded";
+              
 
           } else {
 
@@ -1038,7 +1048,6 @@ const darkValleyBtn = document.getElementById('dark-valley-btn').addEventListene
   if(playerLvl < 5){
     notifContainer.style.display = 'block';
     notifications.textContent = `You can't go here, you're too weak, required Level 5`;
-    backButton();
   } else {
     darkValleyMapFunction(); 
   }
