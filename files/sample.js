@@ -758,16 +758,21 @@ const valleyMonstersFightFunction = () => {
       fleeNotif.style.display = 'inline-block';
       fleeConfirmBtn.style.display = 'inline-block';
       fleeNotif.textContent = 'You Succesfully fled';
-      fleeConfirmBtn.addEventListener('click', () => {
-        fleeNotif.style.display = 'none';
-        fleeConfirmBtn.style.display = 'none';
-      });
+      
     } else {
       // Player failed to flee
       const monsterFightNotif = document.getElementById('monster-fight-notif').textContent = 'You failed to flee!';
       fleeMonsterBtn.style.display = 'none';
     }
+    fightEnded();
+    resetFightStory();
   });
+
+      fleeConfirmBtn.addEventListener('click', () => {
+        fleeNotif.style.display = 'none';
+        fleeConfirmBtn.style.display = 'none';
+        fleeNotif.textContent = '';
+      });
 
       let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
 
