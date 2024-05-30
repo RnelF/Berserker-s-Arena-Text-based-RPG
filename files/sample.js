@@ -658,10 +658,7 @@ let selectedMonster = null;
           
       }
     
-    
-
       updatePlayerStatsUI();
-
 
     };
 
@@ -674,8 +671,6 @@ let selectedMonster = null;
         });
 
   
-  
-
   
       //Function to use an health potion
     const useHealthPotion = () => {
@@ -723,59 +718,43 @@ let selectedMonster = null;
 			}
 		};
 
+    const getRandomSkill = (skills) => {
+          const randomIndex = Math.floor(Math.random() * skills.length);
+          return skills[randomIndex];
+     };
 
-
-
-const valleyMonstersFightFunction = () => {
-  monsterStats.style.display = 'inline-block';
-  mapNav.style.display = 'none';
-  valleyMap.style.display = 'none';
-  valleyMapInner.style.display = 'none';
-
-  selectedMonster = monsterRandomPicker();
-  updateMonsterStatsUI(selectedMonster);
-  resetFightStory();
-  fightingConfirmBtn.style.display = "none";
-
-
-		
-		const disableAllButtons = () => {
+     const disableAllButtons = () => {
 			const buttons = document.querySelectorAll('#fighting-btns-container button');
 			buttons.forEach(button => {
 				button.disabled = true;
 			});
 		};
 
-     fleeMonsterBtn.addEventListener('click', () => {
-    const playerChanceToFlee = selectedMonster.chanceToFlee;
-    const chanceToFleeCalculation = Math.random() * 100;
-    if (playerChanceToFlee >= chanceToFleeCalculation) {
-      // Player successfully fled
-      monsterStats.style.display = 'none';
-      mapNav.style.display = 'none';
-      valleyMap.style.display = 'none';
-      valleyMapInner.style.display = 'inline-block';
-      fleeNotif.style.display = 'inline-block';
-      fleeConfirmBtn.style.display = 'inline-block';
-      fleeNotif.textContent = 'You Succesfully fled';
-      fleeConfirmBtn.addEventListener('click', () => {
-        fleeNotif.style.display = 'none';
-        fleeConfirmBtn.style.display = 'none';
-      });
-    } else {
-      // Player failed to flee
-      const monsterFightNotif = document.getElementById('monster-fight-notif').textContent = 'You failed to flee!';
-      fleeMonsterBtn.style.display = 'none';
-    }
-  });
+    fleeMonsterBtn.addEventListener('click', () => {
 
-      let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
+        const playerChanceToFlee = selectedMonster.chanceToFlee;
+        const chanceToFleeCalculation = Math.random() * 100;
+        if (playerChanceToFlee >= chanceToFleeCalculation) {
+          // Player successfully fled
+          monsterStats.style.display = 'none';
+          mapNav.style.display = 'none';
+          valleyMap.style.display = 'none';
+          valleyMapInner.style.display = 'inline-block';
+          fleeNotif.style.display = 'inline-block';
+          fleeConfirmBtn.style.display = 'inline-block';
+          fleeNotif.textContent = 'You Succesfully fled';
+          fleeConfirmBtn.addEventListener('click', () => {
+            fleeNotif.style.display = 'none';
+            fleeConfirmBtn.style.display = 'none';
+          });
+        } else {
+          // Player failed to flee
+          const monsterFightNotif = document.getElementById('monster-fight-notif').textContent = 'You failed to flee!';
+          fleeMonsterBtn.style.display = 'none';
+        }
+    });
 
-      const fightEnded = () => {
-        return gameState = "notFighting";
-      };
-
-		  fightMonsterBtn.addEventListener('click', () => {
+    fightMonsterBtn.addEventListener('click', () => {
 			// Handle initiating the fight
 			monsterStats.style.display = 'none';
 			fightingDisplay.style.display = 'inline-block';
@@ -783,18 +762,33 @@ const valleyMonstersFightFunction = () => {
 			buttons.forEach(button => {
 				button.disabled = false;
 			});
-
-      document.getElementById('fight-story').textContent += `You are fighting ${selectedMonster.name}`;
-
+      valleyMonstersFightFunction();
       resetFightStory();
-			// You can use selectedMonster here if needed
-		  });
 
-      const getRandomSkill = (skills) => {
-      const randomIndex = Math.floor(Math.random() * skills.length);
-      return skills[randomIndex];
-    };
-		  
+		});
+
+    const monsterAppear = () => {
+      monsterStats.style.display = 'inline-block';
+      mapNav.style.display = 'none';
+      valleyMap.style.display = 'none';
+      valleyMapInner.style.display = 'none';
+
+      selectedMonster = monsterRandomPicker();
+      updateMonsterStatsUI(selectedMonster);
+      fightingConfirmBtn.style.display = "none";
+      return selectedMonster;
+    }
+
+
+     
+
+     const fightEnded = () => {
+        return gameState = "notFighting";
+      };
+
+    const valleyMonstersFightFunction = () => {
+
+        let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
 
           const playerAction = () => {
 
@@ -1080,41 +1074,41 @@ const backButton = document.getElementById('notif-back-button').addEventListener
     const dvInnerMapLeftBtn = document.getElementById('dv-go-left');
 
 
-const darkValleyMapFunction = () => { 
-  mapNav.style.display = 'none';
-  darkValleyMap.style.display = 'inline-block';
-
-  dvBackBtn.addEventListener('click', () => {
-    darkValleyMap.style.display = 'none';
-    mapNav.style.display = 'inline-block';
-  });
-
-  dvEnterBtn.addEventListener('click', () => {
-    
-    darkValleyMap.style.display = 'none';
-    mapNav.style.display = 'none';
-    
-    dvInnerMap.style.display = 'inline-block';
-
-    dvInnerMapBackBtn.addEventListener('click', () => {
+    const darkValleyMapFunction = () => { 
+      mapNav.style.display = 'none';
       darkValleyMap.style.display = 'inline-block';
-      dvInnerMap.style.display = 'none';
 
-      mapNav.style.display = 'none';
-    });
+      dvBackBtn.addEventListener('click', () => {
+        darkValleyMap.style.display = 'none';
+        mapNav.style.display = 'inline-block';
+      });
 
-    dvInnerMapLeftBtn.addEventListener('click',function(){
-      darkValleyMap.style.display = 'none';
-      dvInnerMap.style.display = 'none';
-      mapNav.style.display = 'none';
+      dvEnterBtn.addEventListener('click', () => {
+        
+        darkValleyMap.style.display = 'none';
+        mapNav.style.display = 'none';
+        
+        dvInnerMap.style.display = 'inline-block';
 
-      //dvMonstersFightFunction();
-    });
-    
-    });
+        dvInnerMapBackBtn.addEventListener('click', () => {
+          darkValleyMap.style.display = 'inline-block';
+          dvInnerMap.style.display = 'none';
 
-    
-};
+          mapNav.style.display = 'none';
+        });
+
+        dvInnerMapLeftBtn.addEventListener('click',function(){
+          darkValleyMap.style.display = 'none';
+          dvInnerMap.style.display = 'none';
+          mapNav.style.display = 'none';
+
+          //dvMonstersFightFunction();
+        });
+        
+        });
+
+        
+    };
 
 
 //The valley Functions
@@ -1148,7 +1142,7 @@ const valleyFunction = () => {
         valleyMapInner.style.display = 'none';
     });
 
-    valleyGoGrasslandBtn.addEventListener('click',valleyMonstersFightFunction);
+    valleyGoGrasslandBtn.addEventListener('click',monsterAppear);
 
     
   });
