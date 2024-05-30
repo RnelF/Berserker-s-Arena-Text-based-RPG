@@ -484,6 +484,7 @@ const fleeMonsterBtn = document.getElementById('flee-monster-btn');
 
 const fleeNotif = document.getElementById('valley-map-notif');
 const fleeConfirmBtn = document.getElementById('valley-map-notif-btn');
+const monsterFightNotif = document.getElementById('monster-fight-notif');
 const fightStoryContainer = document.getElementById('fight-story-container');
 
 const fightingDisplay = document.getElementById('fighting-display-container');
@@ -494,6 +495,7 @@ const fightStory = document.getElementById('fight-story');
 const fightingNotifContainer = document.getElementById('fighting-notif');
 const fightingNotif = document.getElementById('fight-notifications');
 const fightingNotifBtn = document.getElementById('fight-notif-back-button');
+
 
 
 
@@ -749,7 +751,7 @@ let selectedMonster = null;
           });
         } else {
           // Player failed to flee
-          const monsterFightNotif = document.getElementById('monster-fight-notif').textContent = 'You failed to flee!';
+          monsterFightNotif.textContent = 'You failed to flee!';
           fleeMonsterBtn.style.display = 'none';
         }
     });
@@ -776,6 +778,7 @@ let selectedMonster = null;
       selectedMonster = monsterRandomPicker();
       updateMonsterStatsUI(selectedMonster);
       fightingConfirmBtn.style.display = "none";
+      monsterFightNotif.textContent = 'Oh no! a Wild Monster Appears!';
       return selectedMonster;
     }
 
@@ -822,6 +825,8 @@ let selectedMonster = null;
                   fightingDisplay.style.display = 'none';
                   checkAndHandleLevelUp();
                   gameState = "notFighting";
+                  fleeMonsterBtn.style.display = 'inline-block';
+                   monsterFightNotif.textContent = '';
               });
 
               
