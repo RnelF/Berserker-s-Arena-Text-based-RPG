@@ -1,14 +1,14 @@
-let playerLvl = 1;
+let playerLvl = 15;
 let playerXp = 0;
 let playerHealth = 100;
 let playerGold = 50;
      
 
-let playerStr = 10;
-let playerAgi = 10;
-let playerDef = 10;
-let playerLuck = 10;
-let playerEnergy = 100;
+let playerStr = 30;
+let playerAgi = 30;
+let playerDef = 300;
+let playerLuck = 30;
+let playerEnergy = 300;
 
 let playerInv = [];
 let playerWeaponInv = [];
@@ -627,7 +627,7 @@ let selectedMonster = null;
 
     //resets the player health if the player is defeated
     const resetPlayerHealth = () => {
-      playerHealth = 50;
+      playerHealth = 25;
       updatePlayerStatsUI();
     };
 
@@ -690,7 +690,6 @@ let selectedMonster = null;
         
 				appendUseHPFightStory(`You used HP potion and Regenerated ${healthPotionHealAmount} HP`);
 				
-        fightStory.appendChild(useHpText);
 			} else {
       
 				appendUseHPFightStory("You don't have any health potions.");
@@ -799,13 +798,13 @@ let selectedMonster = null;
 
           const playerAction = () => {
 
-            if (gameState !== "playerTurn") return;
+             if(gameState !== "playerTurn") return
          
           const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
           const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
 
           if (monsterEvade) {
-               appendFightStoryPlayerMove(`${selectedMonster.name} evaded the attack!`);
+               appendFightStoryMonsterMove(`${selectedMonster.name} evaded the attack!`);
           } else {
               selectedMonster.health -= playerDamage;
                appendFightStoryPlayerMove(`You used basic attack and hit ${selectedMonster.name} for ${playerDamage} damage!`);
@@ -841,6 +840,9 @@ let selectedMonster = null;
                setTimeout(monsterAction, 500);
           
           }
+
+        
+          
           
       };
 
@@ -855,29 +857,74 @@ let selectedMonster = null;
 
           if (playerEvade) {
               appendFightStoryMonsterMove(`You evaded ${selectedMonster.name}'s attack!`);
+              gameState = "playerTurn";
           } else {
+
               if (monsterCriticalChance) {
 
                   if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-                     const monsterSkillDamage = skill.skillDmg * 2;
+                          if(skill.playerSkipTurn){
 
-                     appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
+                            const monsterSkillDamage = skill.skillDmg * 2;
+
+                          appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
+
+                          appendCritDmgFightStory(`You're Stunned skipping your turn.`);
+
+                            selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
+                          
+                            playerHealth -= monsterSkillDamage;
+
+                            updateMonsterStatsUI(selectedMonster);
+                            updatePlayerStatsUI();
+
+                            return setTimeout(monsterAction, 2000);
+
+                          }else{
+
+                          const monsterSkillDamage = skill.skillDmg * 2;
+
+                              appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
+                                selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
+                              
+                                playerHealth -= monsterSkillDamage;
+
+                                updateMonsterStatsUI(selectedMonster);
+                                updatePlayerStatsUI();
+
+                          }
+
+                    
+                    } else {
+                      const monsterCritDmg = parseInt(monsterDamage * 2);
+                        playerHealth -= monsterCritDmg;
+                        appendCritDmgFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
+                    }
+
+              } else {
+
+                if(skill.playerSkipTurn){
+
+                  if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+
+                       const monsterSkillDamage = parseInt(skill.skillDmg - (playerDef / 3));
+
+                      appendFightStoryMonsterMove(`${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} energy! It deals ${monsterSkillDamage} damage!`);
+
+                      appendFightStoryMonsterMove(`You're Stunned skipping your turn.`);
+
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                      
                       playerHealth -= monsterSkillDamage;
 
                       updateMonsterStatsUI(selectedMonster);
                       updatePlayerStatsUI();
-                  } else {
-                    const monsterCritDmg = parseInt(monsterDamage * 2);
-                      playerHealth -= monsterCritDmg;
-                      appendCritDmgFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
-                  }
 
-              } else {
+                       return setTimeout(monsterAction, 2000);
+                }else{
 
-                  if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+                    if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
                        const monsterSkillDamage = parseInt(skill.skillDmg - (playerDef / 3));
 
@@ -893,6 +940,10 @@ let selectedMonster = null;
                       playerHealth -= monsterDamage;
                      appendFightStoryMonsterMove(`${selectedMonster.name} doesn't have energy left, uses basic attack and hits you for ${monsterDamage} damage!`);
                   }
+                  
+                }
+
+                  
               }
           }
 
@@ -919,7 +970,9 @@ let selectedMonster = null;
           }
 
               updatePlayerStatsUI();
-        };
+          };
+
+      };
 
 
       // Attach event listeners to health and energy potion buttons
