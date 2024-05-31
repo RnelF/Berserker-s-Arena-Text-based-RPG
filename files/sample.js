@@ -664,6 +664,7 @@ let selectedMonster = null;
 
     };
 
+    //if monster is defeated notification 
     fightingNotifBtn.addEventListener('click',() => {
           if(fightingNotifContainer.style.display === 'inline-block'){
             fightingNotif.textContent = '';
@@ -720,18 +721,20 @@ let selectedMonster = null;
 			}
 		};
 
+    //monster random skill function
     const getRandomSkill = (skills) => {
           const randomIndex = Math.floor(Math.random() * skills.length);
           return skills[randomIndex];
      };
 
+  // disable buttons if the monster is defeated
      const disableAllButtons = () => {
 			const buttons = document.querySelectorAll('#fighting-btns-container button');
 			buttons.forEach(button => {
 				button.disabled = true;
 			});
 		};
-
+  //flee monster button function
     fleeMonsterBtn.addEventListener('click', () => {
 
         const playerChanceToFlee = selectedMonster.chanceToFlee;
@@ -755,7 +758,7 @@ let selectedMonster = null;
           fleeMonsterBtn.style.display = 'none';
         }
     });
-
+  //fight monster button function
     fightMonsterBtn.addEventListener('click', () => {
 			// Handle initiating the fight
 			monsterStats.style.display = 'none';
@@ -768,7 +771,7 @@ let selectedMonster = null;
       resetFightStory();
 
 		});
-
+  //for grassland area fight or flee
     const monsterAppear = () => {
       monsterStats.style.display = 'inline-block';
       mapNav.style.display = 'none';
@@ -784,11 +787,12 @@ let selectedMonster = null;
 
 
      
-
+  //reset the gameState
      const fightEnded = () => {
         return gameState = "notFighting";
       };
 
+  //valley monsters fighting display
     const valleyMonstersFightFunction = () => {
 
         let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
@@ -801,17 +805,17 @@ let selectedMonster = null;
           const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
 
           if (monsterEvade) {
-              appendFightStory(`${selectedMonster.name} evaded the attack!`);
+               appendFightStoryPlayerMove(`${selectedMonster.name} evaded the attack!`);
           } else {
               selectedMonster.health -= playerDamage;
-              appendFightStory(`You used basic attack and hit ${selectedMonster.name} for ${playerDamage} damage!`);
+               appendFightStoryPlayerMove(`You used basic attack and hit ${selectedMonster.name} for ${playerDamage} damage!`);
               updateMonsterStatsUI(selectedMonster);
           }
 
           // Check if monster is defeated
           if (selectedMonster.health <= 0) {
-              appendFightStory(`${selectedMonster.name} is defeated!`);
-              appendFightStory(`You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`);
+              appendFightStoryPlayerMove(`${selectedMonster.name} is defeated!\n
+               You have gained ${selectedMonster.monsterGoldReward} gold and ${selectedMonster.monsterExpReward} exp from defeating ${selectedMonster.name}`);
               disableAllButtons();
               fightingConfirmBtn.style.display = "inline-block";
 
@@ -850,7 +854,7 @@ let selectedMonster = null;
           const skill = getRandomSkill(selectedMonster.monsterSkills);
 
           if (playerEvade) {
-              appendFightStory("You evaded the attack!");
+              appendFightStoryMonsterMove(`You evaded ${selectedMonster.name}'s attack!`);
           } else {
               if (monsterCriticalChance) {
 
@@ -877,7 +881,7 @@ let selectedMonster = null;
 
                        const monsterSkillDamage = parseInt(skill.skillDmg - (playerDef / 3));
 
-                      appendFightStory(`${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} energy! It deals ${monsterSkillDamage} damage!`);
+                      appendFightStoryMonsterMove(`${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} energy! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                      
                       playerHealth -= monsterSkillDamage;
@@ -887,7 +891,7 @@ let selectedMonster = null;
                   } else {
 
                       playerHealth -= monsterDamage;
-                      appendFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack and hits you for ${monsterDamage} damage!`);
+                     appendFightStoryMonsterMove(`${selectedMonster.name} doesn't have energy left, uses basic attack and hits you for ${monsterDamage} damage!`);
                   }
               }
           }
@@ -895,7 +899,7 @@ let selectedMonster = null;
           // Check if player is defeated
           if (playerHealth <= 0) {
 
-              appendFightStory("Player is defeated!");
+              appendFightStoryMonsterMove("Player is defeated!");
               disableAllButtons();
 
               setTimeout(function playerDefeated() {
@@ -963,10 +967,19 @@ let selectedMonster = null;
         fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom
     };
 
-    const appendFightStory = (text) => {
+    const appendFightStoryPlayerMove = (text) => {
         const fightStory = document.getElementById('fight-story');
         const newEntry = document.createElement('div');
-        newEntry.className = 'fight-story-entry';
+        newEntry.className = 'fight-story-player-entry';
+        newEntry.textContent = text;
+        fightStory.appendChild(newEntry);
+        fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom
+    };
+
+    const appendFightStoryMonsterMove = (text) => {
+        const fightStory = document.getElementById('fight-story');
+        const newEntry = document.createElement('div');
+        newEntry.className = 'fight-story-monster-entry';
         newEntry.textContent = text;
         fightStory.appendChild(newEntry);
         fightStory.scrollTop = fightStory.scrollHeight; // Auto-scroll to the bottom

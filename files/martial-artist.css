@@ -419,10 +419,20 @@ body{
   flex-direction: column-reverse;
 }
 
-.fight-story-entry {
+.fight-story-player-entry {
     border-bottom: 2px solid #ad7a33; 
     padding: 5px 0;
     margin-bottom: 5px;
+    color: #dc1ae2;
+    font-weight: bold;
+}
+
+.fight-story-monster-entry {
+    border-bottom: 2px solid #ad7a33; 
+    padding: 5px 0;
+    margin-bottom: 5px;
+    color: #373a1f;
+    font-weight: bold;
 }
 
 .crit-dmg-fight-story{
@@ -430,6 +440,7 @@ body{
   padding: 5px 0;
   margin-bottom: 5px;
   color: rgb(5, 161, 161);
+  font-weight: bold;
 }
 
 .use-hp-potion-fight-story{
@@ -437,6 +448,7 @@ body{
   padding: 5px 0;
   margin-bottom: 5px;
   color: rgb(236, 11, 11);
+  font-weight: bold;
 }
 
 .use-energy-potion-fight-story{
@@ -444,6 +456,7 @@ body{
   padding: 5px 0;
   margin-bottom: 5px;
   color: rgb(18, 240, 44);
+  font-weight: bold;
 }
 
 #fighting-confirm-btn{
