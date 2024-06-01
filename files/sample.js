@@ -6,7 +6,7 @@ let playerGold = 50;
 
 let playerStr = 10;
 let playerAgi = 10;
-let playerDef = 40;
+let playerDef = 30;
 let playerLuck = 10;
 let playerEnergy = 100;
 
@@ -533,8 +533,10 @@ let selectedMonster = null;
 				const strDivisor = Math.random() < 0.5 ? 2 : 3;
 				const agiDivisor = Math.random() < 0.5 ? 2 : 3;
 
+        let damageOutput = parseInt((totalPlayerStr / strDivisor) + (totalPlayerAgi / agiDivisor) - (monsterDef / 4));
+
 				// Calculate player damage considering monster defense
-				return parseInt((totalPlayerStr / strDivisor) + (totalPlayerAgi / agiDivisor) - (monsterDef / 4));
+				return damageOutput <= 0 ? 1 : damageOutput;
 			};
 
 			// Function to calculate monster damage
@@ -543,8 +545,10 @@ let selectedMonster = null;
 				const strDivisor = Math.random() < 0.5 ? 2 : 3;
 				const agiDivisor = Math.random() < 0.5 ? 2 : 3;
 
+        let damageOutput = parseInt((monsterStrength / strDivisor) + (monsterAgility / agiDivisor) - (playerDefense / 4));
+
 				// Calculate monster damage considering player defense
-				return parseInt((monsterStrength / strDivisor) + (monsterAgility / agiDivisor) - (playerDefense / 4));
+				return damageOutput <= 0 ? 1 : damageOutput; // if the monster is weaker than the current player stats it will only return 1 not the negative n
 			};
 
 		// Function to check evasion
@@ -587,7 +591,7 @@ let selectedMonster = null;
       monsterLevel.textContent = monster.monsterLevel;
 
       fightingMonsterName.textContent = monster.name;
-      fightingMonsterHealth.textContent = monster.health;
+      fightingMonsterHealth.textContent = monster.health <= 0 ? 0 : monster.health; /*added ternary operator so it would display negative digits*/
       fightingMonsterLevel.textContent = monster.monsterLevel;
       fightingMonsterEnergy.textContent = monster.monsterEnergy;
 
@@ -860,7 +864,7 @@ let selectedMonster = null;
 
                   if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-                     const monsterSkillDamage = skill.skillDmg * 2;
+                     const monsterSkillDamage = parseInt((skill.skillDmg * 2) <= 0 ? 2 : (skill.skillDmg * 2));
 
                      appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
@@ -870,7 +874,7 @@ let selectedMonster = null;
                       updateMonsterStatsUI(selectedMonster);
                       updatePlayerStatsUI();
                   } else {
-                    const monsterCritDmg = parseInt(monsterDamage * 2);
+                    const monsterCritDmg = parseInt((monsterDamage * 2) <= 0 ? 2 : (monsterDamage * 2));
                       playerHealth -= monsterCritDmg;
                       appendCritDmgFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
                   }
@@ -879,7 +883,7 @@ let selectedMonster = null;
 
                   if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-                       const monsterSkillDamage = parseInt(skill.skillDmg - (playerDef / 3));
+                       const monsterSkillDamage = parseInt((skill.skillDmg - (playerDef / 3)) < 0 ? 1 : (skill.skillDmg - (playerDef / 3)));
 
                       appendFightStoryMonsterMove(`${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} energy! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
