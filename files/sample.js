@@ -6,7 +6,7 @@ let playerGold = 50;
 
 let playerStr = 10;
 let playerAgi = 10;
-let playerDef = 10;
+let playerDef = 40;
 let playerLuck = 10;
 let playerEnergy = 100;
 
