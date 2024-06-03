@@ -1,12 +1,12 @@
-let playerLvl = 1;
+let playerLvl = 7;
 let playerXp = 0;
-let playerHealth = 100;
+let playerHealth = 1000;
 let playerGold = 50;
      
 
 let playerStr = 10;
 let playerAgi = 10;
-let playerDef = 30;
+let playerDef = 500;
 let playerLuck = 10;
 let playerEnergy = 100;
 
@@ -410,7 +410,7 @@ const valleyMonstersList = [
     monsterExpReward: 19,
     monsterGoldReward: 21,
     chanceToFlee: 30,
-    monsterEnergy: 90,
+    monsterEnergy: 1000,
     monsterSkills: [
       {
         skillName: 'tailWhip',
@@ -506,11 +506,16 @@ let selectedMonster = null;
     };
 
     const monsterRandomPicker = () => {
-      let minLevel = 1; // Minimum monster level
-      let maxLevel = Math.min(playerLvl + 1, valleyMonstersList.length); // Maximum monster level based on player's level
+      let minLevel = Math.max(1, playerLvl - 1); // Minimum monster level
+      let maxLevel = playerLvl + 2; // Maximum monster level based on player's level
 
       // Filter monsters based on the level range
       let availableMonsters = valleyMonstersList.filter(monster => monster.monsterLevel >= minLevel && monster.monsterLevel <= maxLevel);
+
+       if (availableMonsters.length === 0) {
+    alert("No monsters available within the specified level range.");
+    return null;
+  }
 
       // Randomly select a monster from the available monsters
       let randomIndex = Math.floor(Math.random() * availableMonsters.length);
@@ -864,24 +869,67 @@ let selectedMonster = null;
 
                   if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-                     const monsterSkillDamage = parseInt((skill.skillDmg * 2) <= 0 ? 2 : (skill.skillDmg * 2));
+                    if (skill.skillName === 'stun'){
+
+                      const monsterSkillDamage = parseInt((skill.skillDmg * 2) <= 0 ? 2 : (skill.skillDmg * 2));
 
                      appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                      
                       playerHealth -= monsterSkillDamage;
 
+                      gameState = "monsterTurn"; // Monster gets another turn
+                        setTimeout(monsterAction, 500);
+
                       updateMonsterStatsUI(selectedMonster);
                       updatePlayerStatsUI();
+
+
+                      
+                    }else{
+
+                       const monsterSkillDamage = parseInt((skill.skillDmg * 2) <= 0 ? 2 : (skill.skillDmg * 2));
+
+                       appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
+                      selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
+                     
+                      playerHealth -= monsterSkillDamage;
+
+                      updateMonsterStatsUI(selectedMonster);
+                      updatePlayerStatsUI();
+
+                    }
+
+                    
                   } else {
                     const monsterCritDmg = parseInt((monsterDamage * 2) <= 0 ? 2 : (monsterDamage * 2));
                       playerHealth -= monsterCritDmg;
-                      appendCritDmgFightStory(`${selectedMonster.name} doesn't have energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
+                      appendCritDmgFightStory(`${selectedMonster.name} doesn't have enough energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
+                      updateMonsterStatsUI(selectedMonster);
                   }
 
               } else {
 
                   if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+
+                    if (skill.skillName === 'stun') {
+
+                      const monsterSkillDamage = parseInt((skill.skillDmg - (playerDef / 3)) < 0 ? 1 : (skill.skillDmg - (playerDef / 3)));
+
+                      appendFightStoryMonsterMove(`${selectedMonster.name} uses ${skill.skillName} for ${skill.skillEnergyConsumption} energy! It deals ${monsterSkillDamage} damage!\n you missed your turn!`);
+                      selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
+
+
+                     
+                      playerHealth -= monsterSkillDamage;
+
+                      updateMonsterStatsUI(selectedMonster);
+                      updatePlayerStatsUI();
+
+                      gameState = "monsterTurn"; // Monster gets another turn
+                        setTimeout(monsterAction, 500);
+                        
+                      }else{
 
                        const monsterSkillDamage = parseInt((skill.skillDmg - (playerDef / 3)) < 0 ? 1 : (skill.skillDmg - (playerDef / 3)));
 
@@ -891,11 +939,16 @@ let selectedMonster = null;
                       playerHealth -= monsterSkillDamage;
 
                       updateMonsterStatsUI(selectedMonster);
-                        updatePlayerStatsUI();
+                      updatePlayerStatsUI();
+
+                      }
+
+                      
+                      
                   } else {
 
                       playerHealth -= monsterDamage;
-                     appendFightStoryMonsterMove(`${selectedMonster.name} doesn't have energy left, uses basic attack and hits you for ${monsterDamage} damage!`);
+                     appendFightStoryMonsterMove(`${selectedMonster.name} doesn't have enough energy left, uses basic attack and hits you for ${monsterDamage} damage!`);
                   }
               }
           }
@@ -1011,8 +1064,7 @@ const toggleInventoryUI = () => {
 
 // Function to display the inventory UI
     const displayInventoryUI = () => {
-        // Assuming you have a div element with the ID "inventory-container" to display the inventory UI
-
+      
         inventoryContainer.innerHTML = '';
 
         if(playerInv.length === 0){
@@ -1029,7 +1081,7 @@ const toggleInventoryUI = () => {
 
             // Create a new paragraph element to display the item
             const itemElement = document.createElement('p');
-            itemElement.textContent = item; // Assuming each item is a string
+            itemElement.textContent = item;
 
 
             // Create a button to use the item
@@ -1040,12 +1092,13 @@ const toggleInventoryUI = () => {
             itemBtn.addEventListener('click', () => {
                 if (item === 'health_potion') {
                     useHealthPotion();
+                     
                 } else if (item === 'energy_potion') {
                     useEnergyPotion();
-                }else{
-
                 }
             });
+
+                    
 
             // Append the item element and button to the container
             itemContainer.appendChild(itemElement);
