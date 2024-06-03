@@ -801,17 +801,18 @@ let selectedMonster = null;
         return gameState = "notFighting";
       };
 
+      let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
+
   //valley monsters fighting display
     const valleyMonstersFightFunction = () => {
 
-        let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
-
+        
           const playerAction = () => {
 
             if (gameState !== "playerTurn") return;
          
-          const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
-          const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
+              const playerDamage = calculatePlayerDamage(playerStr, playerAgi, playerCurrentWeapon, selectedMonster.monsterDef);
+              const monsterEvade = checkEvasion(selectedMonster.monsterAgi, selectedMonster.monsterLuck);
 
           if (monsterEvade) {
                appendFightStoryPlayerMove(`${selectedMonster.name} evaded the attack!`);
@@ -867,7 +868,30 @@ let selectedMonster = null;
           } else {
               if (monsterCriticalChance) {
 
-                  if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+                  handleCriticalAttack(skill, monsterDamage);
+                  
+              } else {
+
+                  handleNormalAttack(skill, monsterDamage);
+
+              }
+          }
+
+          // Check if player is defeated
+          if (playerHealth <= 0) {
+
+              handlePlayerDefeat();
+
+          } else {
+
+              gameState = "playerTurn";
+          }
+
+              updatePlayerStatsUI();
+        };
+
+        const handleCriticalAttack = (skill, monsterDamage) => {
+          if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
                     if (skill.skillName === 'stun'){
 
@@ -878,13 +902,15 @@ let selectedMonster = null;
                      
                       playerHealth -= monsterSkillDamage;
 
-                      gameState = "monsterTurn"; // Monster gets another turn
-                        setTimeout(monsterAction, 500);
-
                       updateMonsterStatsUI(selectedMonster);
                       updatePlayerStatsUI();
 
+                      return () => {
+                        gameState = "monsterTurn"; // Monster gets another turn
+                        setTimeout(monsterAction, 500);
+                     } 
 
+                     console.log(gameState);
                       
                     }else{
 
@@ -908,9 +934,11 @@ let selectedMonster = null;
                       updateMonsterStatsUI(selectedMonster);
                   }
 
-              } else {
+        };
 
-                  if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
+        const handleNormalAttack = (skill, monsterDamage) => {
+
+            if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
                     if (skill.skillName === 'stun') {
 
@@ -926,8 +954,10 @@ let selectedMonster = null;
                       updateMonsterStatsUI(selectedMonster);
                       updatePlayerStatsUI();
 
-                      gameState = "monsterTurn"; // Monster gets another turn
+                     return () => {
+                        gameState = "monsterTurn"; // Monster gets another turn
                         setTimeout(monsterAction, 500);
+                     } 
                         
                       }else{
 
@@ -950,13 +980,11 @@ let selectedMonster = null;
                       playerHealth -= monsterDamage;
                      appendFightStoryMonsterMove(`${selectedMonster.name} doesn't have enough energy left, uses basic attack and hits you for ${monsterDamage} damage!`);
                   }
-              }
-          }
+        };
 
-          // Check if player is defeated
-          if (playerHealth <= 0) {
+        const handlePlayerDefeat = () => {
 
-              appendFightStoryMonsterMove("Player is defeated!");
+          appendFightStoryMonsterMove("Player is defeated!");
               disableAllButtons();
 
               setTimeout(function playerDefeated() {
@@ -967,15 +995,6 @@ let selectedMonster = null;
                   resetPlayerHealth();
                   fightEnded();
               }, 2000);
-
-              
-
-          } else {
-
-              gameState = "playerTurn";
-          }
-
-              updatePlayerStatsUI();
         };
 
 
