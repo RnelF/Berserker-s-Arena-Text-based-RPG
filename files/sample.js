@@ -1,6 +1,6 @@
-let playerLvl = 7;
+let playerLvl = 10;
 let playerXp = 0;
-let playerHealth = 1000;
+let playerHealth = 9000;
 let playerGold = 50;
      
 
@@ -442,7 +442,7 @@ const valleyMonstersList = [
     monsterExpReward: 30,
     monsterGoldReward: 35,
     chanceToFlee: 20,
-    monsterEnergy: 100,
+    monsterEnergy: 1000,
     monsterSkills: [
       {
         skillName: 'earthSmash',
@@ -462,7 +462,7 @@ const valleyMonstersList = [
         playerSkipTurn: true
       },
       {
-        skillName: 'scaleHardening',
+        skillName: 'scale Hardening',
         buff: true,
         skillEnergyConsumption: 20
       },
@@ -890,29 +890,35 @@ let selectedMonster = null;
               updatePlayerStatsUI();
         };
 
+
         const handleCriticalAttack = (skill, monsterDamage) => {
+
           if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-                    if (skill.skillName === 'stun'){
+                    if (skill.skillName === 'stun' || skill.skillName === 'earthSmash'){
 
                       const monsterSkillDamage = parseInt((skill.skillDmg * 2) <= 0 ? 2 : (skill.skillDmg * 2));
 
-                     appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage!`);
+                     appendCritDmgFightStory(`${selectedMonster.name} uses ${skill.skillName} CRITICAL!! It deals ${monsterSkillDamage} damage! ${selectedMonster.name} takes another turn!`);
+                     
                       selectedMonster.monsterEnergy -= skill.skillEnergyConsumption;
                      
                       playerHealth -= monsterSkillDamage;
 
-                      updateMonsterStatsUI(selectedMonster);
-                      updatePlayerStatsUI();
-
-                      return () => {
-                        gameState = "monsterTurn"; // Monster gets another turn
-                        setTimeout(monsterAction, 500);
-                     } 
-
-                     console.log(gameState);
                       
-                    }else{
+                        gameState = "monsterTurn"; // Monster gets another turn
+                        monsterAction();
+                     
+ 
+                    }else if(skill.skillName === 'scale Hardening'){
+
+                          const additionalDef = 10;
+                          appendFightStoryMonsterMove(`${selectedMonster.name} uses ${skill.skillName} and gained ${additionalDef} additional Defense!`);
+
+                          selectedMonster.monsterDef += additionalDef;
+
+                          playerHealth = playerHealth;
+                      }else{
 
                        const monsterSkillDamage = parseInt((skill.skillDmg * 2) <= 0 ? 2 : (skill.skillDmg * 2));
 
@@ -921,9 +927,6 @@ let selectedMonster = null;
                      
                       playerHealth -= monsterSkillDamage;
 
-                      updateMonsterStatsUI(selectedMonster);
-                      updatePlayerStatsUI();
-
                     }
 
                     
@@ -931,8 +934,11 @@ let selectedMonster = null;
                     const monsterCritDmg = parseInt((monsterDamage * 2) <= 0 ? 2 : (monsterDamage * 2));
                       playerHealth -= monsterCritDmg;
                       appendCritDmgFightStory(`${selectedMonster.name} doesn't have enough energy left, uses basic attack CRITICAL!! Deals ${monsterCritDmg} damage!`);
-                      updateMonsterStatsUI(selectedMonster);
+                      
                   }
+
+                   updateMonsterStatsUI(selectedMonster);
+                    updatePlayerStatsUI();
 
         };
 
@@ -940,7 +946,7 @@ let selectedMonster = null;
 
             if (selectedMonster.monsterEnergy >= skill.skillEnergyConsumption) {
 
-                    if (skill.skillName === 'stun') {
+                    if (skill.skillName === 'stun' || skill.skillName === 'earthSmash') {
 
                       const monsterSkillDamage = parseInt((skill.skillDmg - (playerDef / 3)) < 0 ? 1 : (skill.skillDmg - (playerDef / 3)));
 
@@ -954,11 +960,18 @@ let selectedMonster = null;
                       updateMonsterStatsUI(selectedMonster);
                       updatePlayerStatsUI();
 
-                     return () => {
+                     
                         gameState = "monsterTurn"; // Monster gets another turn
-                        setTimeout(monsterAction, 500);
-                     } 
+                        monsterAction();
+                     
                         
+                      }else if(skill.skillName === 'scale Hardening'){
+                          const additionalDef = 10;
+                          appendFightStoryMonsterMove(`${selectedMonster.name} uses ${skill.skillName} and gained ${additionalDef} additional Defense!`);
+
+                          selectedMonster.monsterDef += additionalDef;
+
+                          playerHealth = playerHealth;
                       }else{
 
                        const monsterSkillDamage = parseInt((skill.skillDmg - (playerDef / 3)) < 0 ? 1 : (skill.skillDmg - (playerDef / 3)));
@@ -968,11 +981,12 @@ let selectedMonster = null;
                      
                       playerHealth -= monsterSkillDamage;
 
-                      updateMonsterStatsUI(selectedMonster);
-                      updatePlayerStatsUI();
-
                       }
 
+                     
+
+                    updateMonsterStatsUI(selectedMonster);
+                    updatePlayerStatsUI();
                       
                       
                   } else {
