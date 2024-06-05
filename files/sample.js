@@ -795,13 +795,14 @@ let selectedMonster = null;
      
   //reset the gameState
      const fightEnded = () => {
-        return gameState = "notFighting";
+        return gameState = "PlayerTurn";
       };
 
-      let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
 
   //valley monsters fighting display
     const valleyMonstersFightFunction = () => {
+
+       let gameState = "playerTurn"; // Initial state: player's turn before the fight button is clicked.
 
         
           const playerAction = () => {
