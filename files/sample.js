@@ -506,16 +506,11 @@ let selectedMonster = null;
     };
 
     const monsterRandomPicker = () => {
-      let minLevel = Math.max(1, playerLvl - 1); // Minimum monster level
+      let minLevel = Math.max(1, playerLvl - 6); // Minimum monster level
       let maxLevel = playerLvl + 2; // Maximum monster level based on player's level
 
       // Filter monsters based on the level range
       let availableMonsters = valleyMonstersList.filter(monster => monster.monsterLevel >= minLevel && monster.monsterLevel <= maxLevel);
-
-       if (availableMonsters.length === 0) {
-    alert("No monsters available within the specified level range.");
-    return null;
-  }
 
       // Randomly select a monster from the available monsters
       let randomIndex = Math.floor(Math.random() * availableMonsters.length);
@@ -699,7 +694,6 @@ let selectedMonster = null;
         
 				appendUseHPFightStory(`You used HP potion and Regenerated ${healthPotionHealAmount} HP`);
 				
-        fightStory.appendChild(useHpText);
 			} else {
       
 				appendUseHPFightStory("You don't have any health potions.");
@@ -916,6 +910,7 @@ let selectedMonster = null;
                           appendFightStoryMonsterMove(`${selectedMonster.name} uses ${skill.skillName} and gained ${additionalDef} additional Defense!`);
 
                           selectedMonster.monsterDef += additionalDef;
+                          console.log(selectedMonster.monsterDef);
 
                           playerHealth = playerHealth;
                       }else{
@@ -1124,10 +1119,18 @@ const toggleInventoryUI = () => {
             // Add an event listener to the button
             itemBtn.addEventListener('click', () => {
                 if (item === 'health_potion') {
+
                     useHealthPotion();
-                     
+                    itemContainer.style.display = 'none';
+                    itemElement.style.display = 'none';
+                    itemBtn.style.display = 'none';
+
                 } else if (item === 'energy_potion') {
+
                     useEnergyPotion();
+                    itemContainer.style.display = 'none';
+                    itemElement.style.display = 'none';
+                    itemBtn.style.display = 'none';
                 }
             });
 
@@ -1324,6 +1327,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
               townMap.style.display = 'none';
               alchemistStore.style.display = 'inline-block';
 
+               let quantity = parseInt(healthPotionQuantityInput.value);
+
               alchemistStoreBackBtn.addEventListener('click',() => {
 
                   alchemistStore.style.display = 'none';
@@ -1334,15 +1339,21 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
               hpCancelBtn.addEventListener('click', () => {
                 buyHealthPotionBtns.style.display = 'none';
+                healthPotionQuantityInput.value = 0;
               });
 
               energyCancelBtn.addEventListener('click', () => {
                 buyEnergyPotionBtns.style.display = 'none';
+                energyPotionQuantityInput.value = 0;
+
               })
 
               alchemyStoreNotifBckBtn.addEventListener('click', () => {
                   alchemyStoreNotif.style.display = 'none';
+                  healthPotionQuantityInput.value = 0;
               });
+
+             
 
             
               // Event listener for "Buy Health Potion" button
@@ -1354,7 +1365,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
           // Event listener for "Confirm" button for buying health potion
             healthPotionConfirmBtn.addEventListener('click', () => {
                 const healthPotionCost = 10;
-                const quantity = parseInt(healthPotionQuantityInput.value);
+                
 
                 if (quantity > 0) {
                     if (playerGold >= healthPotionCost * quantity) {
@@ -1367,9 +1378,11 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                         alchemyStoreNotifTxt.textContent = 'You successfully bought ' + quantity + ' Health Potion(s)';
                         buyHealthPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
                         buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons for energy potion
+                        healthPotionQuantityInput.value = 0;
                     } else {
                         alchemyStoreNotif.style.display = 'inline-block';
                         alchemyStoreNotifTxt.textContent = 'You don\'t have enough gold to buy ' + quantity + ' Health Potion(s)';
+                        healthPotionQuantityInput.value = 0;
                     }
                 } else {
                     alchemyStoreNotif.style.display = 'inline-block';
@@ -1381,7 +1394,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
             // Event listener for minus button for adjusting quantity
             buyHealthPotionMinusBtn.addEventListener('click', () => {
-                let quantity = parseInt(healthPotionQuantityInput.value);
+                
                 if (quantity > 0) {
                     quantity--;
                     healthPotionQuantityInput.value = quantity;
@@ -1390,7 +1403,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
             // Event listener for plus button for adjusting quantity
             buyHealthPotionPlusBtn.addEventListener('click', () => {
-                let quantity = parseInt(healthPotionQuantityInput.value);
+                
                 quantity++;
                 healthPotionQuantityInput.value = quantity;
             });
@@ -1419,10 +1432,12 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                         alchemyStoreNotif.style.display = 'inline-block';
                         alchemyStoreNotifTxt.textContent = 'You successfully bought ' + quantity + ' Energy Potion(s)';
                         buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
+                        energyPotionQuantityInput.value = 0;
                         
                     } else {
                         alchemyStoreNotif.style.display = 'inline-block';
                         alchemyStoreNotifTxt.textContent = 'You don\'t have enough gold to buy ' + quantity + ' Energy Potion(s)';
+                        energyPotionQuantityInput.value = 0;
                     }
                 } else {
                     alchemyStoreNotif.style.display = 'inline-block';
