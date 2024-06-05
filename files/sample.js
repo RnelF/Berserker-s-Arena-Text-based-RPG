@@ -1,12 +1,13 @@
-let playerLvl = 10;
+
+let playerLvl = 1;
 let playerXp = 0;
-let playerHealth = 9000;
-let playerGold = 50;
+let playerHealth = 100;
+let playerGold = 100;
      
 
 let playerStr = 10;
 let playerAgi = 10;
-let playerDef = 500;
+let playerDef = 10;
 let playerLuck = 10;
 let playerEnergy = 100;
 
@@ -54,7 +55,7 @@ const armors = {
     armorLuck: 10
   },
   armoredBoots: {
-    armorDef: 15
+    armorDef: 25
   },
   geatHelm: {
     armorDef: 15,
@@ -621,6 +622,8 @@ let selectedMonster = null;
         fightingPlayerLevel.textContent = playerLvl; // Update with player's level during fight
         fightingPlayerEnergy.textContent = playerEnergy; // Update with player's energy during fight
       };
+
+      updatePlayerStatsUI();
 
     
     // Resets the fight story
@@ -1321,6 +1324,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
         mapNav.style.display = 'none';
         townMap.style.display = 'inline-block';
 
+        //alchemist store function
         alchemistStoreBtn.addEventListener('click',() => {
 
               mapNav.style.display = 'none';
@@ -1465,6 +1469,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
           });
 
+          //blacksmith store function
           blacksmitStoreBtn.addEventListener('click',() => {
 
             mapNav.style.display = 'none';
@@ -1506,11 +1511,119 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
                   }
               };
+
+            const buyGauntlet = () => {
+          
+                  const gauntletCost = 70;
+
+                  if (playerGold >= gauntletCost) {
+
+                      playerGold -= gauntletCost;
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      playerArmorInv.gauntlet = armors.gauntlet;
+
+                      gold.textContent = playerGold;
+
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Gauntlet';
+
+                      updatePlayerStatsUI();
+
+                  } else {
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Gauntlet';
+
+                  }
+              };
+
+            const buyArmoredBoots = () => {
+          
+                  const armoredBootsCost = 70;
+
+                  if (playerGold >= armoredBootsCost) {
+
+                      playerGold -= armoredBootsCost;
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      playerArmorInv.armoredBoots = armors.armoredBoots;
+
+                      gold.textContent = playerGold;
+
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought Armored Boots';
+
+                      updatePlayerStatsUI();
+
+                  } else {
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy Armored Boots';
+
+                  }
+              };
+
+            const buyGreatHelm = () => {
+          
+                  const greatHelmCost = 70;
+
+                  if (playerGold >= greatHelmCost) {
+
+                      playerGold -= greatHelmCost;
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      playerArmorInv.greatHelm = armors.greatHelm;
+
+                      gold.textContent = playerGold;
+
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought Great Helm';
+
+                      updatePlayerStatsUI();
+
+                  } else {
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy Great Helm';
+
+                  }
+              }; 
+
+            const buyShield = () => {
+          
+                  const shieldCost = 100;
+
+                  if (playerGold >= shieldCost) {
+
+                      playerGold -= shieldCost;
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      playerArmorInv.shield = armors.shield;
+
+                      gold.textContent = playerGold;
+
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Shield';
+
+                      updatePlayerStatsUI();
+
+                  } else {
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Shield';
+
+                  }
+              };   
               
               buyBreastplateBtn.addEventListener('click', buyBreastplate);
-
+              buyGauntletBtn.addEventListener('click', buyGauntlet);
+              buyArmoredBootsBtn.addEventListener('click', buyArmoredBoots);
+              buyGreatHelmBtn.addEventListener('click', buyGreatHelm);
+              buyShieldBtn.addEventListener('click', buyShield);
           });
 
+          //swordsmith store function
           swordsmithStoreBtn.addEventListener('click',() => {
 
             mapNav.style.display = 'none';
