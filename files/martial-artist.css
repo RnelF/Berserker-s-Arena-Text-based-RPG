@@ -219,6 +219,8 @@ body{
 	text-wrap: no wrap;
 }
 
+/*town*/
+
 
 #town-map{
   margin-top: 20px;
@@ -299,7 +301,7 @@ body{
   border-radius: 10px;
 }
 
-#blacksmith-store-notif-container{
+#blacksmith-store-notif-container, #swordsmith-store-notif-container {
   background-color: white;
   margin-top: 100px;
   padding: 20px 20px;
@@ -308,11 +310,11 @@ body{
   display:none;
 }
 
-#blacksmith-store-notif{
+#blacksmith-store-notif, #swordsmith-store-notif{
   font-weight: bold;
   font-size: 1.0rem;
 }
-#blacksmith-store-notif-bck-btn{
+#blacksmith-store-notif-bck-btn, #swordsmith-store-notif-bck-btn{
   margin-top: 15px;
 }
 
@@ -329,6 +331,16 @@ body{
   border: 5px solid black;
   border-radius: 10px;
 }
+
+#swordsmith-store-back-btn{
+  display: block;
+
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*Fighting*/
 
 
 #monster-stats{
@@ -380,7 +392,6 @@ body{
   margin: 20px 20px;
 }
 
-/*Fighting*/
 
 .fight-monster-btn,
 .flee-monster-btn {
