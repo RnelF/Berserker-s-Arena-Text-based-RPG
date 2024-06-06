@@ -1075,20 +1075,53 @@ let selectedMonster = null;
 // check inventory function
 // Define the event listener for the "check-inv" button
 const checkInventoryBtn = document.getElementById('check-inv');
+const displayWeaponInvBtn = document.getElementById('check-weapon-inv')
+const displayArmorInvBtn = document.getElementById('check-armor-inv')
 const inventoryContainer = document.getElementById('inventory-container');
+const weaponInvContainer = document.getElementById('weapon-inv-container');
+const armorInvContainer = document.getElementById('armor-inv-container');
+
+
 
 const toggleInventoryUI = () => {
     // Check if the inventory container is displayed
     if (window.getComputedStyle(inventoryContainer).display !== 'none') {
         // If it's displayed, hide it
         inventoryContainer.style.display = 'none';
-        checkInventoryBtn.textContent = 'Check Inventory'; // Change button text back
+        checkInventoryBtn.textContent = 'Inventory'; // Change button text back
     } else {
         // If it's not displayed, show it
         displayInventoryUI();
         checkInventoryBtn.textContent = 'Close Inventory'; // Change button text
     }
 };
+
+const toggleWeaponInvUI = () => {
+    // Check if the inventory container is displayed
+    if (window.getComputedStyle(weaponInvContainer).display !== 'none') {
+        // If it's displayed, hide it
+        weaponInvContainer.style.display = 'none';
+        displayWeaponInvBtn.textContent = 'Weaponry'; // Change button text back
+    } else {
+        // If it's not displayed, show it
+        displayWeaponInventoryUI();
+        displayWeaponInvBtn.textContent = 'Close Weaponry'; // Change button text
+    }
+};
+
+const toggleArmorInvUI = () => {
+    // Check if the inventory container is displayed
+    if (window.getComputedStyle(armorInvContainer).display !== 'none') {
+        // If it's displayed, hide it
+        armorInvContainer.style.display = 'none';
+        displayArmorInvBtn.textContent = 'Check Armory'; // Change button text back
+    } else {
+        // If it's not displayed, show it
+        displayArmorInventoryUI();
+        displayArmorInvBtn.textContent = 'Close Armory'; // Change button text
+    }
+};
+
 
 
 
@@ -1154,9 +1187,7 @@ const toggleInventoryUI = () => {
         toggleInventoryUI();
     });
 
-      const weaponInvContainer = document.getElementById('weapon-inv-container');
-      const armorInvContainer = document.getElementById('armor-inv-container');
-
+      
     const displayWeaponInventoryUI = () => {
       weaponInvContainer.innerHTML = '';
 
@@ -1198,7 +1229,9 @@ const toggleInventoryUI = () => {
       }
     };
 
-    const displayWeaponInvBtn = document.getElementById('check-weapon-inv').addEventListener('click', displayWeaponInventoryUI);
+    displayWeaponInvBtn.addEventListener('click', () => {
+      toggleWeaponInvUI();
+    });
 
     const displayArmorInventoryUI = () => {
     armorInvContainer.innerHTML = '';
@@ -1241,7 +1274,9 @@ const toggleInventoryUI = () => {
     }
     };
 
-    const displayArmorInvBtn = document.getElementById('check-armor-inv').addEventListener('click', displayArmorInventoryUI);
+    displayArmorInvBtn.addEventListener('click', () => {
+      toggleArmorInvUI();
+    });
 
 
 
