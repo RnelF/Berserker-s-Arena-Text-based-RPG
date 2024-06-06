@@ -717,8 +717,6 @@ let selectedMonster = null;
 				updatePlayerStatsUI();
 
         appendUseEnergyFightStory(`You used Energy potion and Regenerated ${energyPotionRestoreAmount} Energy`);
-
-        fightStory.appendChild(useEPotion);
 				
 			} else {
 
@@ -1155,6 +1153,95 @@ const toggleInventoryUI = () => {
     checkInventoryBtn.addEventListener('click', () => {
         toggleInventoryUI();
     });
+
+      const weaponInvContainer = document.getElementById('weapon-inv-container');
+      const armorInvContainer = document.getElementById('armor-inv-container');
+
+    const displayWeaponInventoryUI = () => {
+      weaponInvContainer.innerHTML = '';
+
+      if(playerWeaponInv.length === 0){
+          weaponInvContainer.style.display = 'block';
+          weaponInvContainer.textContent = 'There are no weapons in your inventory';
+      } else {
+          // Show the weapon inventory UI
+          weaponInvContainer.style.display = 'block';
+
+          playerWeaponInv.forEach(weapon => {
+              // Create a container for the weapon and the button
+              const weaponContainer = document.createElement('div');
+              weaponContainer.classList.add('weapon-container');
+
+              // Create a new paragraph element to display the weapon
+              const weaponElement = document.createElement('p');
+              weaponElement.textContent = weapon;
+
+              // Create a button to equip the weapon
+              const equipBtn = document.createElement('button');
+              equipBtn.innerHTML = 'Equip Weapon';
+
+              // Add an event listener to the button
+              equipBtn.addEventListener('click', () => {
+                  equipWeapon(weapon);
+                  weaponContainer.style.display = 'none';
+                  weaponElement.style.display = 'none';
+                  equipBtn.style.display = 'none';
+              });
+
+              // Append the weapon element and button to the container
+              weaponContainer.appendChild(weaponElement);
+              weaponContainer.appendChild(equipBtn);
+
+              // Append the weapon container to the weapon inventory container
+              weaponInvContainer.appendChild(weaponContainer);
+          });
+      }
+    };
+
+    const displayWeaponInvBtn = document.getElementById('check-weapon-inv').addEventListener('click', displayWeaponInventoryUI);
+
+    const displayArmorInventoryUI = () => {
+    armorInvContainer.innerHTML = '';
+
+    if(playerArmorInv.length === 0){
+        armorInvContainer.style.display = 'block';
+        armorInvContainer.textContent = 'There are no armors in your inventory';
+    } else {
+        // Show the armor inventory UI
+        armorInvContainer.style.display = 'block';
+
+        playerArmorInv.forEach(armor => {
+            // Create a container for the armor and the button
+            const armorContainer = document.createElement('div');
+            armorContainer.classList.add('armor-container');
+
+            // Create a new paragraph element to display the armor
+            const armorElement = document.createElement('p');
+            armorElement.textContent = armor;
+
+            // Create a button to equip the armor
+            const equipBtn = document.createElement('button');
+            equipBtn.innerHTML = 'Equip Armor';
+
+            // Add an event listener to the button
+            equipBtn.addEventListener('click', () => {
+                equipArmor(armor);
+                armorContainer.style.display = 'none';
+                armorElement.style.display = 'none';
+                equipBtn.style.display = 'none';
+            });
+
+            // Append the armor element and button to the container
+            armorContainer.appendChild(armorElement);
+            armorContainer.appendChild(equipBtn);
+
+            // Append the armor container to the armor inventory container
+            armorInvContainer.appendChild(armorContainer);
+        });
+    }
+    };
+
+    const displayArmorInvBtn = document.getElementById('check-armor-inv').addEventListener('click', displayArmorInventoryUI);
 
 
 

@@ -221,6 +221,15 @@ body{
 
 /*town*/
 
+#weapon-inv-container, #armor-inv-container{
+  background-color: white;
+  display: none;
+  overflow: scroll;
+  margin:10px 10px;
+  border: 2px solid orangered;
+  border-radius: 10px;
+  height: 180px;
+}
 
 #town-map{
   margin-top: 20px;
@@ -244,10 +253,10 @@ body{
   background: rgba(255, 255, 255, 0.21);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5.1px);
-  -webkit-backdrop-filter: blur(5.1px);
+  backdrop-filter: blur(3.1px);
+  -webkit-backdrop-filter: blur(10.1px);
   border: 1px solid rgba(255, 255, 255, 0.13);
-  margin-top: 35%;
+  margin-top: 10%;
   margin-left: 27%;
   padding: 20px;
 }
