@@ -221,7 +221,9 @@ body{
 
 /*town*/
 
-#weapon-inv-container, #armor-inv-container{
+#weapon-inv-container, 
+#armor-inv-container
+{
   background-color: white;
   display: none;
   overflow: scroll;
@@ -229,7 +231,33 @@ body{
   border: 2px solid orangered;
   border-radius: 10px;
   height: 180px;
-  z-index: 1000px;
+  z-index: 1000;
+  padding: 10px;
+  position: absolute;
+}
+
+#town-inventory-container{
+  background-color: white;
+  display: none;
+  overflow: scroll;
+  margin:10px 10px;
+  border: 2px solid orangered;
+  border-radius: 10px;
+  height: 180px;
+  z-index: 1000;
+  padding: 10px;
+  position: absolute;
+}
+
+.town-item-container{
+    display: flex;
+    align-items: center;
+}
+
+.town-item-container p{
+  margin-left: 200px;
+  margin-right: 10px ;
+  margin-bottom: 10px;
 }
 
 #equipments-container{
@@ -242,7 +270,10 @@ body{
   border: 2px solid orangered;
   border-radius: 10px;
   height: 180px;
-  z-index: 1000px;
+  z-index: 1000;
+  padding: 10px;
+  position: absolute;
+  
 }
 
 #town-map{
@@ -273,6 +304,8 @@ body{
   margin-top: 10%;
   margin-left: 27%;
   padding: 20px;
+  z-index: 1;
+  position: relative;
 }
 
 /*alchemist store*/

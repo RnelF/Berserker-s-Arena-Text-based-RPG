@@ -535,9 +535,9 @@ let selectedMonster = null;
 				let totalPlayerStr = playerStr;
 				let totalPlayerAgi = playerAgi;
 
-				if (playerCurrentWeapon !== undefined) {
+				if (playerCurrentWeapon !== null) {
 					// Add weapon damage if a weapon is equipped
-					totalPlayerStr += weapons[playerCurrentWeapon].weaponDmg;
+					totalPlayerStr += playerCurrentWeapon.weaponDmg;
 				}
 
 				// Generate a random number to determine the divisor for playerStr and playerAgi
@@ -1087,9 +1087,11 @@ let selectedMonster = null;
 const checkInventoryBtn = document.getElementById('check-inv');
 const displayWeaponInvBtn = document.getElementById('check-weapon-inv')
 const currentWeaponContainer = document.getElementById('current-weapon-container');
+const townInventoryContainer = document.getElementById('town-inventory-container');
 
 const displayArmorInvBtn = document.getElementById('check-armor-inv')
 const inventoryContainer = document.getElementById('inventory-container');
+const townInventoryBtn = document.getElementById('town-check-inv-btn');
 const weaponInvContainer = document.getElementById('weapon-inv-container');
 const armorInvContainer = document.getElementById('armor-inv-container');
 
@@ -1108,6 +1110,19 @@ const toggleInventoryUI = () => {
         // If it's not displayed, show it
         displayInventoryUI();
         checkInventoryBtn.textContent = 'Close Inventory'; // Change button text
+    }
+};
+
+const toggleTownInventoryUI = () => {
+    // Check if the inventory container is displayed
+    if (window.getComputedStyle(townInventoryContainer).display !== 'none') {
+        // If it's displayed, hide it
+        townInventoryContainer.style.display = 'none';
+        townInventoryBtn.textContent = 'Inventory'; // Change button text back
+    } else {
+        // If it's not displayed, show it
+        displayTownInventoryUI();
+        townInventoryBtn.textContent = 'Close Inventory'; // Change button text
     }
 };
 
@@ -1218,6 +1233,66 @@ const togglePlayerEquipment = () => {
         toggleInventoryUI();
     });
 
+    const displayTownInventoryUI = () => {
+      
+        townInventoryContainer.innerHTML = '';
+
+        if(playerInv.length === 0){
+            townInventoryContainer.style.display = 'block';
+            townInventoryContainer.textContent = 'There is no item in your inventory';
+        }else{
+            // Show the inventory UI
+            townInventoryContainer.style.display = 'block';
+
+            playerInv.forEach(item => {
+            // Create a container for the item and the button
+            const townItemContainer = document.createElement('div');
+            townItemContainer.classList.add('town-item-container');
+
+            // Create a new paragraph element to display the item
+            const townItemElement = document.createElement('p');
+            townItemElement.textContent = item;
+
+
+            // Create a button to use the item
+            const townItemBtn = document.createElement('button');
+            townItemBtn.innerHTML = 'Use Item';
+
+            // Add an event listener to the button
+            townItemBtn.addEventListener('click', () => {
+                if (item === 'health_potion') {
+
+                    useHealthPotion();
+                    townItemContainer.style.display = 'none';
+                    townItemElement.style.display = 'none';
+                    townItemBtn.style.display = 'none';
+
+                } else if (item === 'energy_potion') {
+
+                    useEnergyPotion();
+                    townItemContainer.style.display = 'none';
+                    townItemElement.style.display = 'none';
+                    townItemBtn.style.display = 'none';
+                }
+            });
+
+                    
+
+            // Append the item element and button to the container
+            townItemContainer.appendChild(townItemElement);
+            townItemContainer.appendChild(townItemBtn);
+
+            // Append the item container to the inventory container
+            inventoryContainer.appendChild(townItemContainer);
+        });
+
+            
+        }
+    };
+
+    townInventoryBtn.addEventListener('click', () => {
+      toggleTownInventoryUI();
+    });
       
     const displayWeaponInventoryUI = () => {
 
@@ -1260,6 +1335,8 @@ const togglePlayerEquipment = () => {
           });
       }
     };
+
+    
 
     displayWeaponInvBtn.addEventListener('click', () => {
       toggleWeaponInvUI();
