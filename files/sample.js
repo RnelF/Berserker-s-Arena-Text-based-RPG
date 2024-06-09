@@ -15,7 +15,7 @@ let playerInv = [];
 let playerWeaponInv = [];
 let playerArmorInv = [];
 
-let playerCurrentWeapon = playerWeaponInv[0];
+let playerCurrentWeapon = null;
 
 const healthPotionHealAmount = 50;
 const energyPotionRestoreAmount = 20;
@@ -29,20 +29,30 @@ const monsterImg = document.getElementById('monster-img');
 
 
 const weapons = {
-  sword: {
-    weaponDmg: 6
+  sword:{
+    weaponName: 'Sword',
+    weaponDmg: 6,
+    weaponBonusAtt: 0
   },
   dagger: {
-    weaponDmg: 8
+    weaponName: 'Dagger',
+    weaponDmg: 8,
+    weaponBonusAtt: 5
   },
   crossbow: {
-    weaponDmg: 7
+    weaponName: 'Crossbow',
+    weaponDmg: 7,
+    weaponBonusAtt: 7
   },
   katana: {
+    weaponName: 'Katana',
     weaponDmg: 10,
+    weaponBonusAtt: 10
   },
   nunchuks: {
-    weaponDmg: 8
+    weaponName: 'Nun-Chuks',
+    weaponDmg: 8,
+    weaponBonusAtt: 15
   },
 };
 
@@ -1076,6 +1086,8 @@ let selectedMonster = null;
 // Define the event listener for the "check-inv" button
 const checkInventoryBtn = document.getElementById('check-inv');
 const displayWeaponInvBtn = document.getElementById('check-weapon-inv')
+const currentWeaponContainer = document.getElementById('current-weapon-container');
+
 const displayArmorInvBtn = document.getElementById('check-armor-inv')
 const inventoryContainer = document.getElementById('inventory-container');
 const weaponInvContainer = document.getElementById('weapon-inv-container');
@@ -1190,6 +1202,8 @@ const toggleArmorInvUI = () => {
       
     const displayWeaponInventoryUI = () => {
       weaponInvContainer.innerHTML = '';
+      
+      currentWeaponContainer.innerHTML = playerCurrentWeapon ? `Current Weapon: ${playerCurrentWeapon.weaponName} (Dmg: ${playerCurrentWeapon.weaponDmg}) (Bonus Att: ${playerCurrentWeapon.weaponBonusAtt})` :  'No weapon equipped';
 
       if(playerWeaponInv.length === 0){
           weaponInvContainer.style.display = 'block';
@@ -1205,7 +1219,7 @@ const toggleArmorInvUI = () => {
 
               // Create a new paragraph element to display the weapon
               const weaponElement = document.createElement('p');
-              weaponElement.textContent = weapon;
+              weaponElement.textContent = weapon.weaponName;
 
               // Create a button to equip the weapon
               const equipBtn = document.createElement('button');
@@ -1213,7 +1227,7 @@ const toggleArmorInvUI = () => {
 
               // Add an event listener to the button
               equipBtn.addEventListener('click', () => {
-                  equipWeapon(weapon);
+                  equipWeapon(weapon.weaponName);
                   weaponContainer.style.display = 'none';
                   weaponElement.style.display = 'none';
                   equipBtn.style.display = 'none';
@@ -1277,6 +1291,28 @@ const toggleArmorInvUI = () => {
     displayArmorInvBtn.addEventListener('click', () => {
       toggleArmorInvUI();
     });
+
+    const equipWeapon = (weaponName) => {
+    const weapon = playerWeaponInv.find(w => w.weaponName === weaponName);
+
+    if (weapon) {
+      playerCurrentWeapon = weapon;
+      swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
+      updatePlayerStatsUI();
+    } else {
+      swordsmithStoreNotifTxt.textContent = `You don't have a ${weaponName} to equip`;
+    }
+};
+
+    const equipArmor = (armor) => {
+        if (playerArmorInv.includes(armor)) {
+            // Add any attributes modification logic here if needed
+            blacksmithStoreNotif.textContent = `You equipped ${armor}`;
+            updatePlayerStatsUI();
+        } else {
+            blacksmithStoreNotif.textContent = `You don't have ${armor} to equip`;
+        }
+    };
 
 
 
@@ -1783,7 +1819,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= SwordCost;
 
                       swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.sword = weapons.sword;
+                      playerWeaponInv.push(weapons.sword);
 
                       gold.textContent = playerGold;
 
@@ -1798,6 +1834,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Sword';
 
                   }
+
+                  console.log(playerWeaponInv);
               };
 
            const buyDagger = () => {
