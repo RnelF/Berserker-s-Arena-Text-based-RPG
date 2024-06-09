@@ -1093,6 +1093,9 @@ const inventoryContainer = document.getElementById('inventory-container');
 const weaponInvContainer = document.getElementById('weapon-inv-container');
 const armorInvContainer = document.getElementById('armor-inv-container');
 
+const equipmentsContainer = document.getElementById('equipments-container');
+const playerEquipmentBtn = document.getElementById('player-equipment');
+
 
 
 const toggleInventoryUI = () => {
@@ -1126,7 +1129,7 @@ const toggleArmorInvUI = () => {
     if (window.getComputedStyle(armorInvContainer).display !== 'none') {
         // If it's displayed, hide it
         armorInvContainer.style.display = 'none';
-        displayArmorInvBtn.textContent = 'Check Armory'; // Change button text back
+        displayArmorInvBtn.textContent = 'Armory'; // Change button text back
     } else {
         // If it's not displayed, show it
         displayArmorInventoryUI();
@@ -1134,7 +1137,23 @@ const toggleArmorInvUI = () => {
     }
 };
 
+const togglePlayerEquipment = () => {
+    if (window.getComputedStyle(equipmentsContainer).display !== 'none') {
+        // If it's displayed, hide it
+        equipmentsContainer.style.display = 'none';
+        playerEquipmentBtn.textContent = 'Equipments'; // Change button text back
+    } else {
+        // If it's not displayed, show it
+        playerEquipment();
+        playerEquipmentBtn.textContent = 'Close Equipments'; // Change button text
+    }
+};
 
+    const playerEquipment = () => {
+        equipmentsContainer.style.display = 'inline-block';
+    };
+
+    playerEquipmentBtn.addEventListener('click',togglePlayerEquipment);
 
 
 // Function to display the inventory UI
@@ -1201,9 +1220,8 @@ const toggleArmorInvUI = () => {
 
       
     const displayWeaponInventoryUI = () => {
+
       weaponInvContainer.innerHTML = '';
-      
-      currentWeaponContainer.innerHTML = playerCurrentWeapon ? `Current Weapon: ${playerCurrentWeapon.weaponName} (Dmg: ${playerCurrentWeapon.weaponDmg}) (Bonus Att: ${playerCurrentWeapon.weaponBonusAtt})` :  'No weapon equipped';
 
       if(playerWeaponInv.length === 0){
           weaponInvContainer.style.display = 'block';
@@ -1227,7 +1245,7 @@ const toggleArmorInvUI = () => {
 
               // Add an event listener to the button
               equipBtn.addEventListener('click', () => {
-                  equipWeapon(weapon.weaponName);
+                  equipWeapon(weapon);
                   weaponContainer.style.display = 'none';
                   weaponElement.style.display = 'none';
                   equipBtn.style.display = 'none';
@@ -1295,13 +1313,12 @@ const toggleArmorInvUI = () => {
     const equipWeapon = (weaponName) => {
     const weapon = playerWeaponInv.find(w => w.weaponName === weaponName);
 
-    if (weapon) {
       playerCurrentWeapon = weapon;
+      swordsmithStoreNotifTxt.style.display = 'inline-block';
       swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
+      
       updatePlayerStatsUI();
-    } else {
-      swordsmithStoreNotifTxt.textContent = `You don't have a ${weaponName} to equip`;
-    }
+    
 };
 
     const equipArmor = (armor) => {

@@ -229,6 +229,20 @@ body{
   border: 2px solid orangered;
   border-radius: 10px;
   height: 180px;
+  z-index: 1000px;
+}
+
+#equipments-container{
+  background-color: white;
+  display: none;
+  width: 500px;
+  height: auto;
+  overflow: scroll;
+  margin:10px 10px;
+  border: 2px solid orangered;
+  border-radius: 10px;
+  height: 180px;
+  z-index: 1000px;
 }
 
 #town-map{
@@ -317,6 +331,7 @@ body{
   border-radius: 20px;
   border: 2px solid black;
   display:none;
+  z-index: 1000;
 }
 
 #blacksmith-store-notif, #swordsmith-store-notif{
