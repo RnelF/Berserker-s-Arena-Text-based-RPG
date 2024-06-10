@@ -16,6 +16,12 @@ let playerWeaponInv = [];
 let playerArmorInv = [];
 
 let playerCurrentWeapon = null;
+let playerCurrentHelmet = null;
+let playerCurrentArmor = null;
+let playerCurrentGauntlet = null;
+let playerCurrentBoots = null;
+let playerCurrentShield = null;
+
 
 const healthPotionHealAmount = 50;
 const energyPotionRestoreAmount = 20;
@@ -1165,7 +1171,18 @@ const togglePlayerEquipment = () => {
 };
 
     const playerEquipment = () => {
-        equipmentsContainer.style.display = 'inline-block';
+        equipmentsContainer.style.display = 'block';
+        
+        let currentWeaponName = playerCurrentWeapon == null ? 'No weapon equiped' : playerCurrentWeapon.weaponName;
+
+        equipmentsContainer.innerHTML = `
+            <p>Weapon: ${currentWeaponName}</p>
+            <p>Helmet: </p>
+            <p>Armor: </p>
+            <p>Gauntlet: </p>
+            <p>Boots: </p>
+            <p>Shield: </p>
+        `;
     };
 
     playerEquipmentBtn.addEventListener('click',togglePlayerEquipment);
@@ -1390,9 +1407,11 @@ const togglePlayerEquipment = () => {
     const equipWeapon = (weaponName) => {
     const weapon = playerWeaponInv.find(w => w.weaponName === weaponName);
 
-      playerCurrentWeapon = weapon;
-      swordsmithStoreNotifTxt.style.display = 'inline-block';
-      swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
+      if(weapon){
+          playerCurrentWeapon = weapon;
+          swordsmithStoreNotifTxt.style.display = 'inline-block';
+          swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
+      }
       
       updatePlayerStatsUI();
     
@@ -1929,7 +1948,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
                   }
 
-                  console.log(playerWeaponInv);
+                  
               };
 
            const buyDagger = () => {
