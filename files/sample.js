@@ -1283,7 +1283,7 @@ const togglePlayerEquipment = () => {
             townItemContainer.appendChild(townItemBtn);
 
             // Append the item container to the inventory container
-            inventoryContainer.appendChild(townItemContainer);
+            townInventoryContainer.appendChild(townItemContainer);
         });
 
             
