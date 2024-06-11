@@ -1125,6 +1125,8 @@ const armorInvContainer = document.getElementById('armor-inv-container');
 const equipmentsContainer = document.getElementById('equipments-container');
 const playerEquipmentBtn = document.getElementById('player-equipment');
 
+let isWeaponEquiped = false;
+
 
 
 const toggleInventoryUI = () => {
@@ -1352,9 +1354,12 @@ const togglePlayerEquipment = () => {
               // Add an event listener to the button
               equipBtn.addEventListener('click', () => {
                   equipWeapon(weapon.weaponName);
-                  weaponContainer.style.display = 'none';
-                  weaponElement.style.display = 'none';
-                  equipBtn.style.display = 'none';
+
+                  if(isWeaponEquiped === true){
+                    equipBtn.disabled = true;
+                  }else{
+                    equipBtn.disabled = false;
+                  }
               });
 
               // Append the weapon element and button to the container
@@ -1425,13 +1430,10 @@ const togglePlayerEquipment = () => {
           playerCurrentWeapon = weapon;
           swordsmithStoreNotifTxt.style.display = 'inline-block';
           swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
+          isWeaponEquiped = true;
           updatePlayerStatsUI();
-          
       }
-      
-      
-    
-};
+    };
 
     const equipArmor = (armorName) => {
       const armor = playerArmorInv.find(a => a.armorName === armorName);
