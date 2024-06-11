@@ -33,6 +33,13 @@ const mapNav = document.getElementById('map-nav');
 const monsterStats = document.getElementById('monster-stats');
 const monsterImg = document.getElementById('monster-img');
 
+const currentWeaponUI = document.getElementById('current-weapon');
+const currentHelmetUI = document.getElementById('current-helmet');
+const currentArmorUI = document.getElementById('current-armor');
+const currentGauntletUI = document.getElementById('current-gauntlet');
+const currentBootsUI = document.getElementById('current-boots');
+const currentShieldUI = document.getElementById('current-shield');
+
 
 const weapons = {
   sword:{
@@ -64,20 +71,25 @@ const weapons = {
 
 const armors = {
   breastplate: {
+    armorName: 'BreastPlate',
     armorDef: 15
   },
   gauntlet: {
+    gauntletName: 'Gauntlet',
     armorDef: 10,
     armorLuck: 10
   },
   armoredBoots: {
+    bootsName: 'Armored Boots',
     armorDef: 25
   },
   geatHelm: {
+    helmetName: 'Great Helm',
     armorDef: 15,
     armorLuck: 10
   },
   shield: {
+    shieldName: 'Round Shield',
     armorDef:30
   }
 };
@@ -630,6 +642,15 @@ let selectedMonster = null;
         energy.textContent = playerEnergy;
         health.textContent = playerHealth;
 
+        currentWeaponUI.textContent = playerCurrentWeapon ? playerCurrentWeapon.weaponName : 'No Weapon Equipped';
+        currentHelmetUI.textContent = playerCurrentHelmet ? playerCurrentHelmet.armorName : 'No Helmet Equipped';
+        currentArmorUI.textContent = playerCurrentArmor ? playerCurrentArmor.armorName : 'No Armor Equipped';
+        currentGauntletUI.textContent = playerCurrentGauntlet ? playerCurrentGauntlet.armorName : 'No Gauntlet Equipped';
+        currentBootsUI.textContent = playerCurrentBoots ? playerCurrentBoots.armorName : 'No Boots Equipped';
+        currentShieldUI.textContent = playerCurrentShield ? playerCurrentShield.armorName : 'No Shield Equipped';
+
+        
+
         const fightingPlayerHealth = document.getElementById('player-health');
         const fightingPlayerLevel = document.getElementById('player-level');
         const fightingPlayerEnergy = document.getElementById('player-energy');
@@ -1138,10 +1159,14 @@ const toggleWeaponInvUI = () => {
         // If it's displayed, hide it
         weaponInvContainer.style.display = 'none';
         displayWeaponInvBtn.textContent = 'Weaponry'; // Change button text back
+        console.log(playerWeaponInv);
+          console.log(playerCurrentWeapon);
     } else {
         // If it's not displayed, show it
         displayWeaponInventoryUI();
         displayWeaponInvBtn.textContent = 'Close Weaponry'; // Change button text
+        console.log(playerWeaponInv);
+          console.log(playerCurrentWeapon);
     }
 };
 
@@ -1172,17 +1197,6 @@ const togglePlayerEquipment = () => {
 
     const playerEquipment = () => {
         equipmentsContainer.style.display = 'block';
-        
-        let currentWeaponName = playerCurrentWeapon == null ? 'No weapon equiped' : playerCurrentWeapon.weaponName;
-
-        equipmentsContainer.innerHTML = `
-            <p>Weapon: ${currentWeaponName}</p>
-            <p>Helmet: </p>
-            <p>Armor: </p>
-            <p>Gauntlet: </p>
-            <p>Boots: </p>
-            <p>Shield: </p>
-        `;
     };
 
     playerEquipmentBtn.addEventListener('click',togglePlayerEquipment);
@@ -1337,7 +1351,7 @@ const togglePlayerEquipment = () => {
 
               // Add an event listener to the button
               equipBtn.addEventListener('click', () => {
-                  equipWeapon(weapon);
+                  equipWeapon(weapon.weaponName);
                   weaponContainer.style.display = 'none';
                   weaponElement.style.display = 'none';
                   equipBtn.style.display = 'none';
@@ -1411,21 +1425,40 @@ const togglePlayerEquipment = () => {
           playerCurrentWeapon = weapon;
           swordsmithStoreNotifTxt.style.display = 'inline-block';
           swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
+          updatePlayerStatsUI();
+          
       }
       
-      updatePlayerStatsUI();
+      
     
 };
 
-    const equipArmor = (armor) => {
-        if (playerArmorInv.includes(armor)) {
-            // Add any attributes modification logic here if needed
-            blacksmithStoreNotif.textContent = `You equipped ${armor}`;
-            updatePlayerStatsUI();
-        } else {
-            blacksmithStoreNotif.textContent = `You don't have ${armor} to equip`;
+    const equipArmor = (armorName) => {
+      const armor = playerArmorInv.find(a => a.armorName === armorName);
+      if (armor) {
+        switch (armorName) {
+          case 'BreastPlate':
+            playerCurrentArmor = armor;
+            break;
+          case 'Gauntlet':
+            playerCurrentGauntlet = armor;
+            break;
+          case 'Armored Boots':
+            playerCurrentBoots = armor;
+            break;
+          case 'Great Helm':
+            playerCurrentHelmet = armor;
+            break;
+          case 'Round Shield':
+            playerCurrentShield = armor;
+            break;
         }
-    };
+        blacksmithStoreNotif.textContent = `You equipped ${armorName}`;
+        updatePlayerStatsUI();
+      } else {
+        blacksmithStoreNotif.textContent = `You don't have ${armorName} to equip`;
+      }
+};
 
 
 
@@ -1948,6 +1981,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
                   }
 
+                  console.log(playerWeaponInv);
                   
               };
 
