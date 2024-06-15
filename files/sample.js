@@ -2,7 +2,7 @@
 let playerLvl = 1;
 let playerXp = 0;
 let playerHealth = 100;
-let playerGold = 100;
+let playerGold = 1000;
      
 
 let playerStr = 10;
@@ -76,22 +76,22 @@ const armors = {
     armorLuck: 5
   },
   gauntlet: {
-    gauntletName: 'Gauntlet',
+    armorName: 'Gauntlet',
     armorDef: 10,
     armorLuck: 15
   },
   armoredBoots: {
-    bootsName: 'Armored Boots',
+    armorName: 'Armored Boots',
     armorDef: 25,
     armorLuck: 10
   },
-  geatHelm: {
-    helmetName: 'Great Helm',
+  greatHelm: {
+    armorName: 'Great Helm',
     armorDef: 15,
     armorLuck: 20
   },
   shield: {
-    shieldName: 'Round Shield',
+    armorName: 'Round Shield',
     armorDef:30,
     armorLuck: 25
   }
@@ -1475,7 +1475,7 @@ const togglePlayerEquipment = () => {
             playerStr += weapon.weaponDmg;
             updatePlayerStatsUI();
             displayWeaponInventoryUI(); 
-            console.log(playerStr);
+            
         }
       };
 
@@ -1490,7 +1490,7 @@ const togglePlayerEquipment = () => {
               isWeaponEquipped = false;
               updatePlayerStatsUI();
               displayWeaponInventoryUI();
-              console.log(playerStr);
+              
           }
       };
 
@@ -1525,8 +1525,6 @@ const togglePlayerEquipment = () => {
                 break;
         }
 
-        console.log(playerDef);
-        console.log(playerLuck);
         blacksmithStoreNotif.textContent = `You equipped ${armorName}`;
         updatePlayerStatsUI();
         displayArmorInventoryUI(); // Update the UI to reflect the equipped armor
@@ -1535,41 +1533,39 @@ const togglePlayerEquipment = () => {
     }
 };
 
-const unequipArmor = (armorName) => {
-    switch (armorName) {
-        case 'BreastPlate':
-            playerDef -= playerCurrentArmor.armorDef;
-            playerLuck -= playerCurrentArmor.armorLuck;
-            playerCurrentArmor = null;
-            break;
-        case 'Gauntlet':
-            playerDef -= playerCurrentGauntlet.armorDef;
-            playerLuck -= playerCurrentGauntlet.armorLuck;
-            playerCurrentGauntlet = null;
-            break;
-        case 'Armored Boots':
-            playerDef -= playerCurrentBoots.armorDef;
-            playerLuck -= playerCurrentBoots.armorLuck;
-            playerCurrentBoots = null;
-            break;
-        case 'Great Helm':
-            playerDef -= playerCurrentHelmet.armorDef;
-            playerLuck -= playerCurrentHelmet.armorLuck;
-            playerCurrentHelmet = null;
-            break;
-        case 'Round Shield':
-            playerDef -= playerCurrentShield.armorDef;
-            playerLuck -= playerCurrentShield.armorLuck;
-            playerCurrentShield = null;
-            break;
-    }
+    const unequipArmor = (armorName) => {
+        switch (armorName) {
+            case 'BreastPlate':
+                playerDef -= playerCurrentArmor.armorDef;
+                playerLuck -= playerCurrentArmor.armorLuck;
+                playerCurrentArmor = null;
+                break;
+            case 'Gauntlet':
+                playerDef -= playerCurrentGauntlet.armorDef;
+                playerLuck -= playerCurrentGauntlet.armorLuck;
+                playerCurrentGauntlet = null;
+                break;
+            case 'Armored Boots':
+                playerDef -= playerCurrentBoots.armorDef;
+                playerLuck -= playerCurrentBoots.armorLuck;
+                playerCurrentBoots = null;
+                break;
+            case 'Great Helm':
+                playerDef -= playerCurrentHelmet.armorDef;
+                playerLuck -= playerCurrentHelmet.armorLuck;
+                playerCurrentHelmet = null;
+                break;
+            case 'Round Shield':
+                playerDef -= playerCurrentShield.armorDef;
+                playerLuck -= playerCurrentShield.armorLuck;
+                playerCurrentShield = null;
+                break;
+        }
 
-       console.log(playerDef);
-        console.log(playerLuck);
-    blacksmithStoreNotif.textContent = `You unequipped ${armorName}`;
-    updatePlayerStatsUI();
-    displayArmorInventoryUI(); // Update the UI to reflect the unequipped armor
-};
+        blacksmithStoreNotif.textContent = `You unequipped ${armorName}`;
+        updatePlayerStatsUI();
+        displayArmorInventoryUI(); // Update the UI to reflect the unequipped armor
+    };
 
 
 
@@ -1937,6 +1933,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Breastplate';
 
                   }
+
+                  console.log(playerArmorInv);
               };
 
             const buyGauntlet = () => {
@@ -1948,7 +1946,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= gauntletCost;
 
                       blacksmithStoreNotif.style.display = 'inline-block';
-                      playerArmorInv.gauntlet = armors.gauntlet;
+                      playerArmorInv.push(armors.gauntlet);
 
                       gold.textContent = playerGold;
 
@@ -1963,6 +1961,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Gauntlet';
 
                   }
+                  console.log(playerArmorInv);
               };
 
             const buyArmoredBoots = () => {
@@ -1974,7 +1973,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= armoredBootsCost;
 
                       blacksmithStoreNotif.style.display = 'inline-block';
-                      playerArmorInv.armoredBoots = armors.armoredBoots;
+                      playerArmorInv.push(armors.armoredBoots);
 
                       gold.textContent = playerGold;
 
@@ -1989,6 +1988,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy Armored Boots';
 
                   }
+                  console.log(playerArmorInv);
               };
 
             const buyGreatHelm = () => {
@@ -2000,7 +2000,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= greatHelmCost;
 
                       blacksmithStoreNotif.style.display = 'inline-block';
-                      playerArmorInv.greatHelm = armors.greatHelm;
+                      playerArmorInv.push(armors.greatHelm);
 
                       gold.textContent = playerGold;
 
@@ -2026,7 +2026,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= shieldCost;
 
                       blacksmithStoreNotif.style.display = 'inline-block';
-                      playerArmorInv.shield = armors.shield;
+                      playerArmorInv.push(armors.shield);
 
                       gold.textContent = playerGold;
 
@@ -2105,7 +2105,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= daggerCost;
 
                       swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.dagger = weapons.dagger;
+                      playerWeaponInv.push(weapons.dagger);
 
                       gold.textContent = playerGold;
 
@@ -2131,7 +2131,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= crossbowCost;
 
                       swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.crossbow = weapons.crossbow;
+                      playerWeaponInv.push(weapons.crossbow);
 
                       gold.textContent = playerGold;
 
@@ -2157,7 +2157,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= katanaCost;
 
                       swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.katana = weapons.katana;
+                      playerWeaponInv.push(weapons.katana);
 
                       gold.textContent = playerGold;
 
@@ -2183,7 +2183,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= NunchuksCost;
 
                       swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.nunchuks = weapons.nunchuks;
+                      playerWeaponInv.push(weapons.nunchuks);
 
                       gold.textContent = playerGold;
 
