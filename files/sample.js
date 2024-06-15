@@ -72,25 +72,28 @@ const weapons = {
 const armors = {
   breastplate: {
     armorName: 'BreastPlate',
-    armorDef: 15
+    armorDef: 15,
+    armorLuck: 5
   },
   gauntlet: {
     gauntletName: 'Gauntlet',
     armorDef: 10,
-    armorLuck: 10
+    armorLuck: 15
   },
   armoredBoots: {
     bootsName: 'Armored Boots',
-    armorDef: 25
+    armorDef: 25,
+    armorLuck: 10
   },
   geatHelm: {
     helmetName: 'Great Helm',
     armorDef: 15,
-    armorLuck: 10
+    armorLuck: 20
   },
   shield: {
     shieldName: 'Round Shield',
-    armorDef:30
+    armorDef:30,
+    armorLuck: 25
   }
 };
 
@@ -1347,15 +1350,22 @@ const togglePlayerEquipment = () => {
             weaponElement.style.display = 'inline-block';
             weaponElement.textContent = weapon.weaponName;
 
-            // Create a button to equip the weapon
+            // Create a button to equip/unequip the weapon
             const equipBtn = document.createElement('button');
             equipBtn.style.display = 'inline-block';
             equipBtn.innerHTML = 'Equip Weapon';
-            equipBtn.disabled = isWeaponEquipped && playerCurrentWeapon && playerCurrentWeapon.weaponName === weapon.weaponName;
+
+            // Check if the weapon is currently equipped
+            let isEquipped = playerCurrentWeapon && playerCurrentWeapon.weaponName === weapon.weaponName;
+
+            if (isEquipped) {
+                equipBtn.innerHTML = 'Unequip Weapon';
+                equipBtn.style.backgroundColor = 'red';
+            }
 
             // Add an event listener to the button
             equipBtn.addEventListener('click', () => {
-                if (playerCurrentWeapon && playerCurrentWeapon.weaponName === weapon.weaponName) {
+                if (isEquipped) {
                     unequipWeapon();
                 } else {
                     equipWeapon(weapon.weaponName);
@@ -1371,15 +1381,7 @@ const togglePlayerEquipment = () => {
         });
 
         // Create and add the unequip button if a weapon is equipped
-        if (isWeaponEquipped) {
-            const unequipBtn = document.createElement('button');
-            unequipBtn.innerHTML = 'Unequip Weapon';
-            unequipBtn.style.display = 'inline-block';
-            unequipBtn.addEventListener('click', () => {
-                unequipWeapon();
-            });
-            weaponInvContainer.appendChild(unequipBtn);
-        }
+        
     }
 };
 
@@ -1392,7 +1394,7 @@ const togglePlayerEquipment = () => {
     const displayArmorInventoryUI = () => {
     armorInvContainer.innerHTML = '';
 
-    if(playerArmorInv.length === 0){
+    if (playerArmorInv.length === 0) {
         armorInvContainer.style.display = 'block';
         armorInvContainer.textContent = 'There are no armors in your inventory';
     } else {
@@ -1406,18 +1408,44 @@ const togglePlayerEquipment = () => {
 
             // Create a new paragraph element to display the armor
             const armorElement = document.createElement('p');
-            armorElement.textContent = armor;
+            armorElement.style.display = 'inline-block';
+            armorElement.textContent = armor.armorName;
 
-            // Create a button to equip the armor
+            // Create a button to equip/unequip the armor
             const equipBtn = document.createElement('button');
             equipBtn.innerHTML = 'Equip Armor';
 
+            // Check if the armor is currently equipped
+            let isEquipped = false;
+            switch (armor.armorName) {
+                case 'BreastPlate':
+                    isEquipped = playerCurrentArmor && playerCurrentArmor.armorName === armor.armorName;
+                    break;
+                case 'Gauntlet':
+                    isEquipped = playerCurrentGauntlet && playerCurrentGauntlet.armorName === armor.armorName;
+                    break;
+                case 'Armored Boots':
+                    isEquipped = playerCurrentBoots && playerCurrentBoots.armorName === armor.armorName;
+                    break;
+                case 'Great Helm':
+                    isEquipped = playerCurrentHelmet && playerCurrentHelmet.armorName === armor.armorName;
+                    break;
+                case 'Round Shield':
+                    isEquipped = playerCurrentShield && playerCurrentShield.armorName === armor.armorName;
+                    break;
+            }
+
+            if (isEquipped) {
+                equipBtn.innerHTML = 'Unequip Armor';
+            }
+
             // Add an event listener to the button
             equipBtn.addEventListener('click', () => {
-                equipArmor(armor);
-                armorContainer.style.display = 'none';
-                armorElement.style.display = 'none';
-                equipBtn.style.display = 'none';
+                if (isEquipped) {
+                    unequipArmor(armor.armorName);
+                } else {
+                    equipArmor(armor.armorName);
+                }
             });
 
             // Append the armor element and button to the container
@@ -1428,7 +1456,7 @@ const togglePlayerEquipment = () => {
             armorInvContainer.appendChild(armorContainer);
         });
     }
-    };
+};
 
     displayArmorInvBtn.addEventListener('click', () => {
       toggleArmorInvUI();
@@ -1455,7 +1483,7 @@ const togglePlayerEquipment = () => {
           if (playerCurrentWeapon) {
               swordsmithStoreNotifTxt.style.display = 'inline-block';
               swordsmithStoreNotifTxt.textContent = `You unequipped a ${playerCurrentWeapon.weaponName}`;
-               playerStr -= playerCurrentWeapon.weaponBonusAtt;
+              playerStr -= playerCurrentWeapon.weaponBonusAtt;
               playerStr -= playerCurrentWeapon.weaponDmg;
               playerCurrentWeapon = null;
              
@@ -1467,30 +1495,80 @@ const togglePlayerEquipment = () => {
       };
 
     const equipArmor = (armorName) => {
-      const armor = playerArmorInv.find(a => a.armorName === armorName);
-      if (armor) {
+    const armor = playerArmorInv.find(a => a.armorName === armorName);
+    if (armor) {
         switch (armorName) {
-          case 'BreastPlate':
-            playerCurrentArmor = armor;
-            break;
-          case 'Gauntlet':
-            playerCurrentGauntlet = armor;
-            break;
-          case 'Armored Boots':
-            playerCurrentBoots = armor;
-            break;
-          case 'Great Helm':
-            playerCurrentHelmet = armor;
-            break;
-          case 'Round Shield':
-            playerCurrentShield = armor;
-            break;
+            case 'BreastPlate':
+                playerCurrentArmor = armor;
+                playerDef += armor.armorDef;
+                playerLuck += armor.armorLuck;
+                break;
+            case 'Gauntlet':
+                playerCurrentGauntlet = armor;
+                playerDef += armor.armorDef;
+                playerLuck += armor.armorLuck;
+                break;
+            case 'Armored Boots':
+                playerCurrentBoots = armor;
+                playerDef += armor.armorDef;
+                playerLuck += armor.armorLuck;
+                break;
+            case 'Great Helm':
+                playerCurrentHelmet = armor;
+                playerDef += armor.armorDef;
+                playerLuck += armor.armorLuck;
+                break;
+            case 'Round Shield':
+                playerCurrentShield = armor;
+                playerDef += armor.armorDef;
+                playerLuck += armor.armorLuck;
+                break;
         }
+
+        console.log(playerDef);
+        console.log(playerLuck);
         blacksmithStoreNotif.textContent = `You equipped ${armorName}`;
         updatePlayerStatsUI();
-      } else {
+        displayArmorInventoryUI(); // Update the UI to reflect the equipped armor
+    } else {
         blacksmithStoreNotif.textContent = `You don't have ${armorName} to equip`;
-      }
+    }
+};
+
+const unequipArmor = (armorName) => {
+    switch (armorName) {
+        case 'BreastPlate':
+            playerDef -= playerCurrentArmor.armorDef;
+            playerLuck -= playerCurrentArmor.armorLuck;
+            playerCurrentArmor = null;
+            break;
+        case 'Gauntlet':
+            playerDef -= playerCurrentGauntlet.armorDef;
+            playerLuck -= playerCurrentGauntlet.armorLuck;
+            playerCurrentGauntlet = null;
+            break;
+        case 'Armored Boots':
+            playerDef -= playerCurrentBoots.armorDef;
+            playerLuck -= playerCurrentBoots.armorLuck;
+            playerCurrentBoots = null;
+            break;
+        case 'Great Helm':
+            playerDef -= playerCurrentHelmet.armorDef;
+            playerLuck -= playerCurrentHelmet.armorLuck;
+            playerCurrentHelmet = null;
+            break;
+        case 'Round Shield':
+            playerDef -= playerCurrentShield.armorDef;
+            playerLuck -= playerCurrentShield.armorLuck;
+            playerCurrentShield = null;
+            break;
+    }
+
+       console.log(playerDef);
+        console.log(playerLuck);
+    blacksmithStoreNotif.textContent = `You unequipped ${armorName}`;
+    updatePlayerStatsUI();
+    displayArmorInventoryUI(); // Update the UI to reflect the unequipped armor
 };
 
 
@@ -1844,7 +1922,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       playerGold -= breastplateCost;
 
                       blacksmithStoreNotif.style.display = 'inline-block';
-                      playerArmorInv.breastplate = armors.breastplate;
+                      playerArmorInv.push(armors.breastplate);
 
                       gold.textContent = playerGold;
 
