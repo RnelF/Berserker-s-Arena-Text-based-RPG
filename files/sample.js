@@ -45,7 +45,7 @@ const weapons = {
   sword:{
     weaponName: 'Sword',
     weaponDmg: 6,
-    weaponBonusAtt: 0
+    weaponBonusAtt: 2
   },
   dagger: {
     weaponName: 'Dagger',
@@ -1124,8 +1124,8 @@ const armorInvContainer = document.getElementById('armor-inv-container');
 
 const equipmentsContainer = document.getElementById('equipments-container');
 const playerEquipmentBtn = document.getElementById('player-equipment');
+let isWeaponEquipped = false;
 
-let isWeaponEquiped = false;
 
 
 
@@ -1328,49 +1328,60 @@ const togglePlayerEquipment = () => {
     });
       
     const displayWeaponInventoryUI = () => {
+    weaponInvContainer.innerHTML = '';
 
-      weaponInvContainer.innerHTML = '';
+    if (playerWeaponInv.length === 0) {
+        weaponInvContainer.style.display = 'block';
+        weaponInvContainer.textContent = 'There are no weapons in your inventory';
+    } else {
+        // Show the weapon inventory UI
+        weaponInvContainer.style.display = 'block';
 
-      if(playerWeaponInv.length === 0){
-          weaponInvContainer.style.display = 'block';
-          weaponInvContainer.textContent = 'There are no weapons in your inventory';
-      } else {
-          // Show the weapon inventory UI
-          weaponInvContainer.style.display = 'block';
+        playerWeaponInv.forEach(weapon => {
+            // Create a container for the weapon and the button
+            const weaponContainer = document.createElement('div');
+            weaponContainer.classList.add('weapon-container');
 
-          playerWeaponInv.forEach(weapon => {
-              // Create a container for the weapon and the button
-              const weaponContainer = document.createElement('div');
-              weaponContainer.classList.add('weapon-container');
+            // Create a new paragraph element to display the weapon
+            const weaponElement = document.createElement('p');
+            weaponElement.style.display = 'inline-block';
+            weaponElement.textContent = weapon.weaponName;
 
-              // Create a new paragraph element to display the weapon
-              const weaponElement = document.createElement('p');
-              weaponElement.textContent = weapon.weaponName;
+            // Create a button to equip the weapon
+            const equipBtn = document.createElement('button');
+            equipBtn.style.display = 'inline-block';
+            equipBtn.innerHTML = 'Equip Weapon';
+            equipBtn.disabled = isWeaponEquipped && playerCurrentWeapon && playerCurrentWeapon.weaponName === weapon.weaponName;
 
-              // Create a button to equip the weapon
-              const equipBtn = document.createElement('button');
-              equipBtn.innerHTML = 'Equip Weapon';
+            // Add an event listener to the button
+            equipBtn.addEventListener('click', () => {
+                if (playerCurrentWeapon && playerCurrentWeapon.weaponName === weapon.weaponName) {
+                    unequipWeapon();
+                } else {
+                    equipWeapon(weapon.weaponName);
+                }
+            });
 
-              // Add an event listener to the button
-              equipBtn.addEventListener('click', () => {
-                  equipWeapon(weapon.weaponName);
+            // Append the weapon element and button to the container
+            weaponContainer.appendChild(weaponElement);
+            weaponContainer.appendChild(equipBtn);
 
-                  if(isWeaponEquiped === true){
-                    equipBtn.disabled = true;
-                  }else{
-                    equipBtn.disabled = false;
-                  }
-              });
+            // Append the weapon container to the weapon inventory container
+            weaponInvContainer.appendChild(weaponContainer);
+        });
 
-              // Append the weapon element and button to the container
-              weaponContainer.appendChild(weaponElement);
-              weaponContainer.appendChild(equipBtn);
-
-              // Append the weapon container to the weapon inventory container
-              weaponInvContainer.appendChild(weaponContainer);
-          });
-      }
-    };
+        // Create and add the unequip button if a weapon is equipped
+        if (isWeaponEquipped) {
+            const unequipBtn = document.createElement('button');
+            unequipBtn.innerHTML = 'Unequip Weapon';
+            unequipBtn.style.display = 'inline-block';
+            unequipBtn.addEventListener('click', () => {
+                unequipWeapon();
+            });
+            weaponInvContainer.appendChild(unequipBtn);
+        }
+    }
+};
 
     
 
@@ -1424,16 +1435,36 @@ const togglePlayerEquipment = () => {
     });
 
     const equipWeapon = (weaponName) => {
-    const weapon = playerWeaponInv.find(w => w.weaponName === weaponName);
 
-      if(weapon){
-          playerCurrentWeapon = weapon;
-          swordsmithStoreNotifTxt.style.display = 'inline-block';
-          swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
-          isWeaponEquiped = true;
-          updatePlayerStatsUI();
-      }
-    };
+        const weapon = playerWeaponInv.find(w => w.weaponName === weaponName);
+
+        if (weapon) {
+            playerCurrentWeapon = weapon;
+            swordsmithStoreNotifTxt.style.display = 'inline-block';
+            swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
+            isWeaponEquipped = true;
+            playerStr += weapon.weaponBonusAtt;
+            playerStr += weapon.weaponDmg;
+            updatePlayerStatsUI();
+            displayWeaponInventoryUI(); 
+            console.log(playerStr);
+        }
+      };
+
+      const unequipWeapon = () => {
+          if (playerCurrentWeapon) {
+              swordsmithStoreNotifTxt.style.display = 'inline-block';
+              swordsmithStoreNotifTxt.textContent = `You unequipped a ${playerCurrentWeapon.weaponName}`;
+               playerStr -= playerCurrentWeapon.weaponBonusAtt;
+              playerStr -= playerCurrentWeapon.weaponDmg;
+              playerCurrentWeapon = null;
+             
+              isWeaponEquipped = false;
+              updatePlayerStatsUI();
+              displayWeaponInventoryUI();
+              console.log(playerStr);
+          }
+      };
 
     const equipArmor = (armorName) => {
       const armor = playerArmorInv.find(a => a.armorName === armorName);
