@@ -2,7 +2,7 @@
 let playerLvl = 1;
 let playerXp = 0;
 let playerHealth = 100;
-let playerGold = 1000;
+let playerGold = 100;
      
 
 let playerStr = 10;
