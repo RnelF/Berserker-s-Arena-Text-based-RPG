@@ -1791,7 +1791,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             
               // Event listener for "Buy Health Potion" button
             buyHealthPotionBtn.addEventListener('click', () => {
-                buyHealthPotionBtns.style.display = 'block'; // Display the buttons for adjusting quantity
+                buyHealthPotionBtns.style.display = 'flex'; // Display the buttons for adjusting quantity
             });
 
             
@@ -1846,7 +1846,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
               // Event listener for "Buy Energy Potion" button
             buyEnergyPotionBtn.addEventListener('click', () => {
-                buyEnergyPotionBtns.style.display = 'block'; // Display the buttons for adjusting quantity
+                buyEnergyPotionBtns.style.display = 'flex'; // Display the buttons for adjusting quantity
             });
 
             
