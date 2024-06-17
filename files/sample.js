@@ -1711,7 +1711,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const buyEnergyPotionPlusBtn = document.getElementById('buy-energy-potion-plus');
     const energyPotionConfirmBtn = document.getElementById('energy-confirm-btn');
 
-
+    //blacksmith
     const blacksmitStoreBtn = document.getElementById('blacksmith-store-btn');
     const blacksmithStore = document.getElementById('blacksmith-store');
     const blacksmithStoreBackBtn = document.getElementById('blacksmith-store-back-btn');
@@ -1725,6 +1725,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const buyGreatHelmBtn = document.getElementById('buy-great-helm');
     const buyShieldBtn = document.getElementById('buy-shield');
 
+    //swordsmith
     const swordsmithStoreBtn = document.getElementById('swordsmith-store-btn');
     const swordsmithStore = document.getElementById('swordsmith-store');
     const swordsmithStoreBackBtn = document.getElementById('swordsmith-store-back-btn');
@@ -1738,6 +1739,11 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const buyCrossbowBtn = document.getElementById('buy-crossbow');
     const buyKatanaBtn = document.getElementById('buy-katana');
     const buyNunchuksBtn = document.getElementById('buy-nunchuks');
+
+    //temple
+    const temple = document.getElementById('temple');
+    const templeBtn = document.getElementById('temple-btn');
+    const templeBackBtn = document.getElementById('temple-back-btn');
 
     const townBackBtn = document.getElementById('town-back-btn');
 
@@ -2059,8 +2065,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
             swordsmithStoreBackBtn.addEventListener('click', () => {
               mapNav.style.display = 'none';
-            townMap.style.display = 'inline-block';
-            swordsmithStore.style.display = 'none';
+              townMap.style.display = 'inline-block';
+              swordsmithStore.style.display = 'none';
             })
 
             swordsmithStoreNotifBckBtn.addEventListener('click', () => {
@@ -2206,6 +2212,18 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
               buyKatanaBtn.addEventListener('click',buyKatana);
               buyNunchuksBtn.addEventListener('click',buyNunchuks);
           });
+
+          templeBtn.addEventListener('click', () => {
+            mapNav.style.display = 'none';
+            townMap.style.display = 'none';
+            temple.style.display = 'inline-block';
+
+            templeBackBtn.addEventListener('click', () => {
+              mapNav.style.display = 'none';
+              townMap.style.display = 'inline-block';
+              temple.style.display = 'none';
+            })
+          })
 
           townBackBtn.addEventListener('click', () => {
               mapNav.style.display = 'inline-block';
