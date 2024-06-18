@@ -349,9 +349,10 @@ body{
   height: 300px;
   background-repeat: no-repeat;
   background-size: cover;
-  align-items: end;
+  align-items: center;
   justify-content: space-evenly;
-  padding-bottom: 10px;
+  flex-direction: column;
+  padding-bottom: 5px;
   border-radius: 10px;
   border: 2px solid black;
   box-shadow: 5px 10px 15px black;
@@ -367,9 +368,10 @@ body{
   height: 300px;
   background-repeat: no-repeat;
   background-size: cover;
-  align-items: end;
-  justify-content: space-evenly;
-  padding-bottom: 10px;
+  align-items: center;
+  justify-content: end;
+  flex-direction: column;
+  padding-bottom: 5px;
   border-radius: 10px;
   border: 2px solid black;
   box-shadow: 5px 10px 15px black;
@@ -377,13 +379,21 @@ body{
 
 #buy-health-potion-btns button, #buy-energy-potion-btns button{
   width: 50px;
-  height: 30px;
-  text-align: center;
+  height: 20px;
+  border: 1px solid orangered;
+  border-radius: 5px;
 }
 
  #buy-health-potion-btns input, #buy-energy-potion-btns input {
   height: 25px;
-  width: 25px;
+  width: 100px;
+  margin-bottom: 220px;
+  border: 1px solid orangered;
+  border-radius: 5px;
+ }
+
+ .quantity-btns-container, .input-container,.buy-cancel-btns-container{
+  display: block;
  }
 
 /*blacksmith store*/

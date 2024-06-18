@@ -1752,6 +1752,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
         mapNav.style.display = 'none';
         townMap.style.display = 'inline-block';
+        let hpBtnsActive = false;
+        let energyBtnsActive = false;
 
         //alchemist store function
         alchemistStoreBtn.addEventListener('click',() => {
@@ -1766,6 +1768,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
                   alchemistStore.style.display = 'none';
                   mapNav.style.display = 'none';
+                  buyHealthPotionBtns.style.display = 'none'; //make sure the btns will also close
+                  buyEnergyPotionBtns.style.display = 'none'; //make sure the btns will also close
                   townMap.style.display = 'inline-block';   
 
               });
@@ -1791,7 +1795,18 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             
               // Event listener for "Buy Health Potion" button
             buyHealthPotionBtn.addEventListener('click', () => {
-                buyHealthPotionBtns.style.display = 'flex'; // Display the buttons for adjusting quantity
+
+              if(energyBtnsActive = true){
+
+                buyEnergyPotionBtns.style.display = 'none';
+                energyBtnsActive = false;
+                 energyPotionQuantityInput.value = 0;
+                buyHealthPotionBtns.style.display = 'flex';
+                
+              }else{
+                buyHealthPotionBtns.style.display = 'flex';
+              }
+                
             });
 
             
@@ -1846,7 +1861,17 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
               // Event listener for "Buy Energy Potion" button
             buyEnergyPotionBtn.addEventListener('click', () => {
-                buyEnergyPotionBtns.style.display = 'flex'; // Display the buttons for adjusting quantity
+
+              if(hpBtnsActive = true){
+                   buyHealthPotionBtns.style.display = 'none';
+                   hpBtnsActive = false;
+                   healthPotionQuantityInput.value = 0;
+                   buyEnergyPotionBtns.style.display = 'flex';
+              }else{
+                buyEnergyPotionBtns.style.display = 'flex';
+                energyBtnsActive = true;
+              }
+              
             });
 
             
