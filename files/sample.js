@@ -1758,6 +1758,13 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
         //alchemist store function
         alchemistStoreBtn.addEventListener('click',() => {
 
+               const buyConfirmation = document.getElementById('alchemist-store-confirmation-container');
+                const confirmationTxt = document.getElementById('alchemy-store-confirmation-txt');
+
+                const confirmationYesBtn = document.getElementById('confirm-yes-btn');
+
+                const confirmationNoBtn = document.getElementById('confirm-no-btn');
+
               mapNav.style.display = 'none';
               townMap.style.display = 'none';
               alchemistStore.style.display = 'inline-block';
@@ -1898,10 +1905,18 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             energyPotionConfirmBtn.addEventListener('click', () => {
                 const energyPotionCost = 10;
                 const quantity = parseInt(energyPotionQuantityInput.value);
+                let playerConfirmation = false;
 
                 if (quantity > 0) {
+                  
                     if (playerGold >= energyPotionCost * quantity) {
-                        playerGold -= energyPotionCost * quantity;
+
+                          buyConfirmation.style.display = 'inline-block';
+                          confirmationTxt.textContent = `Are you sure to buy ${quantity} ?`;
+
+                      if(playerConfirmation){
+
+                           playerGold -= energyPotionCost * quantity;
                         for (let i = 0; i < quantity; i++) {
                             playerInv.push('energy_potion');
                         }
@@ -1910,6 +1925,11 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                         alchemyStoreNotifTxt.textContent = 'You successfully bought ' + quantity + ' Energy Potion(s)';
                         buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
                         energyPotionQuantityInput.value = 0;
+                      }else{
+                        buyEnergyPotionBtns.style.display = 'none';
+                        energyPotionQuantityInput.value = 0;
+                      }
+                       
                         
                     } else {
                         alchemyStoreNotif.style.display = 'inline-block';
@@ -1925,6 +1945,13 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                     buyEnergyPotionPlusBtn.disabled = true;
                     energyPotionQuantityInput.disabled = true;
                 }
+
+                confirmationYesBtn.addEventListener('click', () => {
+                              playerConfirmation = true;
+                          });
+                  confirmationNoBtn.addEventListener('click', () => {
+                            playerConfirmation = false;
+                          })
             });
 
 

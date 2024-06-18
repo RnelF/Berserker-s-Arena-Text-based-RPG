@@ -348,6 +348,31 @@ body{
   margin-top: 15px;
 }
 
+#alchemist-store-confirmation-container{
+  background-color: white;
+  padding: 20px 20px;
+  border-radius: 20px;
+  border: 2px solid black;
+  height: 40px;
+  width: auto;
+  display:none;
+  top: 0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  position: absolute; 
+}
+
+#alchemy-store-confirmation-txt{
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+#confirm-yes-btn, #confirm-no-btn{
+  margin-top: 15px;
+}
+
+
 #buy-health-potion-btns{
   margin-top: 50px;
   margin-left: auto;
