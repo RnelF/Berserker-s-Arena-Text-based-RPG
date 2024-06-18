@@ -320,15 +320,24 @@ body{
   height: 550px;
   border: 5px solid black;
   border-radius: 10px;
+  position: relative;
+  
 }
 
 #alchemy-store-notif-container{
   background-color: white;
-  margin-top: 100px;
   padding: 20px 20px;
   border-radius: 20px;
   border: 2px solid black;
+  height: 40px;
+  width: auto;
   display:none;
+  top: 0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  position: absolute; 
 }
 
 #alchemy-store-notif{
@@ -378,22 +387,56 @@ body{
  }
 
 #buy-health-potion-btns button, #buy-energy-potion-btns button{
-  width: 50px;
-  height: 20px;
+  width: 80px;
+  height: 25px;
   border: 1px solid orangered;
+  font-size: 1rem;
   border-radius: 5px;
+  font-family: Cinzel;
+  font-weight: bold;
+}
+
+.quantity-btns-container button{
+  font-family: arial;
+  font-size: 2rem;
+  font-weight: bolder;
 }
 
  #buy-health-potion-btns input, #buy-energy-potion-btns input {
   height: 25px;
-  width: 100px;
+  width: 50px;
   margin-bottom: 220px;
   border: 1px solid orangered;
   border-radius: 5px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: Cinzel;
  }
+
+  /*remove the spin btns in the number input*/
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
  .quantity-btns-container, .input-container,.buy-cancel-btns-container{
   display: block;
+ }
+
+ #alchemy-store-btns-container{
+  margin-bottom: 10px;
+  margin-top: 10px;
+ }
+
+ #alchemy-store-btns-container button, #alchemist-store-back-btn{
+  border: 1px solid rgb(103, 63, 18);
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: Cinzel;
  }
 
 /*blacksmith store*/

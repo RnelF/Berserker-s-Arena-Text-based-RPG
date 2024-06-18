@@ -1788,6 +1788,21 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
               alchemyStoreNotifBckBtn.addEventListener('click', () => {
                   alchemyStoreNotif.style.display = 'none';
                   healthPotionQuantityInput.value = 0;
+                  energyPotionQuantityInput.value = 0;
+
+                  healthPotionConfirmBtn.disabled = false;
+                  hpCancelBtn.disabled = false;
+                  buyHealthPotionMinusBtn.disabled = false;
+                  buyHealthPotionPlusBtn.disabled = false;
+                  healthPotionQuantityInput.disabled = false;
+
+
+                  energyPotionConfirmBtn.disabled = false;
+                  energyCancelBtn.disabled = false;
+                  buyEnergyPotionMinusBtn.disabled = false;
+                  buyEnergyPotionPlusBtn.disabled = false;
+                  energyPotionQuantityInput.disabled = false;
+                
               });
 
              
@@ -1825,7 +1840,6 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                         alchemyStoreNotif.style.display = 'inline-block';
                         alchemyStoreNotifTxt.textContent = 'You successfully bought ' + quantity + ' Health Potion(s)';
                         buyHealthPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
-                        buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons for energy potion
                         healthPotionQuantityInput.value = 0;
                     } else {
                         alchemyStoreNotif.style.display = 'inline-block';
@@ -1835,6 +1849,11 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 } else {
                     alchemyStoreNotif.style.display = 'inline-block';
                     alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
+                    healthPotionConfirmBtn.disabled = true;
+                     hpCancelBtn.disabled = true;
+                     buyHealthPotionMinusBtn.disabled = true;
+                     buyHealthPotionPlusBtn.disabled = true;
+                     healthPotionQuantityInput.disabled = true;
                 }
             });
 
@@ -1900,6 +1919,11 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 } else {
                     alchemyStoreNotif.style.display = 'inline-block';
                     alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
+                    energyPotionConfirmBtn.disabled = true;
+                    energyCancelBtn.disabled = true;
+                     buyEnergyPotionMinusBtn.disabled = true;
+                    buyEnergyPotionPlusBtn.disabled = true;
+                    energyPotionQuantityInput.disabled = true;
                 }
             });
 
