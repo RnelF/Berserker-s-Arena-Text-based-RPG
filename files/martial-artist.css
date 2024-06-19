@@ -343,9 +343,18 @@ body{
 #alchemy-store-notif{
   font-weight: bold;
   font-size: 1.0rem;
+  line-height: 3;
+  
 }
-#alchemy-store-notif-bck-btn{
-  margin-top: 15px;
+#alchemy-store-notif-bck-btn, #confirm-yes-btn, #confirm-no-btn{
+  margin-left: 10px;
+  display: inline-block;
+  border: 1px solid rgb(103, 63, 18);
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  font-family: Cinzel;
 }
 
 #alchemist-store-confirmation-container{
@@ -366,10 +375,8 @@ body{
 
 #alchemy-store-confirmation-txt{
   font-weight: bold;
+  line-height: 1.6;
   font-size: 1.0rem;
-}
-#confirm-yes-btn, #confirm-no-btn{
-  margin-top: 15px;
 }
 
 
@@ -430,7 +437,7 @@ body{
  #buy-health-potion-btns input, #buy-energy-potion-btns input {
   height: 25px;
   width: 50px;
-  margin-bottom: 220px;
+  margin-bottom: 210px;
   border: 1px solid orangered;
   border-radius: 5px;
   text-align: center;
