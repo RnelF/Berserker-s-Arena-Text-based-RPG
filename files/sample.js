@@ -1130,7 +1130,11 @@ const playerEquipmentBtn = document.getElementById('player-equipment');
 let isWeaponEquipped = false;
 
 
-
+let isInvUIActive = false;
+let isTownInvUIActive = false;
+let isWeaponInvUIActive = false;
+let isArmorInvUIActive = false;
+let isPlayerEquipmentUIActive = false;
 
 const toggleInventoryUI = () => {
     // Check if the inventory container is displayed
@@ -1138,8 +1142,9 @@ const toggleInventoryUI = () => {
         // If it's displayed, hide it
         inventoryContainer.style.display = 'none';
         checkInventoryBtn.textContent = 'Inventory'; // Change button text back
-    } else {
+    } else{
         // If it's not displayed, show it
+         closeAllUIs();
         displayInventoryUI();
         checkInventoryBtn.textContent = 'Close Inventory'; // Change button text
     }
@@ -1151,10 +1156,13 @@ const toggleTownInventoryUI = () => {
         // If it's displayed, hide it
         townInventoryContainer.style.display = 'none';
         townInventoryBtn.textContent = 'Inventory'; // Change button text back
+        isTownInvUIActive = false;
     } else {
         // If it's not displayed, show it
+         closeAllUIs();
         displayTownInventoryUI();
         townInventoryBtn.textContent = 'Close Inventory'; // Change button text
+        isTownInvUIActive = true;
     }
 };
 
@@ -1164,14 +1172,15 @@ const toggleWeaponInvUI = () => {
         // If it's displayed, hide it
         weaponInvContainer.style.display = 'none';
         displayWeaponInvBtn.textContent = 'Weaponry'; // Change button text back
-        console.log(playerWeaponInv);
-          console.log(playerCurrentWeapon);
+        
+          isWeaponInvUIActive = false;
     } else {
         // If it's not displayed, show it
+         closeAllUIs();
         displayWeaponInventoryUI();
         displayWeaponInvBtn.textContent = 'Close Weaponry'; // Change button text
-        console.log(playerWeaponInv);
-          console.log(playerCurrentWeapon);
+        isWeaponInvUIActive = true;
+        
     }
 };
 
@@ -1181,24 +1190,59 @@ const toggleArmorInvUI = () => {
         // If it's displayed, hide it
         armorInvContainer.style.display = 'none';
         displayArmorInvBtn.textContent = 'Armory'; // Change button text back
+        isArmorInvUIActive = false;
     } else {
         // If it's not displayed, show it
+         closeAllUIs();
         displayArmorInventoryUI();
         displayArmorInvBtn.textContent = 'Close Armory'; // Change button text
+        isArmorInvUIActive = true;
     }
 };
 
-const togglePlayerEquipment = () => {
-    if (window.getComputedStyle(equipmentsContainer).display !== 'none') {
-        // If it's displayed, hide it
-        equipmentsContainer.style.display = 'none';
-        playerEquipmentBtn.textContent = 'Equipments'; // Change button text back
-    } else {
-        // If it's not displayed, show it
-        playerEquipment();
-        playerEquipmentBtn.textContent = 'Close Equipments'; // Change button text
-    }
-};
+    const togglePlayerEquipment = () => {
+        if (window.getComputedStyle(equipmentsContainer).display !== 'none') {
+            // If it's displayed, hide it
+            equipmentsContainer.style.display = 'none';
+            playerEquipmentBtn.textContent = 'Equipments'; // Change button text back
+            isPlayerEquipmentUIActive = false;
+        } else {
+            // If it's not displayed, show it
+             closeAllUIs();
+            playerEquipment();
+            playerEquipmentBtn.textContent = 'Close Equipments'; // Change button text
+            isPlayerEquipmentUIActive = true;
+        }
+    };
+
+      const closeAllUIs = () => {
+
+        if (isInvUIActive) {
+            inventoryContainer.style.display = 'none';
+            checkInventoryBtn.textContent = 'Inventory';
+            isInvUIActive = false;
+        }
+        if (isTownInvUIActive) {
+            townInventoryContainer.style.display = 'none';
+            townInventoryBtn.textContent = 'Inventory';
+            isTownInvUIActive = false;
+        }
+        if (isWeaponInvUIActive) {
+            weaponInvContainer.style.display = 'none';
+            displayWeaponInvBtn.textContent = 'Weaponry';
+            isWeaponInvUIActive = false;
+        }
+        if (isArmorInvUIActive) {
+            armorInvContainer.style.display = 'none';
+            displayArmorInvBtn.textContent = 'Armory';
+            isArmorInvUIActive = false;
+        }
+        if (isPlayerEquipmentUIActive) {
+            equipmentsContainer.style.display = 'none';
+            playerEquipmentBtn.textContent = 'Equipments';
+            isPlayerEquipmentUIActive = false;
+        }
+    };
 
     const playerEquipment = () => {
         equipmentsContainer.style.display = 'block';
@@ -1266,7 +1310,7 @@ const togglePlayerEquipment = () => {
     };
 
     checkInventoryBtn.addEventListener('click', () => {
-        toggleInventoryUI();
+       toggleInventoryUI()
     });
 
     const displayTownInventoryUI = () => {
@@ -1684,6 +1728,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
 //Go to Town Functions
 
+    
     const townMap = document.getElementById('town-map');
 
     //alchemist 
@@ -1747,6 +1792,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
     const townBackBtn = document.getElementById('town-back-btn');
 
+    
+
 
       const townBtnFunction = () => {
 
@@ -1766,7 +1813,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     townMap.style.display = 'none';
     alchemistStore.style.display = 'inline-block';
 
-    let quantity = parseInt(healthPotionQuantityInput.value);
+   
 
     alchemistStoreBackBtn.addEventListener('click', () => {
         alchemistStore.style.display = 'none';
@@ -1821,6 +1868,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
     // Event listener for minus button for adjusting quantity
     buyHealthPotionMinusBtn.addEventListener('click', () => {
+       let quantity = parseInt(healthPotionQuantityInput.value);
         if (quantity > 0) {
             quantity--;
             healthPotionQuantityInput.value = quantity;
@@ -1829,6 +1877,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
     // Event listener for plus button for adjusting quantity
     buyHealthPotionPlusBtn.addEventListener('click', () => {
+       let quantity = parseInt(healthPotionQuantityInput.value);
         quantity++;
         healthPotionQuantityInput.value = quantity;
     });
@@ -1880,6 +1929,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             buyConfirmation.style.display = 'none';
             confirmationYesBtn.removeEventListener('click', confirmHandler);
             confirmationNoBtn.removeEventListener('click', cancelHandler);
+            energyPotionQuantityInput.value = 0;
+            healthPotionQuantityInput.value = 0;
             onConfirm();
         };
 
@@ -1887,6 +1938,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             buyConfirmation.style.display = 'none';
             confirmationYesBtn.removeEventListener('click', confirmHandler);
             confirmationNoBtn.removeEventListener('click', cancelHandler);
+            energyPotionQuantityInput.value = 0;
+            healthPotionQuantityInput.value = 0;
                 
                 energyPotionConfirmBtn.disabled = false;
                 energyCancelBtn.disabled = false;
