@@ -483,15 +483,22 @@ body{
   height: 550px;
   border: 5px solid black;
   border-radius: 10px;
+  position: relative;
 }
 
 #blacksmith-store-notif-container, #swordsmith-store-notif-container {
   background-color: white;
-  margin-top: 100px;
   padding: 20px 20px;
   border-radius: 20px;
   border: 2px solid black;
+  height: 40px;
+  width: auto;
   display:none;
+  top: 0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  margin-top: 100px;
   z-index: 100;
 }
 
@@ -521,10 +528,11 @@ body{
   border: 2px solid black;
   box-shadow: 5px 10px 15px black;
   position: relative;
+  z-index: 1;
 }
 
 #breastplate-info-container{
-  background-color: rgba(0,0,0,0.75);
+  background-color: rgba(0, 0, 0, 0.775);
   position: absolute;
   width: 100%;
   display: flex;
@@ -537,16 +545,30 @@ body{
   overflow: hidden;
   height:0;
   transition: .5s ease;
-  margin: 0px;
+  margin:0 ;
+
 }
 
 #breastplate-info-container p{
   color: white;
+  text-align: center;
+  font-size: 0.7rem;
+  margin-top: 30px;
+  line-height: 20px;
+  padding: 10px 20px;
+}
+
+#breastplate-info-btn, #breastplate-buy-btn, #breastplate-cancel-btn{
+  display: inline-block;
 }
 
 #breastplate-close-info{
   width: 80px;
   height: 30px;
+}
+
+.item-stats{
+  font-size: 1rem;
 }
 
 /*swordsmith store*/

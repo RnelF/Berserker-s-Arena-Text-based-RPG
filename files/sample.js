@@ -2063,6 +2063,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             const buyBreastplate = () => {
 
                   breastplateContainer.style.display = 'flex';
+                  let infoActive = false;
 
                   
                   breastplateBuyBtn.addEventListener('click', () => {
@@ -2099,11 +2100,14 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                   breastplateInfoBtn.addEventListener('click', () => {
                   
                         breastplateInfoContainer.style.height = '100%';
+                        breastplateInfoBtn.style.display = 'none';
                     
                   });  
 
                    breastplateCloseInfoBtn.addEventListener('click', () => {
                      breastplateInfoContainer.style.height = '0'; // Collapse info container
+                     breastplateInfoBtn.style.display = 'inline-block';
+
                   });
 
             };
