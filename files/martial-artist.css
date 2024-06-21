@@ -263,17 +263,17 @@ body{
 }
 
 #equipments-container{
-  background-color: white;
+  background-color: rgb(106, 106, 107);
   display: none;
-  overflow: scroll;
   margin:10px 10px;
-  border: 2px solid orangered;
+  border: 2px solid rgb(0, 0, 0);
   border-radius: 10px;
   height: 180px;
   width: 510px;
   z-index: 1000;
   padding: 10px;
   position: absolute;
+  height: 380px;
 }
 
 #town-map{
@@ -492,7 +492,7 @@ body{
   border-radius: 20px;
   border: 2px solid black;
   display:none;
-  z-index: 1000;
+  z-index: 100;
 }
 
 #blacksmith-store-notif, #swordsmith-store-notif{
@@ -501,6 +501,52 @@ body{
 }
 #blacksmith-store-notif-bck-btn, #swordsmith-store-notif-bck-btn{
   margin-top: 15px;
+}
+
+#breastplate-container{
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+  background-image: url(../images/items/breastplate.jpg);
+  width: 400px;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  justify-content: end;
+  flex-direction: column;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  border: 2px solid black;
+  box-shadow: 5px 10px 15px black;
+  position: relative;
+}
+
+#breastplate-info-container{
+  background-color: rgba(0,0,0,0.75);
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  left: 0%;
+  right: 0%;
+  bottom:0%;
+  overflow: hidden;
+  height:0;
+  transition: .5s ease;
+  margin: 0px;
+}
+
+#breastplate-info-container p{
+  color: white;
+}
+
+#breastplate-close-info{
+  width: 80px;
+  height: 30px;
 }
 
 /*swordsmith store*/
@@ -811,4 +857,41 @@ body{
   display: block;
   margin-left: 43%;
   margin-top: 15px;
+}
+
+.current-weapon-txt{
+  background-color: #452c089b;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+.current-helmet-txt{
+  background-color: #0e00a885;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+.current-armor-txt{
+  background-color: #cc1bd291;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+.current-gauntlet-txt{
+  background-color: rgba(0, 255, 255, 0.371);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+.current-boots-txt{
+  background-color: rgba(43, 226, 76, 0.46);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+.current-shield-txt{
+  background-color: rgba(165, 210, 30, 0.401);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
 }
