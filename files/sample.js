@@ -45,27 +45,32 @@ const weapons = {
   sword:{
     weaponName: 'Sword',
     weaponDmg: 6,
-    weaponBonusAtt: 2
+    weaponBonusAtt: 2,
+    weaponCost: 40
   },
   dagger: {
     weaponName: 'Dagger',
     weaponDmg: 8,
-    weaponBonusAtt: 5
+    weaponBonusAtt: 5,
+    weaponCost: 60
   },
   crossbow: {
     weaponName: 'Crossbow',
     weaponDmg: 7,
-    weaponBonusAtt: 7
+    weaponBonusAtt: 7,
+    weaponCost: 80
   },
   katana: {
     weaponName: 'Katana',
     weaponDmg: 10,
-    weaponBonusAtt: 10
+    weaponBonusAtt: 10,
+    weaponCost: 100
   },
   nunchuks: {
     weaponName: 'Nun-Chuks',
     weaponDmg: 8,
-    weaponBonusAtt: 15
+    weaponBonusAtt: 15,
+    weaponCost: 120
   },
 };
 
@@ -1422,7 +1427,10 @@ let isPlayerEquipmentUIActive = false;
                     sellWeaponBtn.style.display = isEquipped ? 'none' : 'inline-block';
 
                     sellWeaponBtn.addEventListener('click', () => {
+
+                        weaponContainer.remove();
                         sellWeapon(weapon.weaponName);
+                        
                     });
 
                     weaponContainer.appendChild(weaponElement);
@@ -1504,7 +1512,10 @@ let isPlayerEquipmentUIActive = false;
                       sellArmorBtn.style.display = isEquipped ? 'none' : 'inline-block';
 
                       sellArmorBtn.addEventListener('click', () => {
+
+                          armorContainer.remove();
                           sellArmor(armor.armorName);
+                          
                       });
 
                       armorContainer.appendChild(armorElement);
