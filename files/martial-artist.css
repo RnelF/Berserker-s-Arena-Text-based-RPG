@@ -1,5 +1,8 @@
 body{
-  margin:0;
+  margin-top: 0;
+  margin-bottom: 200px;
+  margin-left: 0;
+  margin-right: 0;
   padding: 0;
   background: linear-gradient(to right,#452c08,#966212) ;
   position: relative;
@@ -220,6 +223,21 @@ body{
 }
 
 /*town*/
+#town-notif-container{
+background-color: white;
+  padding: 20px 20px;
+  border-radius: 20px;
+  border: 2px solid black;
+  height: 40px;
+  width: auto;
+  display:none;
+  top: 0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  position: absolute; 
+}
 
 #weapon-inv-container, 
 #armor-inv-container
@@ -286,6 +304,7 @@ body{
   height: 550px;
   border: 5px solid black;
   border-radius: 10px;
+  position: relative;
 }
 
 #town-map-btns{
@@ -498,9 +517,34 @@ body{
   left:0;
   bottom: 0;
   right: 0;
-  margin-top: 100px;
-  z-index: 100;
+  margin-top: 200px;
+  z-index: 1000;
+  position: absolute;
 }
+
+#blacksmith-store-confirmation-container{
+  background-color: white;
+  padding: 20px 20px;
+  border-radius: 20px;
+  border: 2px solid black;
+  height: 40px;
+  width: auto;
+  display:none;
+  top: 0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  margin: auto auto;
+  position: absolute; 
+  z-index: 1000;
+}
+
+#blacksmith-store-confirmation-txt{
+  font-weight: bold;
+  line-height: 1.6;
+  font-size: 1.0rem;
+}
+
 
 #blacksmith-store-notif, #swordsmith-store-notif{
   font-weight: bold;
@@ -553,9 +597,10 @@ body{
   color: white;
   text-align: center;
   font-size: 0.7rem;
-  margin-top: 30px;
+  margin-top: 10px;
   line-height: 20px;
   padding: 10px 20px;
+  text-align: left;
 }
 
 #breastplate-info-btn, #breastplate-buy-btn, #breastplate-cancel-btn{
@@ -563,12 +608,26 @@ body{
 }
 
 #breastplate-close-info{
-  width: 80px;
-  height: 30px;
+  width: 50px;
+  height: 20px;
+  margin-left: 88%;
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  border: none;
+  transition: 0.8s ease;
+  border-radius: 3px;
+}
+
+#breastplate-close-info:hover {
+  background-color: white;
+  color: black;
 }
 
 .item-stats{
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 
 /*swordsmith store*/

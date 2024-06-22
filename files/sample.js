@@ -73,27 +73,32 @@ const armors = {
   breastplate: {
     armorName: 'BreastPlate',
     armorDef: 15,
-    armorLuck: 5
+    armorLuck: 5,
+    armorCost: 30
   },
   gauntlet: {
     armorName: 'Gauntlet',
     armorDef: 10,
-    armorLuck: 15
+    armorLuck: 15,
+    armorCost: 70
   },
   armoredBoots: {
     armorName: 'Armored Boots',
     armorDef: 25,
-    armorLuck: 10
+    armorLuck: 10,
+    armorCost: 70
   },
   greatHelm: {
     armorName: 'Great Helm',
     armorDef: 15,
-    armorLuck: 20
+    armorLuck: 20,
+    armorCost: 70
   },
   shield: {
     armorName: 'Round Shield',
     armorDef:30,
-    armorLuck: 25
+    armorLuck: 25,
+    armorCost: 100
   }
 };
 
@@ -1118,6 +1123,10 @@ const checkInventoryBtn = document.getElementById('check-inv');
 const displayWeaponInvBtn = document.getElementById('check-weapon-inv')
 const currentWeaponContainer = document.getElementById('current-weapon-container');
 const townInventoryContainer = document.getElementById('town-inventory-container');
+const townNotifContainer = document.getElementById('town-notif-container');
+const townNotifTxt = document.getElementById('town-notif');
+const townNotifBackBtn = document.getElementById('town-notif-bck-btn');
+
 
 const displayArmorInvBtn = document.getElementById('check-armor-inv')
 const inventoryContainer = document.getElementById('inventory-container');
@@ -1251,63 +1260,61 @@ let isPlayerEquipmentUIActive = false;
     playerEquipmentBtn.addEventListener('click',togglePlayerEquipment);
 
 
-// Function to display the inventory UI
-    const displayInventoryUI = () => {
-      
-        inventoryContainer.innerHTML = '';
+        // Function to display the inventory UI
+        const displayInventoryUI = () => {
+          inventoryContainer.innerHTML = '';
 
-        if(playerInv.length === 0){
-            inventoryContainer.style.display = 'block';
-            inventoryContainer.textContent = 'There is no item in your inventory';
-        }else{
-            // Show the inventory UI
-            inventoryContainer.style.display = 'block';
+          if (playerInv.length === 0) {
+              inventoryContainer.style.display = 'block';
+              inventoryContainer.textContent = 'There is no item in your inventory';
+          } else {
+              inventoryContainer.style.display = 'block';
 
-            playerInv.forEach(item => {
-            // Create a container for the item and the button
-            const itemContainer = document.createElement('div');
-            itemContainer.classList.add('item-container');
+              playerInv.forEach(item => {
+                  const itemContainer = document.createElement('div');
+                  itemContainer.classList.add('item-container');
 
-            // Create a new paragraph element to display the item
-            const itemElement = document.createElement('p');
-            itemElement.textContent = item;
+                  const itemElement = document.createElement('p');
+                  itemElement.textContent = item;
 
+                  const itemBtn = document.createElement('button');
+                  itemBtn.innerHTML = 'Use Item';
 
-            // Create a button to use the item
-            const itemBtn = document.createElement('button');
-            itemBtn.innerHTML = 'Use Item';
+                  itemBtn.addEventListener('click', () => {
+                      if (item === 'health_potion') {
+                          useHealthPotion();
+                          removeItemFromInventory(item);
+                      } else if (item === 'energy_potion') {
+                          useEnergyPotion();
+                          removeItemFromInventory(item);
+                      }
+                  });
 
-            // Add an event listener to the button
-            itemBtn.addEventListener('click', () => {
-                if (item === 'health_potion') {
+                  const sellItemBtn = document.createElement('button');
+                  sellItemBtn.innerHTML = 'Sell Item';
 
-                    useHealthPotion();
-                    itemContainer.style.display = 'none';
-                    itemElement.style.display = 'none';
-                    itemBtn.style.display = 'none';
+                  sellItemBtn.addEventListener('click', () => {
+                      sellItem(item);
+                      removeItemFromInventory(item);
+                  });
 
-                } else if (item === 'energy_potion') {
+                  itemContainer.appendChild(itemElement);
+                  itemContainer.appendChild(itemBtn);
+                  itemContainer.appendChild(sellItemBtn);
 
-                    useEnergyPotion();
-                    itemContainer.style.display = 'none';
-                    itemElement.style.display = 'none';
-                    itemBtn.style.display = 'none';
-                }
-            });
+                  inventoryContainer.appendChild(itemContainer);
+              });
+          }
+      };
 
-                    
+      const removeItemFromInventory = (item) => {
+          const itemIndex = playerInv.indexOf(item);
+          if (itemIndex > -1) {
+              playerInv.splice(itemIndex, 1);
+              displayInventoryUI();
+          }
+      };
 
-            // Append the item element and button to the container
-            itemContainer.appendChild(itemElement);
-            itemContainer.appendChild(itemBtn);
-
-            // Append the item container to the inventory container
-            inventoryContainer.appendChild(itemContainer);
-        });
-
-            
-        }
-    };
 
     checkInventoryBtn.addEventListener('click', () => {
        toggleInventoryUI()
@@ -1374,60 +1381,66 @@ let isPlayerEquipmentUIActive = false;
       toggleTownInventoryUI();
     });
       
-    const displayWeaponInventoryUI = () => {
-    weaponInvContainer.innerHTML = '';
+            const displayWeaponInventoryUI = () => {
+            weaponInvContainer.innerHTML = '';
 
-    if (playerWeaponInv.length === 0) {
-        weaponInvContainer.style.display = 'block';
-        weaponInvContainer.textContent = 'There are no weapons in your inventory';
-    } else {
-        // Show the weapon inventory UI
-        weaponInvContainer.style.display = 'block';
+            if (playerWeaponInv.length === 0) {
+                weaponInvContainer.style.display = 'block';
+                weaponInvContainer.textContent = 'There are no weapons in your inventory';
+            } else {
+                weaponInvContainer.style.display = 'block';
 
-        playerWeaponInv.forEach(weapon => {
-            // Create a container for the weapon and the button
-            const weaponContainer = document.createElement('div');
-            weaponContainer.classList.add('weapon-container');
+                playerWeaponInv.forEach(weapon => {
+                    const weaponContainer = document.createElement('div');
+                    weaponContainer.classList.add('weapon-container');
 
-            // Create a new paragraph element to display the weapon
-            const weaponElement = document.createElement('p');
-            weaponElement.style.display = 'inline-block';
-            weaponElement.textContent = weapon.weaponName;
+                    const weaponElement = document.createElement('p');
+                    weaponElement.style.display = 'inline-block';
+                    weaponElement.textContent = weapon.weaponName;
 
-            // Create a button to equip/unequip the weapon
-            const equipBtn = document.createElement('button');
-            equipBtn.style.display = 'inline-block';
-            equipBtn.innerHTML = 'Equip Weapon';
+                    const equipBtn = document.createElement('button');
+                    equipBtn.style.display = 'inline-block';
+                    equipBtn.innerHTML = 'Equip Weapon';
 
-            // Check if the weapon is currently equipped
-            let isEquipped = playerCurrentWeapon && playerCurrentWeapon.weaponName === weapon.weaponName;
+                    let isEquipped = playerCurrentWeapon && playerCurrentWeapon.weaponName === weapon.weaponName;
 
-            if (isEquipped) {
-                equipBtn.innerHTML = 'Unequip Weapon';
-                equipBtn.style.backgroundColor = 'red';
+                    if (isEquipped) {
+                        equipBtn.innerHTML = 'Unequip Weapon';
+                        equipBtn.style.backgroundColor = 'red';
+                    }
+
+                    equipBtn.addEventListener('click', () => {
+                        if (isEquipped) {
+                            unequipWeapon();
+                        } else {
+                            equipWeapon(weapon.weaponName);
+                        }
+                    });
+
+                    const sellWeaponBtn = document.createElement('button');
+                    sellWeaponBtn.innerHTML = 'Sell Weapon';
+                    sellWeaponBtn.style.display = isEquipped ? 'none' : 'inline-block';
+
+                    sellWeaponBtn.addEventListener('click', () => {
+                        sellWeapon(weapon.weaponName);
+                    });
+
+                    weaponContainer.appendChild(weaponElement);
+                    weaponContainer.appendChild(equipBtn);
+                    weaponContainer.appendChild(sellWeaponBtn);
+
+                    weaponInvContainer.appendChild(weaponContainer);
+                });
             }
+        };
 
-            // Add an event listener to the button
-            equipBtn.addEventListener('click', () => {
-                if (isEquipped) {
-                    unequipWeapon();
-                } else {
-                    equipWeapon(weapon.weaponName);
-                }
-            });
-
-            // Append the weapon element and button to the container
-            weaponContainer.appendChild(weaponElement);
-            weaponContainer.appendChild(equipBtn);
-
-            // Append the weapon container to the weapon inventory container
-            weaponInvContainer.appendChild(weaponContainer);
-        });
-
-        // Create and add the unequip button if a weapon is equipped
-        
-    }
-    };
+        const removeWeaponFromInventory = (weaponName) => {
+            const weaponIndex = playerWeaponInv.findIndex(w => w.weaponName === weaponName);
+            if (weaponIndex > -1) {
+                playerWeaponInv.splice(weaponIndex, 1);
+                displayWeaponInventoryUI();
+            }
+        };
 
     
 
@@ -1435,72 +1448,82 @@ let isPlayerEquipmentUIActive = false;
       toggleWeaponInvUI();
     });
 
-    const displayArmorInventoryUI = () => {
-    armorInvContainer.innerHTML = '';
+            const displayArmorInventoryUI = () => {
+              armorInvContainer.innerHTML = '';
 
-    if (playerArmorInv.length === 0) {
-        armorInvContainer.style.display = 'block';
-        armorInvContainer.textContent = 'There are no armors in your inventory';
-    } else {
-        // Show the armor inventory UI
-        armorInvContainer.style.display = 'block';
+              if (playerArmorInv.length === 0) {
+                  armorInvContainer.style.display = 'block';
+                  armorInvContainer.textContent = 'There are no armors in your inventory';
+              } else {
+                  armorInvContainer.style.display = 'block';
 
-        playerArmorInv.forEach(armor => {
-            // Create a container for the armor and the button
-            const armorContainer = document.createElement('div');
-            armorContainer.classList.add('armor-container');
+                  playerArmorInv.forEach(armor => {
+                      const armorContainer = document.createElement('div');
+                      armorContainer.classList.add('armor-container');
 
-            // Create a new paragraph element to display the armor
-            const armorElement = document.createElement('p');
-            armorElement.style.display = 'inline-block';
-            armorElement.textContent = armor.armorName;
+                      const armorElement = document.createElement('p');
+                      armorElement.style.display = 'inline-block';
+                      armorElement.textContent = armor.armorName;
 
-            // Create a button to equip/unequip the armor
-            const equipBtn = document.createElement('button');
-            equipBtn.innerHTML = 'Equip Armor';
+                      const equipBtn = document.createElement('button');
+                      equipBtn.innerHTML = 'Equip Armor';
 
-            // Check if the armor is currently equipped
-            let isEquipped = false;
-            switch (armor.armorName) {
-                case 'BreastPlate':
-                    isEquipped = playerCurrentArmor && playerCurrentArmor.armorName === armor.armorName;
-                    break;
-                case 'Gauntlet':
-                    isEquipped = playerCurrentGauntlet && playerCurrentGauntlet.armorName === armor.armorName;
-                    break;
-                case 'Armored Boots':
-                    isEquipped = playerCurrentBoots && playerCurrentBoots.armorName === armor.armorName;
-                    break;
-                case 'Great Helm':
-                    isEquipped = playerCurrentHelmet && playerCurrentHelmet.armorName === armor.armorName;
-                    break;
-                case 'Round Shield':
-                    isEquipped = playerCurrentShield && playerCurrentShield.armorName === armor.armorName;
-                    break;
-            }
+                      let isEquipped = false;
+                      switch (armor.armorName) {
+                          case 'BreastPlate':
+                              isEquipped = playerCurrentArmor && playerCurrentArmor.armorName === armor.armorName;
+                              break;
+                          case 'Gauntlet':
+                              isEquipped = playerCurrentGauntlet && playerCurrentGauntlet.armorName === armor.armorName;
+                              break;
+                          case 'Armored Boots':
+                              isEquipped = playerCurrentBoots && playerCurrentBoots.armorName === armor.armorName;
+                              break;
+                          case 'Great Helm':
+                              isEquipped = playerCurrentHelmet && playerCurrentHelmet.armorName === armor.armorName;
+                              break;
+                          case 'Round Shield':
+                              isEquipped = playerCurrentShield && playerCurrentShield.armorName === armor.armorName;
+                              break;
+                      }
 
-            if (isEquipped) {
-                equipBtn.innerHTML = 'Unequip Armor';
-            }
+                      if (isEquipped) {
+                          equipBtn.innerHTML = 'Unequip Armor';
+                      }
 
-            // Add an event listener to the button
-            equipBtn.addEventListener('click', () => {
-                if (isEquipped) {
-                    unequipArmor(armor.armorName);
-                } else {
-                    equipArmor(armor.armorName);
-                }
-            });
+                      equipBtn.addEventListener('click', () => {
+                          if (isEquipped) {
+                              unequipArmor(armor.armorName);
+                          } else {
+                              equipArmor(armor.armorName);
+                          }
+                      });
 
-            // Append the armor element and button to the container
-            armorContainer.appendChild(armorElement);
-            armorContainer.appendChild(equipBtn);
+                      const sellArmorBtn = document.createElement('button');
+                      sellArmorBtn.innerHTML = 'Sell Armor';
+                      sellArmorBtn.style.display = isEquipped ? 'none' : 'inline-block';
 
-            // Append the armor container to the armor inventory container
-            armorInvContainer.appendChild(armorContainer);
-        });
-    }
-    };
+                      sellArmorBtn.addEventListener('click', () => {
+                          sellArmor(armor.armorName);
+                      });
+
+                      armorContainer.appendChild(armorElement);
+                      armorContainer.appendChild(equipBtn);
+                      armorContainer.appendChild(sellArmorBtn);
+
+                      armorInvContainer.appendChild(armorContainer);
+                  });
+              }
+          };
+
+          const removeArmorFromInventory = (armorName) => {
+              const armorIndex = playerArmorInv.findIndex(a => a.armorName === armorName);
+              if (armorIndex > -1) {
+                  playerArmorInv.splice(armorIndex, 1);
+                  displayArmorInventoryUI();
+              }
+          };
+
 
     displayArmorInvBtn.addEventListener('click', () => {
       toggleArmorInvUI();
@@ -1569,12 +1592,11 @@ let isPlayerEquipmentUIActive = false;
                 break;
         }
 
-        blacksmithStoreNotif.textContent = `You equipped ${armorName}`;
+        
         updatePlayerStatsUI();
         displayArmorInventoryUI(); // Update the UI to reflect the equipped armor
-    } else {
-        blacksmithStoreNotif.textContent = `You don't have ${armorName} to equip`;
     }
+
     };
 
     const unequipArmor = (armorName) => {
@@ -1610,6 +1632,64 @@ let isPlayerEquipmentUIActive = false;
         updatePlayerStatsUI();
         displayArmorInventoryUI(); // Update the UI to reflect the unequipped armor
     };
+
+    const sellItem = (item) => {
+          const itemValue = getItemValue(item); // Define this function based on your game logic
+          playerGold += itemValue;
+          gold.textContent = playerGold;
+          townNotifContainer.style.display = 'inline-block';
+          townNotifTxt.textContent = `You sold a ${item} for ${itemValue} gold`;
+      };
+
+      const getItemValue = (item) => {
+          // Return the value of the item based on your game logic
+          switch (item) {
+              case 'health potion':
+                  return 10;
+              case 'energy potion':
+                  return 10;
+                  
+              default:
+                  return 0;
+          }
+      };
+
+      const sellWeapon = (weaponName) => {
+          const weapon = playerWeaponInv.find(w => w.weaponName === weaponName);
+          if (weapon) {
+              const weaponValue = getWeaponValue(weapon); // Define this function based on your game logic
+              playerGold += weaponValue;
+              gold.textContent = playerGold;
+              townNotifContainer.style.display = 'inline-block';
+              townNotifTxt.textContent = `You sold a ${weaponName} for ${weaponValue} gold`;
+              removeWeaponFromInventory(weaponName);
+          }
+      };
+
+      const getWeaponValue = (weapon) => {
+          // Return the value of the weapon based on your game logic
+          return weapon.weaponCost;
+      };
+
+      const sellArmor = (armorName) => {
+          const armor = playerArmorInv.find(a => a.armorName === armorName);
+          if (armor) {
+              const armorValue = getArmorValue(armor); // Define this function based on your game logic
+              playerGold += armorValue;
+              gold.textContent = playerGold;
+              townNotifContainer.style.display = 'inline-block';
+              townNotifTxt.textContent = `You sold a ${armorName} for ${armorValue} gold`;
+              removeArmorFromInventory(armorName);
+          }
+      };
+
+      const getArmorValue = (armor) => {
+          // Return the value of the armor based on your game logic
+          return armor.armorCost;
+      };
+
+
+
 
 
 
@@ -1763,6 +1843,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const blacksmithStoreNotif = document.getElementById('blacksmith-store-notif-container');
     const blacksmithStoreNotifTxt = document.getElementById('blacksmith-store-notif');
     const blacksmithStoreNotifBckBtn = document.getElementById('blacksmith-store-notif-bck-btn');
+    
 
     const buyBreastplateBtn = document.getElementById('buy-breastplate');
     const breastplateContainer = document.getElementById('breastplate-container');
@@ -1942,6 +2023,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             energyPotionQuantityInput.value = 0;
             healthPotionQuantityInput.value = 0;
             onConfirm();
+            updatePlayerStatsUI();
         };
 
         const cancelHandler = () => {
@@ -1960,6 +2042,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
         confirmationYesBtn.addEventListener('click', confirmHandler);
         confirmationNoBtn.addEventListener('click', cancelHandler);
+        
     }
 
     // Event listener for "Confirm" button for buying health potion
@@ -1971,13 +2054,13 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
                 if (playerGold >= healthPotionCost * hpQuantity) {
                     showConfirmationDialog(hpQuantity, 'Health', healthPotionCost, () => {
-                        playerGold -= healthPotionCost * quantity;
-                        for (let i = 0; i < quantity; i++) {
+                        playerGold -= healthPotionCost * hpQuantity;
+                        for (let i = 0; i < hpQuantity; i++) {
                             playerInv.push('health potion');
                         }
                         gold.textContent = playerGold;
                         alchemyStoreNotif.style.display = 'inline-block';
-                        alchemyStoreNotifTxt.textContent = `You successfully bought ${quantity} Health Potion(s)`;
+                        alchemyStoreNotifTxt.textContent = `You successfully bought ${hpQuantity} Health Potion(s)`;
                         buyHealthPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
                         healthPotionQuantityInput.value = 0;
                     });
@@ -2001,6 +2084,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 buyHealthPotionPlusBtn.disabled = true;
                 healthPotionQuantityInput.disabled = true;
             }
+
+            updatePlayerStatsUI();
         });
 
     // Event listener for "Confirm" button for buying energy potion
@@ -2010,13 +2095,13 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
         if (eQuantity > 0) {
             if (playerGold >= energyPotionCost * eQuantity) {
                 showConfirmationDialog(eQuantity, 'Energy', energyPotionCost, () => {
-                    playerGold -= energyPotionCost * quantity;
-                    for (let i = 0; i < quantity; i++) {
-                        playerInv.push('energy_potion');
+                    playerGold -= energyPotionCost * eQuantity;
+                    for (let i = 0; i < eQuantity; i++) {
+                        playerInv.push('energy potion');
                     }
                     gold.textContent = playerGold;
                     alchemyStoreNotif.style.display = 'inline-block';
-                    alchemyStoreNotifTxt.textContent = `You successfully bought ${quantity} Energy Potion(s)`;
+                    alchemyStoreNotifTxt.textContent = `You successfully bought ${eQuantity} Energy Potion(s)`;
                     buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
                     energyPotionQuantityInput.value = 0;
                 });
@@ -2039,7 +2124,10 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             buyEnergyPotionPlusBtn.disabled = true;
             energyPotionQuantityInput.disabled = true;
         }
+        updatePlayerStatsUI();
     });
+
+    updatePlayerStatsUI();
 });
 
 
@@ -2050,10 +2138,16 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             townMap.style.display = 'none';
             blacksmithStore.style.display = 'inline-block';
 
+            const bsBuyConfirmation = document.getElementById('blacksmith-store-confirmation-container');
+            const bsConfirmationTxt = document.getElementById('blacksmith-store-confirmation-txt');
+            const bsConfirmationYesBtn = document.getElementById('blacksmith-confirm-yes-btn');
+            const bsConfirmationNoBtn = document.getElementById('blacksmith-confirm-no-btn');
+
             blacksmithStoreBackBtn.addEventListener('click', () => {
               mapNav.style.display = 'none';
               townMap.style.display = 'inline-block';
               blacksmithStore.style.display = 'none';
+              breastplateContainer.style.display = 'none';
             })
 
             blacksmithStoreNotifBckBtn.addEventListener('click', () => {
@@ -2063,54 +2157,45 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             const buyBreastplate = () => {
 
                   breastplateContainer.style.display = 'flex';
-                  let infoActive = false;
-
                   
+
                   breastplateBuyBtn.addEventListener('click', () => {
 
                       const breastplateCost = 30;
+                      
+                      showBsConfirmationDialog('Breastplate', breastplateCost, () => {
+                          if (playerGold >= breastplateCost) {
+                              playerGold -= breastplateCost;
 
-                      if (playerGold >= breastplateCost) {
+                              blacksmithStoreNotif.style.display = 'inline-block';
+                              playerArmorInv.push(armors.breastplate);
 
-                          playerGold -= breastplateCost;
+                              gold.textContent = playerGold;
 
-                          blacksmithStoreNotif.style.display = 'inline-block';
-                          playerArmorInv.push(armors.breastplate);
+                              blacksmithStoreNotifTxt.textContent = 'You successfully bought a Breastplate';
 
-                          gold.textContent = playerGold;
-
-                          blacksmithStoreNotifTxt.textContent = 'You successfully bought a Breastplate';
-
-                          updatePlayerStatsUI();
-
-                      } else {
-
-                          blacksmithStoreNotif.style.display = 'inline-block';
-
-                          blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Breastplate';
-
-                      }
-
+                              updatePlayerStatsUI();
+                          } else {
+                              blacksmithStoreNotif.style.display = 'inline-block';
+                              blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Breastplate';
+                          }
+                      });
                   });
 
                   breastplateCancelBtn.addEventListener('click', () => {
-                    breastplateContainer.style.display = 'none';
+                      breastplateContainer.style.display = 'none';
                   });
 
                   breastplateInfoBtn.addEventListener('click', () => {
-                  
-                        breastplateInfoContainer.style.height = '100%';
-                        breastplateInfoBtn.style.display = 'none';
-                    
-                  });  
-
-                   breastplateCloseInfoBtn.addEventListener('click', () => {
-                     breastplateInfoContainer.style.height = '0'; // Collapse info container
-                     breastplateInfoBtn.style.display = 'inline-block';
-
+                      breastplateInfoContainer.style.height = '100%';
+                      breastplateInfoBtn.style.display = 'none';
                   });
 
-            };
+                  breastplateCloseInfoBtn.addEventListener('click', () => {
+                      breastplateInfoContainer.style.height = '0'; // Collapse info container
+                      breastplateInfoBtn.style.display = 'inline-block';
+                  });
+              };
 
                
 
@@ -2219,13 +2304,35 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
                   }
               };   
-              
-              buyBreastplateBtn.addEventListener('click', buyBreastplate);
-              buyGauntletBtn.addEventListener('click', buyGauntlet);
-              buyArmoredBootsBtn.addEventListener('click', buyArmoredBoots);
-              buyGreatHelmBtn.addEventListener('click', buyGreatHelm);
-              buyShieldBtn.addEventListener('click', buyShield);
-          });
+
+              function showBsConfirmationDialog(armorType, armorCost, onConfirm) {
+                  bsBuyConfirmation.style.display = 'inline-block';
+                  bsConfirmationTxt.textContent = `Are you sure you want to buy ${armorType} for ${armorCost} gold?`;
+                        
+
+                  const confirmHandler = () => {
+                      bsBuyConfirmation.style.display = 'none';
+                      bsConfirmationYesBtn.removeEventListener('click', confirmHandler);
+                      bsConfirmationNoBtn.removeEventListener('click', cancelHandler);
+                      onConfirm();
+                  };
+
+                  const cancelHandler = () => {
+                      bsBuyConfirmation.style.display = 'none';
+                      bsConfirmationYesBtn.removeEventListener('click', confirmHandler);
+                      bsConfirmationNoBtn.removeEventListener('click', cancelHandler);
+                  };
+
+                  bsConfirmationYesBtn.addEventListener('click', confirmHandler);
+                  bsConfirmationNoBtn.addEventListener('click', cancelHandler);
+              }
+                  
+                  buyBreastplateBtn.addEventListener('click', buyBreastplate);
+                  buyGauntletBtn.addEventListener('click', buyGauntlet);
+                  buyArmoredBootsBtn.addEventListener('click', buyArmoredBoots);
+                  buyGreatHelmBtn.addEventListener('click', buyGreatHelm);
+                  buyShieldBtn.addEventListener('click', buyShield);
+              });
 
           //swordsmith store function
           swordsmithStoreBtn.addEventListener('click',() => {
@@ -2399,7 +2506,10 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
           townBackBtn.addEventListener('click', () => {
               mapNav.style.display = 'inline-block';
               townMap.style.display = 'none';
+               
           })
+
+          updatePlayerStatsUI();
         
       };
 
