@@ -235,8 +235,9 @@ background-color: white;
   left:0;
   bottom: 0;
   right: 0;
-  margin: auto;
+  margin-top: 160px;
   position: absolute; 
+  z-index: 100;
 }
 
 #weapon-inv-container, 
@@ -250,7 +251,7 @@ background-color: white;
   border-radius: 10px;
   height: 180px;
   width: 510px;
-  z-index: 1000;
+  z-index: 90;
   padding: 10px;
   position: absolute;
 }
@@ -264,7 +265,7 @@ background-color: white;
   border-radius: 10px;
   height: 180px;
   width: 510px;
-  z-index: 1000;
+  z-index: 90;
   padding: 10px;
   position: absolute;
 }

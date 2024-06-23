@@ -107,6 +107,19 @@ const armors = {
   }
 };
 
+const items = {
+  healthPotion: {
+    itemName: 'Health Potion',
+    itemCost: 10,
+    potionEffectAmount: 40
+  },
+  energyPotion: {
+    itemName: 'Energy Potion',
+    itemCost: '10',
+    potionEffectAmount: 30
+  }
+}
+
 const darkValleyMonstersList = [
   {
     name: 'Ratooth',
@@ -1286,39 +1299,26 @@ let isPlayerEquipmentUIActive = false;
                   itemBtn.innerHTML = 'Use Item';
 
                   itemBtn.addEventListener('click', () => {
-                      if (item === 'health_potion') {
+                      if (item === 'health potion') {
                           useHealthPotion();
                           removeItemFromInventory(item);
-                      } else if (item === 'energy_potion') {
+                      } else if (item === 'energy potion') {
                           useEnergyPotion();
                           removeItemFromInventory(item);
                       }
                   });
 
-                  const sellItemBtn = document.createElement('button');
-                  sellItemBtn.innerHTML = 'Sell Item';
-
-                  sellItemBtn.addEventListener('click', () => {
-                      sellItem(item);
-                      removeItemFromInventory(item);
-                  });
+                  
 
                   itemContainer.appendChild(itemElement);
                   itemContainer.appendChild(itemBtn);
-                  itemContainer.appendChild(sellItemBtn);
-
+                 
                   inventoryContainer.appendChild(itemContainer);
               });
           }
       };
 
-      const removeItemFromInventory = (item) => {
-          const itemIndex = playerInv.indexOf(item);
-          if (itemIndex > -1) {
-              playerInv.splice(itemIndex, 1);
-              displayInventoryUI();
-          }
-      };
+      
 
 
     checkInventoryBtn.addEventListener('click', () => {
@@ -1352,27 +1352,36 @@ let isPlayerEquipmentUIActive = false;
 
             // Add an event listener to the button
             townItemBtn.addEventListener('click', () => {
-                if (item === 'health_potion') {
+                if (item === 'health potion') {
 
                     useHealthPotion();
-                    townItemContainer.style.display = 'none';
-                    townItemElement.style.display = 'none';
-                    townItemBtn.style.display = 'none';
+                    removeItemFromInventory(item);
 
-                } else if (item === 'energy_potion') {
+                } else if (item === 'energy potion') {
 
                     useEnergyPotion();
-                    townItemContainer.style.display = 'none';
-                    townItemElement.style.display = 'none';
-                    townItemBtn.style.display = 'none';
+                    removeItemFromInventory(item);
                 }
             });
+
+                   const sellItemBtn = document.createElement('button');
+                  sellItemBtn.innerHTML = 'Sell Item';
+
+                  sellItemBtn.addEventListener('click', () => {
+
+                      removeItemFromInventory(item);
+                      sellItem(item);
+                      
+                  });
+
+
 
                     
 
             // Append the item element and button to the container
             townItemContainer.appendChild(townItemElement);
             townItemContainer.appendChild(townItemBtn);
+             townItemContainer.appendChild(sellItemBtn);
 
             // Append the item container to the inventory container
             townInventoryContainer.appendChild(townItemContainer);
@@ -1381,6 +1390,14 @@ let isPlayerEquipmentUIActive = false;
             
         }
     };
+
+    const removeItemFromInventory = (item) => {
+          const itemIndex = playerInv.indexOf(item);
+          if (itemIndex > -1) {
+              playerInv.splice(itemIndex, 1);
+              displayTownInventoryUI();
+          }
+      };
 
     townInventoryBtn.addEventListener('click', () => {
       toggleTownInventoryUI();
@@ -1645,7 +1662,7 @@ let isPlayerEquipmentUIActive = false;
     };
 
     const sellItem = (item) => {
-          const itemValue = getItemValue(item); // Define this function based on your game logic
+          const itemValue = getItemValue(item);
           playerGold += itemValue;
           gold.textContent = playerGold;
           townNotifContainer.style.display = 'inline-block';
@@ -1653,7 +1670,7 @@ let isPlayerEquipmentUIActive = false;
       };
 
       const getItemValue = (item) => {
-          // Return the value of the item based on your game logic
+          
           switch (item) {
               case 'health potion':
                   return 10;
@@ -1699,6 +1716,9 @@ let isPlayerEquipmentUIActive = false;
           return armor.armorCost;
       };
 
+      townNotifBackBtn.addEventListener('click', () => {
+           townNotifContainer.style.display = 'none';
+      });
 
 
 
@@ -2059,7 +2079,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     // Event listener for "Confirm" button for buying health potion
         healthPotionConfirmBtn.addEventListener('click', () => {
 
-            const healthPotionCost = 10;
+            const healthPotionCost = items.healthPotion.itemCost;
 
             if (hpQuantity > 0) {
 
@@ -2067,7 +2087,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                     showConfirmationDialog(hpQuantity, 'Health', healthPotionCost, () => {
                         playerGold -= healthPotionCost * hpQuantity;
                         for (let i = 0; i < hpQuantity; i++) {
-                            playerInv.push('health potion');
+                            playerInv.push(items.healthPotion);
                         }
                         gold.textContent = playerGold;
                         alchemyStoreNotif.style.display = 'inline-block';
@@ -2101,14 +2121,14 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
     // Event listener for "Confirm" button for buying energy potion
     energyPotionConfirmBtn.addEventListener('click', () => {
-        const energyPotionCost = 10;
+        const energyPotionCost = items.energyPotion.itemCost;
 
         if (eQuantity > 0) {
             if (playerGold >= energyPotionCost * eQuantity) {
                 showConfirmationDialog(eQuantity, 'Energy', energyPotionCost, () => {
                     playerGold -= energyPotionCost * eQuantity;
                     for (let i = 0; i < eQuantity; i++) {
-                        playerInv.push('energy potion');
+                        playerInv.push(items.energyPotion);
                     }
                     gold.textContent = playerGold;
                     alchemyStoreNotif.style.display = 'inline-block';
