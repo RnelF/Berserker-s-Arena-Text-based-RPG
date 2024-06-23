@@ -23,10 +23,6 @@ let playerCurrentBoots = null;
 let playerCurrentShield = null;
 
 
-const healthPotionHealAmount = 50;
-const energyPotionRestoreAmount = 20;
-
-
 const notifications = document.getElementById('notifications');
 const notifContainer = document.getElementById('notif-container');
 const mapNav = document.getElementById('map-nav');
@@ -118,7 +114,7 @@ const items = {
     itemCost: '10',
     potionEffectAmount: 30
   }
-}
+};
 
 const darkValleyMonstersList = [
   {
@@ -748,7 +744,9 @@ let selectedMonster = null;
       //Function to use an health potion
     const useHealthPotion = () => {
       
-			const healthPotionIndex = playerInv.indexOf('health_potion');
+      const itemName = items.healthPotion.itemName;
+			const healthPotionIndex = playerInv.indexOf(itemName);
+      const healthPotionHealAmount = items.healthPotion.potionEffectAmount;
 			
 			if (healthPotionIndex !== -1) {
 				
@@ -769,8 +767,11 @@ let selectedMonster = null;
 
 		// Function to use an energy potion
 		const useEnergyPotion = () => {
+
+      const itemName = items.energyPotion.itemName;
+      const energyPotionRestoreAmount = items.energyPotion.potionEffectAmount;
       
-			const energyPotionIndex = playerInv.indexOf('energy_potion');
+			const energyPotionIndex = playerInv.indexOf(itemName);
 			if (energyPotionIndex !== -1) {
 				
 				playerEnergy += energyPotionRestoreAmount;
@@ -1299,10 +1300,10 @@ let isPlayerEquipmentUIActive = false;
                   itemBtn.innerHTML = 'Use Item';
 
                   itemBtn.addEventListener('click', () => {
-                      if (item === 'health potion') {
+                      if (item === items.healthPotion.itemName) {
                           useHealthPotion();
                           removeItemFromInventory(item);
-                      } else if (item === 'energy potion') {
+                      } else if (item === items.energyPotion.itemName) {
                           useEnergyPotion();
                           removeItemFromInventory(item);
                       }
@@ -1343,7 +1344,7 @@ let isPlayerEquipmentUIActive = false;
 
             // Create a new paragraph element to display the item
             const townItemElement = document.createElement('p');
-            townItemElement.textContent = item;
+            townItemElement.textContent = item.itemName;
 
 
             // Create a button to use the item
@@ -1352,12 +1353,12 @@ let isPlayerEquipmentUIActive = false;
 
             // Add an event listener to the button
             townItemBtn.addEventListener('click', () => {
-                if (item === 'health potion') {
+                if (item === items.healthPotion.itemName) {
 
                     useHealthPotion();
                     removeItemFromInventory(item);
 
-                } else if (item === 'energy potion') {
+                } else if (item === items.energyPotion.itemName) {
 
                     useEnergyPotion();
                     removeItemFromInventory(item);
