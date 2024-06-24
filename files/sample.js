@@ -1889,7 +1889,15 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const gauntletCloseInfoBtn = document.getElementById('gauntlet-close-info');
     const gauntletInfoContainer = document.getElementById('gauntlet-info-container');
 
+  //armored boots dom
     const buyArmoredBootsBtn = document.getElementById('buy-armored-boots');
+    const bootsContainer = document.getElementById('boots-container');
+    const bootsBuyBtn = document.getElementById('boots-buy-btn');
+    const bootsCancelBtn = document.getElementById('boots-cancel-btn');
+    const bootsInfoBtn = document.getElementById('boots-info-btn');
+    const bootsCloseInfoBtn = document.getElementById('boots-close-info');
+    const bootsInfoContainer = document.getElementById('boots-info-container');
+
     const buyGreatHelmBtn = document.getElementById('buy-great-helm');
     const buyShieldBtn = document.getElementById('buy-shield');
 
@@ -2185,33 +2193,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
               });
                
 
-            const buyArmoredBoots = () => {
           
-                  const armoredBootsCost = 70;
-
-                  if (playerGold >= armoredBootsCost) {
-
-                      playerGold -= armoredBootsCost;
-
-                      blacksmithStoreNotif.style.display = 'inline-block';
-                      playerArmorInv.push(armors.armoredBoots);
-
-                      gold.textContent = playerGold;
-
-                      blacksmithStoreNotifTxt.textContent = 'You successfully bought Armored Boots';
-
-                      updatePlayerStatsUI();
-
-                  } else {
-
-                      blacksmithStoreNotif.style.display = 'inline-block';
-
-                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy Armored Boots';
-
-                  }
-                  console.log(playerArmorInv);
-              };
-
             const buyGreatHelm = () => {
           
                   const greatHelmCost = 70;
@@ -2444,6 +2426,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
           townBackBtn.addEventListener('click', () => {
               mapNav.style.display = 'inline-block';
               townMap.style.display = 'none';
+              bootsContainer.style.display = 'none';
                
           })
 
@@ -2452,10 +2435,10 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
       };
 
       //buy breastplate functions
-
        const buyBreastplate = () => {
                   breastplateContainer.style.display = 'flex';
                   gauntletContainer.style.display = 'none';
+                  bootsContainer.style.display = 'none';
               };
 
               breastplateBuyBtn.addEventListener('click', () => {
@@ -2496,6 +2479,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
        const buyGauntlet = () => {
                gauntletContainer.style.display = 'flex';
                breastplateContainer.style.display = 'none';
+               bootsContainer.style.display = 'none';
               };
 
       gauntletBuyBtn.addEventListener('click', () => {
@@ -2530,6 +2514,48 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 gauntletInfoContainer.style.height = '0'; // Collapse info container
                 gauntletInfoBtn.style.display = 'inline-block';
             });
+
+      //armored boots functions
+
+       const buyArmoredBoots = () => {
+                gauntletContainer.style.display = 'none';
+               breastplateContainer.style.display = 'none';
+               bootsContainer.style.display = 'flex';
+              };
+
+      bootsBuyBtn.addEventListener('click', () => {
+
+              showBsConfirmationDialog(armors.armoredBoots.armorName, armors.armoredBoots.armorCost, () => {
+                  if (playerGold >= armors.armoredBoots.armorCost) {
+                      playerGold -= armors.armoredBoots.armorCost;
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      playerArmorInv.push(armors.armoredBoots);
+
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Armored Boots';
+
+                      updatePlayerStatsUI();
+                  } else {
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Armored Boots';
+                  }
+              });
+          });
+
+            bootsCancelBtn.addEventListener('click', () => {
+                bootsContainer.style.display = 'none';
+            });
+
+            bootsInfoBtn.addEventListener('click', () => {
+                bootsInfoContainer.style.height = '100%';
+                bootsInfoBtn.style.display = 'none';
+            });
+
+            bootsCloseInfoBtn.addEventListener('click', () => {
+                bootsInfoContainer.style.height = '0'; // Collapse info container
+                bootsInfoBtn.style.display = 'inline-block';
+            });
+      
                     
 
       //confirmation functions

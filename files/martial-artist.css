@@ -525,19 +525,21 @@ background-color: white;
 
 #blacksmith-store-confirmation-container{
   background-color: white;
-  padding: 20px 20px;
+  padding: 20px;
   border-radius: 20px;
   border: 2px solid black;
-  height: 40px;
-  width: auto;
-  display:none;
-  top: 0;
-  left:0;
-  bottom: 0;
-  right: 0;
-  margin: auto auto;
-  position: absolute; 
+  height: auto; 
+  width: auto; 
+  max-width: 80%; 
+  max-height: 80%; 
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  position: absolute;
   z-index: 1000;
+  overflow-y: auto; 
+  text-align: center; 
 }
 
 #blacksmith-store-confirmation-txt{
@@ -555,7 +557,7 @@ background-color: white;
   margin-top: 15px;
 }
 
-#breastplate-container, #gauntlet-container{
+#breastplate-container, #gauntlet-container,#boots-container{
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -575,7 +577,7 @@ background-color: white;
   z-index: 1;
 }
 
-#breastplate-info-container, #gauntlet-info-container{
+#breastplate-info-container, #gauntlet-info-container,#boots-info-container{
   background-color: rgba(0, 0, 0, 0.775);
   position: absolute;
   width: 100%;
@@ -593,7 +595,7 @@ background-color: white;
 
 }
 
-#breastplate-info-container p, #gauntlet-info-container p{
+#breastplate-info-container p, #gauntlet-info-container p, #boots-info-container p{
   color: white;
   text-align: center;
   font-size: 0.7rem;
@@ -604,12 +606,13 @@ background-color: white;
 }
 
 #breastplate-info-btn, #breastplate-buy-btn, #breastplate-cancel-btn,
-#gauntlet-info-btn, #gauntlet-buy-btn, #gauntlet-cancel-btn
+#gauntlet-info-btn, #gauntlet-buy-btn, #gauntlet-cancel-btn,
+#boots-info-btn, #boots-buy-btn, #boots-cancel-btn,boots
 {
   display: inline-block;
 }
 
-#breastplate-close-info, #gauntlet-close-info{
+#breastplate-close-info, #gauntlet-close-info, #boots-close-info{
   width: 50px;
   height: 20px;
   margin-left: 88%;
@@ -623,7 +626,7 @@ background-color: white;
   border-radius: 3px;
 }
 
-#breastplate-close-info:hover , #gauntlet-close-info:hover {
+#breastplate-close-info:hover , #gauntlet-close-info:hover, #boots-close-info:hover {
   background-color: white;
   color: black;
 }
@@ -639,6 +642,11 @@ background-color: white;
 #gauntlet-container{
   background-image: url(../images/items/gauntlet.jpg);
 }
+
+#boots-container{
+  background-image: url(../images/items/boots.jpg);
+}
+
 
 
 /*swordsmith store*/
