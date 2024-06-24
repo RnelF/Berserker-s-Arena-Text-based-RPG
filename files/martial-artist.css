@@ -555,12 +555,11 @@ background-color: white;
   margin-top: 15px;
 }
 
-#breastplate-container{
+#breastplate-container, #gauntlet-container{
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   display: none;
-  background-image: url(../images/items/breastplate.jpg);
   width: 400px;
   height: 400px;
   background-repeat: no-repeat;
@@ -576,7 +575,7 @@ background-color: white;
   z-index: 1;
 }
 
-#breastplate-info-container{
+#breastplate-info-container, #gauntlet-info-container{
   background-color: rgba(0, 0, 0, 0.775);
   position: absolute;
   width: 100%;
@@ -594,7 +593,7 @@ background-color: white;
 
 }
 
-#breastplate-info-container p{
+#breastplate-info-container p, #gauntlet-info-container p{
   color: white;
   text-align: center;
   font-size: 0.7rem;
@@ -604,11 +603,13 @@ background-color: white;
   text-align: left;
 }
 
-#breastplate-info-btn, #breastplate-buy-btn, #breastplate-cancel-btn{
+#breastplate-info-btn, #breastplate-buy-btn, #breastplate-cancel-btn,
+#gauntlet-info-btn, #gauntlet-buy-btn, #gauntlet-cancel-btn
+{
   display: inline-block;
 }
 
-#breastplate-close-info{
+#breastplate-close-info, #gauntlet-close-info{
   width: 50px;
   height: 20px;
   margin-left: 88%;
@@ -622,7 +623,7 @@ background-color: white;
   border-radius: 3px;
 }
 
-#breastplate-close-info:hover {
+#breastplate-close-info:hover , #gauntlet-close-info:hover {
   background-color: white;
   color: black;
 }
@@ -630,6 +631,15 @@ background-color: white;
 .item-stats{
   font-size: 1.4rem;
 }
+
+#breastplate-container{
+  background-image: url(../images/items/breastplate.jpg);
+}
+
+#gauntlet-container{
+  background-image: url(../images/items/gauntlet.jpg);
+}
+
 
 /*swordsmith store*/
 
