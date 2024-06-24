@@ -1665,22 +1665,13 @@ let isPlayerEquipmentUIActive = false;
     const sellItem = (item) => {
           const itemValue = getItemValue(item);
           playerGold += itemValue;
-          gold.textContent = playerGold;
           townNotifContainer.style.display = 'inline-block';
-          townNotifTxt.textContent = `You sold a ${item} for ${itemValue} gold`;
+          townNotifTxt.textContent = `You sold a ${item.itemName} for ${item.itemCost} gold`;
+          updatePlayerStatsUI();
       };
 
       const getItemValue = (item) => {
-          
-          switch (item) {
-              case 'health potion':
-                  return 10;
-              case 'energy potion':
-                  return 10;
-                  
-              default:
-                  return 0;
-          }
+          return item.itemCost || 0;
       };
 
       const sellWeapon = (weaponName) => {
@@ -1705,10 +1696,10 @@ let isPlayerEquipmentUIActive = false;
           if (armor) {
               const armorValue = getArmorValue(armor); // Define this function based on your game logic
               playerGold += armorValue;
-              gold.textContent = playerGold;
               townNotifContainer.style.display = 'inline-block';
               townNotifTxt.textContent = `You sold a ${armorName} for ${armorValue} gold`;
               removeArmorFromInventory(armorName);
+              updatePlayerStatsUI();
           }
       };
 
@@ -1884,6 +1875,10 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const breastplateInfoBtn = document.getElementById('breastplate-info-btn');
     const breastplateCloseInfoBtn = document.getElementById('breastplate-close-info');
     const breastplateInfoContainer = document.getElementById('breastplate-info-container');
+    const bsBuyConfirmation = document.getElementById('blacksmith-store-confirmation-container');
+     const bsConfirmationTxt = document.getElementById('blacksmith-store-confirmation-txt');
+     const bsConfirmationYesBtn = document.getElementById('blacksmith-confirm-yes-btn');
+            const bsConfirmationNoBtn = document.getElementById('blacksmith-confirm-no-btn');
 
     const buyGauntletBtn = document.getElementById('buy-gauntlet');
     const buyArmoredBootsBtn = document.getElementById('buy-armored-boots');
@@ -2170,11 +2165,6 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             townMap.style.display = 'none';
             blacksmithStore.style.display = 'inline-block';
 
-            const bsBuyConfirmation = document.getElementById('blacksmith-store-confirmation-container');
-            const bsConfirmationTxt = document.getElementById('blacksmith-store-confirmation-txt');
-            const bsConfirmationYesBtn = document.getElementById('blacksmith-confirm-yes-btn');
-            const bsConfirmationNoBtn = document.getElementById('blacksmith-confirm-no-btn');
-
             blacksmithStoreBackBtn.addEventListener('click', () => {
               mapNav.style.display = 'none';
               townMap.style.display = 'inline-block';
@@ -2185,50 +2175,6 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             blacksmithStoreNotifBckBtn.addEventListener('click', () => {
                   blacksmithStoreNotif.style.display = 'none';
               });
-
-            const buyBreastplate = () => {
-
-                  breastplateContainer.style.display = 'flex';
-                  
-
-                  breastplateBuyBtn.addEventListener('click', () => {
-
-                      const breastplateCost = 30;
-                      
-                      showBsConfirmationDialog('Breastplate', breastplateCost, () => {
-                          if (playerGold >= breastplateCost) {
-                              playerGold -= breastplateCost;
-
-                              blacksmithStoreNotif.style.display = 'inline-block';
-                              playerArmorInv.push(armors.breastplate);
-
-                              gold.textContent = playerGold;
-
-                              blacksmithStoreNotifTxt.textContent = 'You successfully bought a Breastplate';
-
-                              updatePlayerStatsUI();
-                          } else {
-                              blacksmithStoreNotif.style.display = 'inline-block';
-                              blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Breastplate';
-                          }
-                      });
-                  });
-
-                  breastplateCancelBtn.addEventListener('click', () => {
-                      breastplateContainer.style.display = 'none';
-                  });
-
-                  breastplateInfoBtn.addEventListener('click', () => {
-                      breastplateInfoContainer.style.height = '100%';
-                      breastplateInfoBtn.style.display = 'none';
-                  });
-
-                  breastplateCloseInfoBtn.addEventListener('click', () => {
-                      breastplateInfoContainer.style.height = '0'; // Collapse info container
-                      breastplateInfoBtn.style.display = 'inline-block';
-                  });
-              };
-
                
 
             const buyGauntlet = () => {
@@ -2337,27 +2283,6 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                   }
               };   
 
-              function showBsConfirmationDialog(armorType, armorCost, onConfirm) {
-                  bsBuyConfirmation.style.display = 'inline-block';
-                  bsConfirmationTxt.textContent = `Are you sure you want to buy ${armorType} for ${armorCost} gold?`;
-                        
-
-                  const confirmHandler = () => {
-                      bsBuyConfirmation.style.display = 'none';
-                      bsConfirmationYesBtn.removeEventListener('click', confirmHandler);
-                      bsConfirmationNoBtn.removeEventListener('click', cancelHandler);
-                      onConfirm();
-                  };
-
-                  const cancelHandler = () => {
-                      bsBuyConfirmation.style.display = 'none';
-                      bsConfirmationYesBtn.removeEventListener('click', confirmHandler);
-                      bsConfirmationNoBtn.removeEventListener('click', cancelHandler);
-                  };
-
-                  bsConfirmationYesBtn.addEventListener('click', confirmHandler);
-                  bsConfirmationNoBtn.addEventListener('click', cancelHandler);
-              }
                   
                   buyBreastplateBtn.addEventListener('click', buyBreastplate);
                   buyGauntletBtn.addEventListener('click', buyGauntlet);
@@ -2544,6 +2469,67 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
           updatePlayerStatsUI();
         
       };
+
+       const buyBreastplate = () => {
+                  breastplateContainer.style.display = 'flex';
+              };
+
+              breastplateBuyBtn.addEventListener('click', () => {
+
+                      showBsConfirmationDialog(armors.breastplate.armorName, armors.breastplate.armorCost, () => {
+                          if (playerGold >= armors.breastplate.armorCost) {
+
+                              playerGold -= armors.breastplate.armorCost;
+
+                              blacksmithStoreNotif.style.display = 'inline-block';
+                              playerArmorInv.push(armors.breastplate);
+
+                              blacksmithStoreNotifTxt.textContent = 'You successfully bought a Breastplate';
+
+                              updatePlayerStatsUI();
+                          } else {
+                              blacksmithStoreNotif.style.display = 'inline-block';
+                              blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Breastplate';
+                          }
+                      });
+                  });
+
+                  breastplateCancelBtn.addEventListener('click', () => {
+                      breastplateContainer.style.display = 'none';
+                  });
+
+                  breastplateInfoBtn.addEventListener('click', () => {
+                      breastplateInfoContainer.style.height = '100%';
+                      breastplateInfoBtn.style.display = 'none';
+                  });
+
+                  breastplateCloseInfoBtn.addEventListener('click', () => {
+                      breastplateInfoContainer.style.height = '0'; // Collapse info container
+                      breastplateInfoBtn.style.display = 'inline-block';
+                  });
+
+
+      function showBsConfirmationDialog(armorType, armorCost, onConfirm) {
+                  bsBuyConfirmation.style.display = 'inline-block';
+                  bsConfirmationTxt.textContent = `Are you sure you want to buy ${armorType} for ${armorCost} gold?`;
+                        
+
+                  const confirmHandler = () => {
+                      bsBuyConfirmation.style.display = 'none';
+                      bsConfirmationYesBtn.removeEventListener('click', confirmHandler);
+                      bsConfirmationNoBtn.removeEventListener('click', cancelHandler);
+                      onConfirm();
+                  };
+
+                  const cancelHandler = () => {
+                      bsBuyConfirmation.style.display = 'none';
+                      bsConfirmationYesBtn.removeEventListener('click', confirmHandler);
+                      bsConfirmationNoBtn.removeEventListener('click', cancelHandler);
+                  };
+
+                  bsConfirmationYesBtn.addEventListener('click', confirmHandler);
+                  bsConfirmationNoBtn.addEventListener('click', cancelHandler);
+              }
 
 
       const townBtn = document.getElementById('town-btn').addEventListener('click',townBtnFunction);
