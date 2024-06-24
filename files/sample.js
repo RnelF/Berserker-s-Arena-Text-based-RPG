@@ -1392,6 +1392,7 @@ let isPlayerEquipmentUIActive = false;
         }
     };
 
+    //remove the item from the player inventory after selling it
     const removeItemFromInventory = (item) => {
           const itemIndex = playerInv.indexOf(item);
           if (itemIndex > -1) {
@@ -1677,7 +1678,7 @@ let isPlayerEquipmentUIActive = false;
       const sellWeapon = (weaponName) => {
           const weapon = playerWeaponInv.find(w => w.weaponName === weaponName);
           if (weapon) {
-              const weaponValue = getWeaponValue(weapon); // Define this function based on your game logic
+              const weaponValue = getWeaponValue(weapon);
               playerGold += weaponValue;
               gold.textContent = playerGold;
               townNotifContainer.style.display = 'inline-block';
@@ -1687,7 +1688,7 @@ let isPlayerEquipmentUIActive = false;
       };
 
       const getWeaponValue = (weapon) => {
-          // Return the value of the weapon based on your game logic
+          
           return weapon.weaponCost;
       };
 
@@ -1898,7 +1899,15 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const bootsCloseInfoBtn = document.getElementById('boots-close-info');
     const bootsInfoContainer = document.getElementById('boots-info-container');
 
+    //helmet dom
     const buyGreatHelmBtn = document.getElementById('buy-great-helm');
+    const helmetContainer = document.getElementById('helmet-container');
+    const helmetBuyBtn = document.getElementById('helmet-buy-btn');
+    const helmetCancelBtn = document.getElementById('helmet-cancel-btn');
+    const helmetInfoBtn = document.getElementById('helmet-info-btn');
+    const helmetCloseInfoBtn = document.getElementById('helmet-close-info');
+    const helmetInfoContainer = document.getElementById('helmet-info-container');
+
     const buyShieldBtn = document.getElementById('buy-shield');
 
     //swordsmith
@@ -2191,34 +2200,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             blacksmithStoreNotifBckBtn.addEventListener('click', () => {
                   blacksmithStoreNotif.style.display = 'none';
               });
-               
-
-          
-            const buyGreatHelm = () => {
-          
-                  const greatHelmCost = 70;
-
-                  if (playerGold >= greatHelmCost) {
-
-                      playerGold -= greatHelmCost;
-
-                      blacksmithStoreNotif.style.display = 'inline-block';
-                      playerArmorInv.push(armors.greatHelm);
-
-                      gold.textContent = playerGold;
-
-                      blacksmithStoreNotifTxt.textContent = 'You successfully bought Great Helm';
-
-                      updatePlayerStatsUI();
-
-                  } else {
-
-                      blacksmithStoreNotif.style.display = 'inline-block';
-
-                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy Great Helm';
-
-                  }
-              }; 
+              
 
             const buyShield = () => {
           
@@ -2439,6 +2421,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                   breastplateContainer.style.display = 'flex';
                   gauntletContainer.style.display = 'none';
                   bootsContainer.style.display = 'none';
+                  helmetContainer.style.display = 'none';
               };
 
               breastplateBuyBtn.addEventListener('click', () => {
@@ -2480,6 +2463,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                gauntletContainer.style.display = 'flex';
                breastplateContainer.style.display = 'none';
                bootsContainer.style.display = 'none';
+               helmetContainer.style.display = 'none';
               };
 
       gauntletBuyBtn.addEventListener('click', () => {
@@ -2515,11 +2499,12 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 gauntletInfoBtn.style.display = 'inline-block';
             });
 
-      //armored boots functions
+      //buy armored boots functions
 
        const buyArmoredBoots = () => {
                 gauntletContainer.style.display = 'none';
                breastplateContainer.style.display = 'none';
+               helmetContainer.style.display = 'none';
                bootsContainer.style.display = 'flex';
               };
 
@@ -2555,6 +2540,47 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 bootsInfoContainer.style.height = '0'; // Collapse info container
                 bootsInfoBtn.style.display = 'inline-block';
             });
+
+      //buy helmet functions
+      const buyGreatHelm = () => {
+              gauntletContainer.style.display = 'none';
+               breastplateContainer.style.display = 'none';
+               bootsContainer.style.display = 'none';
+               helmetContainer.style.display = 'flex';
+              };     
+
+      helmetBuyBtn.addEventListener('click', () => {
+
+              showBsConfirmationDialog(armors.greatHelm.armorName, armors.greatHelm.armorCost, () => {
+                  if (playerGold >= armors.greatHelm.armorCost) {
+                      playerGold -= armors.greatHelm.armorCost;
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      playerArmorInv.push(armors.greatHelm);
+
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Armored Boots';
+
+                      updatePlayerStatsUI();
+                  } else {
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Armored Boots';
+                  }
+              });
+          });
+
+            helmetCancelBtn.addEventListener('click', () => {
+                helmetContainer.style.display = 'none';
+            });
+
+            helmetInfoBtn.addEventListener('click', () => {
+               helmetInfoContainer.style.height = '100%';
+                helmetInfoBtn.style.display = 'none';
+            });
+
+            helmetCloseInfoBtn.addEventListener('click', () => {
+                helmetInfoContainer.style.height = '0'; // Collapse info container
+                helmetInfoBtn.style.display = 'inline-block';
+            });          
       
                     
 

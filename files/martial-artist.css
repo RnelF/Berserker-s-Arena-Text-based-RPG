@@ -557,7 +557,8 @@ background-color: white;
   margin-top: 15px;
 }
 
-#breastplate-container, #gauntlet-container,#boots-container{
+#breastplate-container, #gauntlet-container,#boots-container,
+#helmet-container{
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -577,7 +578,8 @@ background-color: white;
   z-index: 1;
 }
 
-#breastplate-info-container, #gauntlet-info-container,#boots-info-container{
+#breastplate-info-container, #gauntlet-info-container,#boots-info-container,
+#helmet-info-container{
   background-color: rgba(0, 0, 0, 0.775);
   position: absolute;
   width: 100%;
@@ -595,24 +597,31 @@ background-color: white;
 
 }
 
-#breastplate-info-container p, #gauntlet-info-container p, #boots-info-container p{
+#breastplate-info-container p, 
+#gauntlet-info-container p, 
+#boots-info-container p,
+#helmet-info-container p{
   color: white;
   text-align: center;
   font-size: 0.7rem;
   margin-top: 10px;
-  line-height: 20px;
+  line-height: 22px;
   padding: 10px 20px;
   text-align: left;
 }
 
 #breastplate-info-btn, #breastplate-buy-btn, #breastplate-cancel-btn,
 #gauntlet-info-btn, #gauntlet-buy-btn, #gauntlet-cancel-btn,
-#boots-info-btn, #boots-buy-btn, #boots-cancel-btn,boots
+#boots-info-btn, #boots-buy-btn, #boots-cancel-btn,
+#helmet-info-btn, #helmet-buy-btn, #helmet-cancel-btn
 {
   display: inline-block;
 }
 
-#breastplate-close-info, #gauntlet-close-info, #boots-close-info{
+#breastplate-close-info, 
+#gauntlet-close-info, 
+#boots-close-info,
+#helmet-close-info{
   width: 50px;
   height: 20px;
   margin-left: 88%;
@@ -626,7 +635,8 @@ background-color: white;
   border-radius: 3px;
 }
 
-#breastplate-close-info:hover , #gauntlet-close-info:hover, #boots-close-info:hover {
+#breastplate-close-info:hover , #gauntlet-close-info:hover, #boots-close-info:hover,
+#helmet-close-info:hover {
   background-color: white;
   color: black;
 }
@@ -645,6 +655,10 @@ background-color: white;
 
 #boots-container{
   background-image: url(../images/items/boots.jpg);
+}
+
+#helmet-container{
+  background-image: url(../images/items/helmet.jpg);
 }
 
 
