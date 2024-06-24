@@ -2194,11 +2194,20 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
               mapNav.style.display = 'none';
               townMap.style.display = 'inline-block';
               blacksmithStore.style.display = 'none';
-              breastplateContainer.style.display = 'none';
+              bootsContainer.style.display = 'none';
+              gauntletContainer.style.display = 'none';
+               breastplateContainer.style.display = 'none';
+               bootsContainer.style.display = 'none';
+               helmetContainer.style.display = 'none';
             })
 
             blacksmithStoreNotifBckBtn.addEventListener('click', () => {
                   blacksmithStoreNotif.style.display = 'none';
+                  bootsContainer.style.display = 'none';
+                  gauntletContainer.style.display = 'none';
+                  breastplateContainer.style.display = 'none';
+                  bootsContainer.style.display = 'none';
+                  helmetContainer.style.display = 'none';
               });
               
 
@@ -2407,10 +2416,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
           townBackBtn.addEventListener('click', () => {
               mapNav.style.display = 'inline-block';
-              townMap.style.display = 'none';
-              bootsContainer.style.display = 'none';
-               
-          })
+              townMap.style.display = 'none'; 
+          });
 
           updatePlayerStatsUI();
         
@@ -2558,12 +2565,12 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       blacksmithStoreNotif.style.display = 'inline-block';
                       playerArmorInv.push(armors.greatHelm);
 
-                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Armored Boots';
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Great Helm';
 
                       updatePlayerStatsUI();
                   } else {
                       blacksmithStoreNotif.style.display = 'inline-block';
-                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Armored Boots';
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Great Helm';
                   }
               });
           });
@@ -2584,7 +2591,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
       
                     
 
-      //confirmation functions
+      //buy confirmation function
       function showBsConfirmationDialog(armorType, armorCost, onConfirm) {
                   bsBuyConfirmation.style.display = 'inline-block';
                   bsConfirmationTxt.textContent = `Are you sure you want to buy ${armorType} for ${armorCost} gold?`;
