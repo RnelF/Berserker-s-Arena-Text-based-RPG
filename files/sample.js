@@ -1908,7 +1908,14 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const helmetCloseInfoBtn = document.getElementById('helmet-close-info');
     const helmetInfoContainer = document.getElementById('helmet-info-container');
 
+    //shield dom
     const buyShieldBtn = document.getElementById('buy-shield');
+    const shieldContainer = document.getElementById('shield-container');
+    const shieldBuyBtn = document.getElementById('shield-buy-btn');
+    const shieldCancelBtn = document.getElementById('shield-cancel-btn');
+    const shieldInfoBtn = document.getElementById('shield-info-btn');
+    const shieldCloseInfoBtn = document.getElementById('shield-close-info');
+    const shieldInfoContainer = document.getElementById('shield-info-container');
 
     //swordsmith
     const swordsmithStoreBtn = document.getElementById('swordsmith-store-btn');
@@ -1961,6 +1968,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     alchemistStoreBackBtn.addEventListener('click', () => {
         alchemistStore.style.display = 'none';
         mapNav.style.display = 'none';
+        alchemyStoreNotif.style.display = 'none';
         buyHealthPotionBtns.style.display = 'none'; //make sure the btns will also close
         buyEnergyPotionBtns.style.display = 'none'; //make sure the btns will also close
         townMap.style.display = 'inline-block';
@@ -2068,6 +2076,12 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 buyEnergyPotionPlusBtn.disabled = true;
                 energyPotionQuantityInput.disabled = true;
 
+                healthPotionConfirmBtn.disabled = true;
+                hpCancelBtn.disabled = true;
+                buyHealthPotionMinusBtn.disabled = true;
+                buyHealthPotionPlusBtn.disabled = true;
+                healthPotionQuantityInput.disabled = true;
+
         const confirmHandler = () => {
             buyConfirmation.style.display = 'none';
             confirmationYesBtn.removeEventListener('click', confirmHandler);
@@ -2090,6 +2104,12 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 buyEnergyPotionMinusBtn.disabled = false;
                 buyEnergyPotionPlusBtn.disabled = false;
                 energyPotionQuantityInput.disabled = false;
+
+                healthPotionConfirmBtn.disabled = false;
+                hpCancelBtn.disabled = false;
+                buyHealthPotionMinusBtn.disabled = false;
+                buyHealthPotionPlusBtn.disabled = false;
+                healthPotionQuantityInput.disabled = false;
         };
 
         confirmationYesBtn.addEventListener('click', confirmHandler);
@@ -2199,6 +2219,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                breastplateContainer.style.display = 'none';
                bootsContainer.style.display = 'none';
                helmetContainer.style.display = 'none';
+               shieldContainer.style.display = 'none';
             })
 
             blacksmithStoreNotifBckBtn.addEventListener('click', () => {
@@ -2208,35 +2229,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                   breastplateContainer.style.display = 'none';
                   bootsContainer.style.display = 'none';
                   helmetContainer.style.display = 'none';
+                  shieldContainer.style.display = 'none';
               });
-              
-
-            const buyShield = () => {
-          
-                  const shieldCost = 100;
-
-                  if (playerGold >= shieldCost) {
-
-                      playerGold -= shieldCost;
-
-                      blacksmithStoreNotif.style.display = 'inline-block';
-                      playerArmorInv.push(armors.shield);
-
-                      gold.textContent = playerGold;
-
-                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Shield';
-
-                      updatePlayerStatsUI();
-
-                  } else {
-
-                      blacksmithStoreNotif.style.display = 'inline-block';
-
-                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Shield';
-
-                  }
-              };   
-
                   
                   buyBreastplateBtn.addEventListener('click', buyBreastplate);
                   buyGauntletBtn.addEventListener('click', buyGauntlet);
@@ -2429,6 +2423,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                   gauntletContainer.style.display = 'none';
                   bootsContainer.style.display = 'none';
                   helmetContainer.style.display = 'none';
+                  shieldContainer.style.display = 'none';
               };
 
               breastplateBuyBtn.addEventListener('click', () => {
@@ -2471,6 +2466,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                breastplateContainer.style.display = 'none';
                bootsContainer.style.display = 'none';
                helmetContainer.style.display = 'none';
+               shieldContainer.style.display = 'none';
               };
 
       gauntletBuyBtn.addEventListener('click', () => {
@@ -2512,6 +2508,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 gauntletContainer.style.display = 'none';
                breastplateContainer.style.display = 'none';
                helmetContainer.style.display = 'none';
+               shieldContainer.style.display = 'none';
                bootsContainer.style.display = 'flex';
               };
 
@@ -2554,6 +2551,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                breastplateContainer.style.display = 'none';
                bootsContainer.style.display = 'none';
                helmetContainer.style.display = 'flex';
+               shieldContainer.style.display = 'none';
               };     
 
       helmetBuyBtn.addEventListener('click', () => {
@@ -2587,7 +2585,51 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
             helmetCloseInfoBtn.addEventListener('click', () => {
                 helmetInfoContainer.style.height = '0'; // Collapse info container
                 helmetInfoBtn.style.display = 'inline-block';
-            });          
+            });     
+
+      //buy shield functions
+
+       const buyShield = () => {
+              gauntletContainer.style.display = 'none';
+               breastplateContainer.style.display = 'none';
+               bootsContainer.style.display = 'none';
+               helmetContainer.style.display = 'none';
+              shieldContainer.style.display = 'flex';
+              };   
+
+        shieldBuyBtn.addEventListener('click', () => {
+
+              showBsConfirmationDialog(armors.shield.armorName, armors.shield.armorCost, () => {
+                  if (playerGold >= armors.shield.armorCost) {
+                      playerGold -= armors.shield.armorCost;
+
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      playerArmorInv.push(armors.shield);
+
+                      blacksmithStoreNotifTxt.textContent = 'You successfully bought a Shield';
+
+                      updatePlayerStatsUI();
+                  } else {
+                      blacksmithStoreNotif.style.display = 'inline-block';
+                      blacksmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Shield';
+                  }
+              });
+          });
+
+            shieldCancelBtn.addEventListener('click', () => {
+                shieldContainer.style.display = 'none';
+            });
+
+            shieldInfoBtn.addEventListener('click', () => {
+                shieldInfoContainer.style.height = '100%';
+                shieldInfoBtn.style.display = 'none';
+            });
+
+            shieldCloseInfoBtn.addEventListener('click', () => {
+                shieldInfoContainer.style.height = '0'; // Collapse info container
+                shieldInfoBtn.style.display = 'inline-block';
+            });
+           
       
                     
 
