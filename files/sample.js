@@ -111,7 +111,7 @@ const items = {
   },
   energyPotion: {
     itemName: 'Energy Potion',
-    itemCost: '10',
+    itemCost: 10,
     potionEffectAmount: 30
   }
 };
