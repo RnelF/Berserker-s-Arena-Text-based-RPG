@@ -1137,7 +1137,6 @@ let selectedMonster = null;
     };
 
 // check inventory function
-// Define the event listener for the "check-inv" button
 const checkInventoryBtn = document.getElementById('check-inv');
 const displayWeaponInvBtn = document.getElementById('check-weapon-inv')
 const currentWeaponContainer = document.getElementById('current-weapon-container');
@@ -1319,9 +1318,7 @@ let isPlayerEquipmentUIActive = false;
           }
       };
 
-      
-
-
+    
     checkInventoryBtn.addEventListener('click', () => {
        toggleInventoryUI()
     });
@@ -1672,7 +1669,7 @@ let isPlayerEquipmentUIActive = false;
       };
 
       const getItemValue = (item) => {
-          return item.itemCost || 0;
+          return item.itemCost;
       };
 
       const sellWeapon = (weaponName) => {
@@ -1902,11 +1899,55 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const swordsmithStoreNotifTxt = document.getElementById('swordsmith-store-notif');
     const swordsmithStoreNotifBckBtn = document.getElementById('swordsmith-store-notif-bck-btn');
 
+    const smBuyConfirmation = document.getElementById('swordsmith-store-confirmation-container');
+     const smConfirmationTxt = document.getElementById('swordsmith-store-confirmation-txt');
+     const smConfirmationYesBtn = document.getElementById('swordsmith-confirm-yes-btn');
+      const smConfirmationNoBtn = document.getElementById('swordsmith-confirm-no-btn');
+
+    //sword dom
     const buySwordBtn = document.getElementById('buy-sword');
+    const swordContainer = document.getElementById('sword-container');
+    const swordBuyBtn = document.getElementById('sword-buy-btn');
+    const swordCancelBtn = document.getElementById('sword-cancel-btn');
+    const swordInfoBtn = document.getElementById('sword-info-btn');
+    const swordCloseInfoBtn = document.getElementById('sword-close-info');
+    const swordInfoContainer = document.getElementById('sword-info-container');
+
+    //dagger dom
     const buyDaggerBtn = document.getElementById('buy-dagger');
+    const daggerContainer = document.getElementById('dagger-container');
+    const daggerBuyBtn = document.getElementById('dagger-buy-btn');
+    const daggerCancelBtn = document.getElementById('dagger-cancel-btn');
+    const daggerInfoBtn = document.getElementById('dagger-info-btn');
+    const daggerCloseInfoBtn = document.getElementById('dagger-close-info');
+    const daggerInfoContainer = document.getElementById('dagger-info-container');
+
+    //crossbow dom
     const buyCrossbowBtn = document.getElementById('buy-crossbow');
+    const crossbowContainer = document.getElementById('crossbow-container');
+    const crossbowBuyBtn = document.getElementById('crossbow-buy-btn');
+    const crossbowCancelBtn = document.getElementById('crossbow-cancel-btn');
+    const crossbowInfoBtn = document.getElementById('crossbow-info-btn');
+    const crossbowCloseInfoBtn = document.getElementById('crossbow-close-info');
+    const crossbowInfoContainer = document.getElementById('crossbow-info-container');
+
+    //katana dom
     const buyKatanaBtn = document.getElementById('buy-katana');
+    const katanaContainer = document.getElementById('katana-container');
+    const katanaBuyBtn = document.getElementById('katana-buy-btn');
+    const katanaCancelBtn = document.getElementById('katana-cancel-btn');
+    const katanaInfoBtn = document.getElementById('katana-info-btn');
+    const katanaCloseInfoBtn = document.getElementById('katana-close-info');
+    const katanaInfoContainer = document.getElementById('katana-info-container');
+
+    //nunchuks dom
     const buyNunchuksBtn = document.getElementById('buy-nunchuks');
+    const nunchuksContainer = document.getElementById('nunchuks-container');
+    const nunchuksBuyBtn = document.getElementById('nunchuks-buy-btn');
+    const nunchuksCancelBtn = document.getElementById('nunchuks-cancel-btn');
+    const nunchuksInfoBtn = document.getElementById('nunchuks-info-btn');
+    const nunchuksCloseInfoBtn = document.getElementById('nunchuks-close-info');
+    const nunchuksInfoContainer = document.getElementById('nunchuks-info-container');
 
     //temple
     const temple = document.getElementById('temple');
@@ -1922,11 +1963,9 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
         mapNav.style.display = 'none';
         townMap.style.display = 'inline-block';
-      
+    
 
-        
-
-          //blacksmith store function
+          //open blacksmith store function
           blacksmitStoreBtn.addEventListener('click',() => {
 
             mapNav.style.display = 'none';
@@ -1973,40 +2012,14 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
               mapNav.style.display = 'none';
               townMap.style.display = 'inline-block';
               swordsmithStore.style.display = 'none';
+              swordContainer.style.display = 'none';
             })
 
             swordsmithStoreNotifBckBtn.addEventListener('click', () => {
                  swordsmithStoreNotif.style.display = 'none';
+                 swordContainer.style.display = 'none';
               });
 
-          const buySword = () => {
-          
-                  const SwordCost = 40;
-
-                  if (playerGold >= SwordCost) {
-
-                      playerGold -= SwordCost;
-
-                      swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.push(weapons.sword);
-
-                      gold.textContent = playerGold;
-
-                      swordsmithStoreNotifTxt.textContent = 'You successfully bought a Sword';
-
-                      updatePlayerStatsUI();
-
-                  } else {
-
-                     swordsmithStoreNotif.style.display = 'inline-block';
-
-                      swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Sword';
-
-                  }
-
-                  console.log(playerWeaponInv);
-                  
-              };
 
            const buyDagger = () => {
           
@@ -2583,14 +2596,55 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                 shieldInfoContainer.style.height = '0'; // Collapse info container
                 shieldInfoBtn.style.display = 'inline-block';
             });
+
+        
+        //SwordSmith Functions
+
+        //buy sword functions
+      const buySword = () => {
+                swordContainer.style.display = 'flex';
+              };     
+
+      swordBuyBtn.addEventListener('click', () => {
+
+                      showSmConfirmationDialog(weapons.sword.weaponName, weapons.sword.weaponCost, () => {
+                          if (playerGold >= weapons.sword.weaponCost) {
+
+                              playerGold -= weapons.sword.weaponCost;
+
+                              swordsmithStoreNotif.style.display = 'inline-block';
+                              playerWeaponInv.push(weapons.sword);
+                              swordsmithStoreNotifTxt.textContent = 'You successfully bought a Sword';
+
+                              updatePlayerStatsUI();
+                          } else {
+                              swordsmithStoreNotif.style.display = 'inline-block';
+                              swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Sword';
+                          }
+                      });
+                  });
+
+                  swordCancelBtn.addEventListener('click', () => {
+                      swordContainer.style.display = 'none';
+                  });
+
+                  swordInfoBtn.addEventListener('click', () => {
+                      swordInfoContainer.style.height = '100%';
+                      swordInfoBtn.style.display = 'none';
+                  });
+
+                 swordCloseInfoBtn.addEventListener('click', () => {
+                      swordInfoContainer.style.height = '0'; // Collapse info container
+                      swordInfoBtn.style.display = 'inline-block';
+                  });      
            
       
                     
 
         //blacksmit confirmation dialog function
-       function showBsConfirmationDialog(armorType, armorCost, onConfirm) {
+       function showBsConfirmationDialog(type, cost, onConfirm) {
                   bsBuyConfirmation.style.display = 'inline-block';
-                  bsConfirmationTxt.textContent = `Are you sure you want to buy ${armorType} for ${armorCost} gold?`;
+                  bsConfirmationTxt.textContent = `Are you sure you want to buy ${type} for ${cost} gold?`;
                         
 
                   const confirmHandler = () => {
@@ -2609,6 +2663,28 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                   bsConfirmationYesBtn.addEventListener('click', confirmHandler);
                   bsConfirmationNoBtn.addEventListener('click', cancelHandler);
               };
+
+       function showSmConfirmationDialog(type, cost, onConfirm) {
+                  smBuyConfirmation.style.display = 'inline-block';
+                  smConfirmationTxt.textContent = `Are you sure you want to buy ${type} for ${cost} gold?`;
+                        
+
+                  const confirmHandler = () => {
+                      smBuyConfirmation.style.display = 'none';
+                      smConfirmationYesBtn.removeEventListener('click', confirmHandler);
+                      smConfirmationNoBtn.removeEventListener('click', cancelHandler);
+                      onConfirm();
+                  };
+
+                  const cancelHandler = () => {
+                      smBuyConfirmation.style.display = 'none';
+                      smConfirmationYesBtn.removeEventListener('click', confirmHandler);
+                      smConfirmationNoBtn.removeEventListener('click', cancelHandler);
+                  };
+
+                  smConfirmationYesBtn.addEventListener('click', confirmHandler);
+                  smConfirmationNoBtn.addEventListener('click', cancelHandler);
+              };       
 
           // Alchemist Confirmation dialog function
         function showConfirmationDialog(quantity, potionType, potionCost, onConfirm) {

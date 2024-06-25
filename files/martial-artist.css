@@ -523,7 +523,7 @@ background-color: white;
   position: absolute;
 }
 
-#blacksmith-store-confirmation-container{
+#blacksmith-store-confirmation-container, #swordsmith-store-confirmation-container {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
@@ -542,7 +542,7 @@ background-color: white;
   text-align: center; 
 }
 
-#blacksmith-store-confirmation-txt{
+#blacksmith-store-confirmation-txt, #swordsmith-store-confirmation-txt{
   font-weight: bold;
   line-height: 1.6;
   font-size: 1.0rem;
@@ -561,7 +561,12 @@ background-color: white;
 #gauntlet-container,
 #boots-container,
 #helmet-container,
-#shield-container{
+#shield-container,
+#sword-container,
+#dagger-container,
+#crossbow-container,
+#katana-container,
+#nunchuks-container{
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -585,7 +590,12 @@ background-color: white;
 #gauntlet-info-container,
 #boots-info-container,
 #helmet-info-container,
-#shield-info-container{
+#shield-info-container,
+#katana-info-container,
+#sword-info-container,
+#dagger-info-container,
+#crossbow-info-container,
+#nunchuks-info-container{
   background-color: rgba(0, 0, 0, 0.775);
   position: absolute;
   width: 100%;
@@ -607,7 +617,12 @@ background-color: white;
 #gauntlet-info-container p, 
 #boots-info-container p,
 #helmet-info-container p,
-#shield-info-container p{
+#shield-info-container p,
+#sword-info-container p,
+#dagger-info-container p,
+#crossbow-info-container p,
+#katana-info-container p,
+#nunchuks-info-container p{
   color: white;
   text-align: center;
   font-size: 0.7rem;
@@ -621,16 +636,26 @@ background-color: white;
 #gauntlet-info-btn, #gauntlet-buy-btn, #gauntlet-cancel-btn,
 #boots-info-btn, #boots-buy-btn, #boots-cancel-btn,
 #helmet-info-btn, #helmet-buy-btn, #helmet-cancel-btn,
-#shield-info-btn, #shield-buy-btn, #shield-cancel-btn
+#shield-info-btn, #shield-buy-btn, #shield-cancel-btn,
+#sword-info-btn, #sword-buy-btn, #sword-cancel-btn,
+#dagger-info-btn, #dagger-buy-btn, #dagger-cancel-btn,
+#crossbow-info-btn, #crossbow-buy-btn, #crossbow-cancel-btn,
+#katana-info-btn, #katana-buy-btn, #katana-cancel-btn,
+#nunchuks-info-btn, #nunchuks-buy-btn, #nunchuks-cancel-btn
 {
   display: inline-block;
 }
-
 #breastplate-close-info, 
 #gauntlet-close-info, 
 #boots-close-info,
 #helmet-close-info,
-#shield-close-info{
+#shield-close-info,
+#sword-close-info,
+#dagger-close-info,
+#crossbow-close-info,
+#katana-close-info,
+#nunchuks-close-info
+{
   width: 50px;
   height: 20px;
   margin-left: 88%;
@@ -648,7 +673,12 @@ background-color: white;
 #gauntlet-close-info:hover, 
 #boots-close-info:hover,
 #helmet-close-info:hover,
-#shield-close-info:hover {
+#shield-close-info:hover,
+#sword-close-info:hover,
+#dagger-close-info:hover,
+#crossbow-close-info:hover,
+#katana-close-info:hover,
+#nunchuks-close-info:hover {
   background-color: white;
   color: black;
 }
@@ -675,6 +705,26 @@ background-color: white;
 
 #shield-container{
   background-image: url(../images/items/shield.jpg);
+}
+
+#sword-container{
+  background-image: url(../images/items/sword.jpg);
+}
+
+#dagger-container{
+  background-image: url(../images/items/dagger.jpg);
+}
+
+#crossbow-container{
+  background-image: url(../images/items/crossbow.jpg);
+}
+
+#katana-container{
+  background-image: url(../images/items/katana.jpg);
+}
+
+#nunchuks-container{
+  background-image: url(../images/items/nun-chuks.jpg);
 }
 
 
