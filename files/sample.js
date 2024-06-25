@@ -2629,57 +2629,90 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       crossbowInfoBtn.style.display = 'inline-block';
                   });  
 
+
+            //buy katana functions
             const buyKatana = () => {
-          
-                  const katanaCost = 100;
+                swordContainer.style.display = 'none';
+                daggerContainer.style.display = 'none';
+                crossbowContainer.style.display = 'none';
+                katanaContainer.style.display = 'flex';
+                nunchuksContainer.style.display = 'none';
+              }; 
 
-                  if (playerGold >= katanaCost) {
+           katanaBuyBtn.addEventListener('click', () => {
 
-                      playerGold -= katanaCost;
+                      showSmConfirmationDialog(weapons.katana.weaponName, weapons.katana.weaponCost, () => {
+                          if (playerGold >= weapons.katana.weaponCost) {
 
-                      swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.push(weapons.katana);
+                              playerGold -= weapons.katana.weaponCost;
 
-                      gold.textContent = playerGold;
+                              swordsmithStoreNotif.style.display = 'inline-block';
+                              playerWeaponInv.push(weapons.katana);
+                              swordsmithStoreNotifTxt.textContent = 'You successfully bought a Katana';
 
-                      swordsmithStoreNotifTxt.textContent = 'You successfully bought a Katana';
+                              updatePlayerStatsUI();
+                          } else {
+                              swordsmithStoreNotif.style.display = 'inline-block';
+                              swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Katana';
+                          }
+                      });
+                  });
 
-                      updatePlayerStatsUI();
+                  katanaCancelBtn.addEventListener('click', () => {
+                      katanaContainer.style.display = 'none';
+                  });
 
-                  } else {
+                  katanaInfoBtn.addEventListener('click', () => {
+                      katanaInfoContainer.style.height = '100%';
+                      katanaInfoBtn.style.display = 'none';
+                  });
 
-                     swordsmithStoreNotif.style.display = 'inline-block';
+                 katanaCloseInfoBtn.addEventListener('click', () => {
+                      katanaInfoContainer.style.height = '0'; // Collapse info containerCrossbow
+                      katanaInfoBtn.style.display = 'inline-block';
+                  });     
 
-                      swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Katana';
-
-                  }
-              };  
-
+            //buy nunchuks functions
             const buyNunchuks = () => {
-          
-                  const NunchuksCost = 120;
-
-                  if (playerGold >= NunchuksCost) {
-
-                      playerGold -= NunchuksCost;
-
-                      swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.push(weapons.nunchuks);
-
-                      gold.textContent = playerGold;
-
-                      swordsmithStoreNotifTxt.textContent = 'You successfully bought a Nunchuks';
-
-                      updatePlayerStatsUI();
-
-                  } else {
-
-                     swordsmithStoreNotif.style.display = 'inline-block';
-
-                      swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Nunchuks';
-
-                  }
+                swordContainer.style.display = 'none';
+                daggerContainer.style.display = 'none';
+                crossbowContainer.style.display = 'none';
+                katanaContainer.style.display = 'none';
+                nunchuksContainer.style.display = 'flex';
               };  
+
+            nunchuksBuyBtn.addEventListener('click', () => {
+
+                      showSmConfirmationDialog(weapons.nunchuks.weaponName, weapons.nunchuks.weaponCost, () => {
+                          if (playerGold >= weapons.nunchuks.weaponCost) {
+
+                              playerGold -= weapons.nunchuks.weaponCost;
+
+                              swordsmithStoreNotif.style.display = 'inline-block';
+                              playerWeaponInv.push(weapons.nunchuks);
+                              swordsmithStoreNotifTxt.textContent = 'You successfully bought a NunChuks';
+
+                              updatePlayerStatsUI();
+                          } else {
+                              swordsmithStoreNotif.style.display = 'inline-block';
+                              swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a NunChuks';
+                          }
+                      });
+                  });
+
+                  nunchuksCancelBtn.addEventListener('click', () => {
+                      nunchuksContainer.style.display = 'none';
+                  });
+
+                  nunchuksInfoBtn.addEventListener('click', () => {
+                      nunchuksInfoContainer.style.height = '100%';
+                      nunchuksInfoBtn.style.display = 'none';
+                  });
+
+                 nunchuksCloseInfoBtn.addEventListener('click', () => {
+                      nunchuksInfoContainer.style.height = '0'; // Collapse info containerCrossbow
+                      nunchuksInfoBtn.style.display = 'inline-block';
+                  }); 
                     
 
         //blacksmit confirmation dialog function
