@@ -2587,31 +2587,47 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
                       daggerInfoBtn.style.display = 'inline-block';
                   });
 
+            //buy crossbow functions
             const buyCrossbow = () => {
-          
-                  const crossbowCost = 80;
-
-                  if (playerGold >= crossbowCost) {
-
-                      playerGold -= crossbowCost;
-
-                      swordsmithStoreNotif.style.display = 'inline-block';
-                      playerWeaponInv.push(weapons.crossbow);
-
-                      gold.textContent = playerGold;
-
-                      swordsmithStoreNotifTxt.textContent = 'You successfully bought a Crossbow';
-
-                      updatePlayerStatsUI();
-
-                  } else {
-
-                     swordsmithStoreNotif.style.display = 'inline-block';
-
-                      swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Crossbow';
-
-                  }
+                  swordContainer.style.display = 'none';
+                daggerContainer.style.display = 'none';
+                crossbowContainer.style.display = 'flex';
+                katanaContainer.style.display = 'none';
+                nunchuksContainer.style.display = 'none';
               };
+
+            crossbowBuyBtn.addEventListener('click', () => {
+
+                      showSmConfirmationDialog(weapons.crossbow.weaponName, weapons.crossbow.weaponCost, () => {
+                          if (playerGold >= weapons.crossbow.weaponCost) {
+
+                              playerGold -= weapons.crossbow.weaponCost;
+
+                              swordsmithStoreNotif.style.display = 'inline-block';
+                              playerWeaponInv.push(weapons.crossbow);
+                              swordsmithStoreNotifTxt.textContent = 'You successfully bought a Crossbow';
+
+                              updatePlayerStatsUI();
+                          } else {
+                              swordsmithStoreNotif.style.display = 'inline-block';
+                              swordsmithStoreNotifTxt.textContent = 'You don\'t have enough gold to buy a Crossbow';
+                          }
+                      });
+                  });
+
+                  crossbowCancelBtn.addEventListener('click', () => {
+                      crossbowContainer.style.display = 'none';
+                  });
+
+                  crossbowInfoBtn.addEventListener('click', () => {
+                      crossbowInfoContainer.style.height = '100%';
+                      crossbowInfoBtn.style.display = 'none';
+                  });
+
+                 crossbowCloseInfoBtn.addEventListener('click', () => {
+                      crossbowInfoContainer.style.height = '0'; // Collapse info containerCrossbow
+                      crossbowInfoBtn.style.display = 'inline-block';
+                  });  
 
             const buyKatana = () => {
           
