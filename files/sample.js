@@ -1834,30 +1834,6 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     
     const townMap = document.getElementById('town-map');
 
-    //alchemist 
-    const alchemistStore = document.getElementById('alchemist-store');
-    const alchemistStoreBtn = document.getElementById('alchemist-store-btn');
-    const alchemistStoreBackBtn = document.getElementById('alchemist-store-back-btn');
-    const buyHealthPotionBtn = document.getElementById('buy-health-potion');
-    const buyEnergyPotionBtn = document.getElementById('buy-energy-potion');
-    const alchemyStoreNotif = document.getElementById('alchemy-store-notif-container');
-    const alchemyStoreNotifTxt = document.getElementById('alchemy-store-notif');
-    const alchemyStoreNotifBckBtn = document.getElementById('alchemy-store-notif-bck-btn');
-    const hpCancelBtn = document.getElementById('hp-cancel-btn');
-    const energyCancelBtn = document.getElementById('energy-cancel-btn');
-
-    const buyHealthPotionBtns = document.getElementById('buy-health-potion-btns');
-    const buyEnergyPotionBtns = document.getElementById('buy-energy-potion-btns');
-
-    const buyHealthPotionMinusBtn = document.getElementById('buy-health-potion-minus');
-    const healthPotionQuantityInput = document.getElementById('health-potion-quantity');
-    const buyHealthPotionPlusBtn = document.getElementById('buy-health-potion-plus');
-    const healthPotionConfirmBtn = document.getElementById('hp-confirm-btn');
-
-    const buyEnergyPotionMinusBtn = document.getElementById('buy-energy-potion-minus');
-    const energyPotionQuantityInput = document.getElementById('energy-potion-quantity');
-    const buyEnergyPotionPlusBtn = document.getElementById('buy-energy-potion-plus');
-    const energyPotionConfirmBtn = document.getElementById('energy-confirm-btn');
 
     //blacksmith
     const blacksmitStoreBtn = document.getElementById('blacksmith-store-btn');
@@ -1948,260 +1924,7 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
         townMap.style.display = 'inline-block';
       
 
-        //alchemist store function
-        alchemistStoreBtn.addEventListener('click', () => {
-          const buyConfirmation = document.getElementById('alchemist-store-confirmation-container');
-          const confirmationTxt = document.getElementById('alchemy-store-confirmation-txt');
-          const confirmationYesBtn = document.getElementById('confirm-yes-btn');
-          const confirmationNoBtn = document.getElementById('confirm-no-btn');
-
-          mapNav.style.display = 'none';
-          townMap.style.display = 'none';
-          alchemistStore.style.display = 'inline-block';
-          let hpBtnsActive = false;
-          let energyBtnsActive = false;
-          let hpQuantity = parseInt(healthPotionQuantityInput.value);
-          let eQuantity = parseInt(energyPotionQuantityInput.value);
-
-   
-
-    alchemistStoreBackBtn.addEventListener('click', () => {
-        alchemistStore.style.display = 'none';
-        mapNav.style.display = 'none';
-        alchemyStoreNotif.style.display = 'none';
-        buyHealthPotionBtns.style.display = 'none'; //make sure the btns will also close
-        buyEnergyPotionBtns.style.display = 'none'; //make sure the btns will also close
-        townMap.style.display = 'inline-block';
-    });
-
-    hpCancelBtn.addEventListener('click', () => {
-        buyHealthPotionBtns.style.display = 'none';
-        healthPotionQuantityInput.value = 0;
-    });
-
-    energyCancelBtn.addEventListener('click', () => {
-        buyEnergyPotionBtns.style.display = 'none';
-        energyPotionQuantityInput.value = 0;
-    });
-
-    alchemyStoreNotifBckBtn.addEventListener('click', () => {
-        alchemyStoreNotif.style.display = 'none';
-        healthPotionQuantityInput.value = 0;
-        energyPotionQuantityInput.value = 0;
-
-        healthPotionConfirmBtn.disabled = false;
-        hpCancelBtn.disabled = false;
-        buyHealthPotionMinusBtn.disabled = false;
-        buyHealthPotionPlusBtn.disabled = false;
-        healthPotionQuantityInput.disabled = false;
-
-        energyPotionConfirmBtn.disabled = false;
-        energyCancelBtn.disabled = false;
-        buyEnergyPotionMinusBtn.disabled = false;
-        buyEnergyPotionPlusBtn.disabled = false;
-        energyPotionQuantityInput.disabled = false;
-    });
-
-    // Event listener for "Buy Health Potion" button
-    buyHealthPotionBtn.addEventListener('click', () => {
-        if (energyBtnsActive) {
-            buyEnergyPotionBtns.style.display = 'none';
-            energyBtnsActive = false;
-            energyPotionQuantityInput.value = 0;
-            buyHealthPotionBtns.style.display = 'flex';
-            hpBtnsActive = true;
-        }else{
-            buyHealthPotionBtns.style.display = 'flex';
-            hpBtnsActive = true;
-        }
         
-    });
-
-    // Event listener for minus button for adjusting quantity
-    buyHealthPotionMinusBtn.addEventListener('click', () => {
-       
-        if (hpQuantity > 0) {
-            hpQuantity--;
-            healthPotionQuantityInput.value = hpQuantity;
-        }
-    });
-
-    // Event listener for plus button for adjusting quantity
-    buyHealthPotionPlusBtn.addEventListener('click', () => {
-       
-        hpQuantity ++;
-        healthPotionQuantityInput.value = hpQuantity;
-    });
-
-    // Event listener for "Buy Energy Potion" button
-    buyEnergyPotionBtn.addEventListener('click', () => {
-
-        if (hpBtnsActive) {
-            buyHealthPotionBtns.style.display = 'none';
-            hpBtnsActive = false;
-            healthPotionQuantityInput.value = 0;
-            buyEnergyPotionBtns.style.display = 'flex';
-             energyBtnsActive = true;
-        }else{
-            buyEnergyPotionBtns.style.display = 'flex';
-             energyBtnsActive = true;
-        }
-        
-    });
-
-    // Event listener for minus button for adjusting quantity
-    buyEnergyPotionMinusBtn.addEventListener('click', () => {
-        
-        if (eQuantity > 0) {
-            eQuantity--;
-            energyPotionQuantityInput.value = eQuantity;
-        }
-    });
-
-    // Event listener for plus button for adjusting quantity
-    buyEnergyPotionPlusBtn.addEventListener('click', () => {
-        
-        eQuantity++;
-        energyPotionQuantityInput.value = eQuantity;
-    });
-
-    // Confirmation dialog function
-    function showConfirmationDialog(quantity, potionType, potionCost, onConfirm) {
-        buyConfirmation.style.display = 'inline-block';
-        confirmationTxt.textContent = `Are you sure you want to buy ${quantity} ${potionType} Potion(s) for ${potionCost * quantity} gold?`;
-               
-                energyPotionConfirmBtn.disabled = true;
-                energyCancelBtn.disabled = true;
-                buyEnergyPotionMinusBtn.disabled = true;
-                buyEnergyPotionPlusBtn.disabled = true;
-                energyPotionQuantityInput.disabled = true;
-
-                healthPotionConfirmBtn.disabled = true;
-                hpCancelBtn.disabled = true;
-                buyHealthPotionMinusBtn.disabled = true;
-                buyHealthPotionPlusBtn.disabled = true;
-                healthPotionQuantityInput.disabled = true;
-
-        const confirmHandler = () => {
-            buyConfirmation.style.display = 'none';
-            confirmationYesBtn.removeEventListener('click', confirmHandler);
-            confirmationNoBtn.removeEventListener('click', cancelHandler);
-            energyPotionQuantityInput.value = 0;
-            healthPotionQuantityInput.value = 0;
-            onConfirm();
-            updatePlayerStatsUI();
-        };
-
-        const cancelHandler = () => {
-            buyConfirmation.style.display = 'none';
-            confirmationYesBtn.removeEventListener('click', confirmHandler);
-            confirmationNoBtn.removeEventListener('click', cancelHandler);
-            energyPotionQuantityInput.value = 0;
-            healthPotionQuantityInput.value = 0;
-                
-                energyPotionConfirmBtn.disabled = false;
-                energyCancelBtn.disabled = false;
-                buyEnergyPotionMinusBtn.disabled = false;
-                buyEnergyPotionPlusBtn.disabled = false;
-                energyPotionQuantityInput.disabled = false;
-
-                healthPotionConfirmBtn.disabled = false;
-                hpCancelBtn.disabled = false;
-                buyHealthPotionMinusBtn.disabled = false;
-                buyHealthPotionPlusBtn.disabled = false;
-                healthPotionQuantityInput.disabled = false;
-        };
-
-        confirmationYesBtn.addEventListener('click', confirmHandler);
-        confirmationNoBtn.addEventListener('click', cancelHandler);
-        
-    }
-
-    // Event listener for "Confirm" button for buying health potion
-        healthPotionConfirmBtn.addEventListener('click', () => {
-
-            const healthPotionCost = items.healthPotion.itemCost;
-
-            if (hpQuantity > 0) {
-
-                if (playerGold >= healthPotionCost * hpQuantity) {
-                    showConfirmationDialog(hpQuantity, 'Health', healthPotionCost, () => {
-                        playerGold -= healthPotionCost * hpQuantity;
-                        for (let i = 0; i < hpQuantity; i++) {
-                            playerInv.push(items.healthPotion);
-                        }
-                        gold.textContent = playerGold;
-                        alchemyStoreNotif.style.display = 'inline-block';
-                        alchemyStoreNotifTxt.textContent = `You successfully bought ${hpQuantity} Health Potion(s)`;
-                        buyHealthPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
-                        healthPotionQuantityInput.value = 0;
-                    });
-                } else {
-                    alchemyStoreNotif.style.display = 'inline-block';
-                    alchemyStoreNotifTxt.textContent = `You don't have enough gold to buy ${hpQuantity} Health Potion(s)`;
-                    healthPotionQuantityInput.value = 0;
-                    healthPotionConfirmBtn.disabled = true;
-                    hpCancelBtn.disabled = true;
-                    buyHealthPotionMinusBtn.disabled = true;
-                    buyHealthPotionPlusBtn.disabled = true;
-                    healthPotionQuantityInput.disabled = true;
-                    }
-                
-            } else {
-                alchemyStoreNotif.style.display = 'inline-block';
-                alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
-                healthPotionConfirmBtn.disabled = true;
-                hpCancelBtn.disabled = true;
-                buyHealthPotionMinusBtn.disabled = true;
-                buyHealthPotionPlusBtn.disabled = true;
-                healthPotionQuantityInput.disabled = true;
-            }
-
-            updatePlayerStatsUI();
-        });
-
-    // Event listener for "Confirm" button for buying energy potion
-    energyPotionConfirmBtn.addEventListener('click', () => {
-        const energyPotionCost = items.energyPotion.itemCost;
-
-        if (eQuantity > 0) {
-            if (playerGold >= energyPotionCost * eQuantity) {
-                showConfirmationDialog(eQuantity, 'Energy', energyPotionCost, () => {
-                    playerGold -= energyPotionCost * eQuantity;
-                    for (let i = 0; i < eQuantity; i++) {
-                        playerInv.push(items.energyPotion);
-                    }
-                    gold.textContent = playerGold;
-                    alchemyStoreNotif.style.display = 'inline-block';
-                    alchemyStoreNotifTxt.textContent = `You successfully bought ${eQuantity} Energy Potion(s)`;
-                    buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
-                    energyPotionQuantityInput.value = 0;
-                });
-            } else {
-                alchemyStoreNotif.style.display = 'inline-block';
-                alchemyStoreNotifTxt.textContent = `You don't have enough gold to buy ${eQuantity} Energy Potion(s)`;
-                energyPotionQuantityInput.value = 0;
-                energyPotionConfirmBtn.disabled = true;
-                energyCancelBtn.disabled = true;
-                buyEnergyPotionMinusBtn.disabled = true;
-                buyEnergyPotionPlusBtn.disabled = true;
-                energyPotionQuantityInput.disabled = true;
-            }
-        } else {
-            alchemyStoreNotif.style.display = 'inline-block';
-            alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
-            energyPotionConfirmBtn.disabled = true;
-            energyCancelBtn.disabled = true;
-            buyEnergyPotionMinusBtn.disabled = true;
-            buyEnergyPotionPlusBtn.disabled = true;
-            energyPotionQuantityInput.disabled = true;
-        }
-        updatePlayerStatsUI();
-    });
-
-    updatePlayerStatsUI();
-});
-
 
           //blacksmith store function
           blacksmitStoreBtn.addEventListener('click',() => {
@@ -2416,6 +2139,237 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
           updatePlayerStatsUI();
         
       };
+
+      //alchemist 
+    const alchemistStore = document.getElementById('alchemist-store');
+    const alchemistStoreBtn = document.getElementById('alchemist-store-btn');
+    const alchemistStoreBackBtn = document.getElementById('alchemist-store-back-btn');
+    const buyHealthPotionBtn = document.getElementById('buy-health-potion');
+    const buyEnergyPotionBtn = document.getElementById('buy-energy-potion');
+    const alchemyStoreNotif = document.getElementById('alchemy-store-notif-container');
+    const alchemyStoreNotifTxt = document.getElementById('alchemy-store-notif');
+    const alchemyStoreNotifBckBtn = document.getElementById('alchemy-store-notif-bck-btn');
+    const hpCancelBtn = document.getElementById('hp-cancel-btn');
+    const energyCancelBtn = document.getElementById('energy-cancel-btn');
+
+    const buyHealthPotionBtns = document.getElementById('buy-health-potion-btns');
+    const buyEnergyPotionBtns = document.getElementById('buy-energy-potion-btns');
+
+    const buyHealthPotionMinusBtn = document.getElementById('buy-health-potion-minus');
+    const healthPotionQuantityInput = document.getElementById('health-potion-quantity');
+    const buyHealthPotionPlusBtn = document.getElementById('buy-health-potion-plus');
+    const healthPotionConfirmBtn = document.getElementById('hp-confirm-btn');
+
+    const buyEnergyPotionMinusBtn = document.getElementById('buy-energy-potion-minus');
+    const energyPotionQuantityInput = document.getElementById('energy-potion-quantity');
+    const buyEnergyPotionPlusBtn = document.getElementById('buy-energy-potion-plus');
+    const energyPotionConfirmBtn = document.getElementById('energy-confirm-btn');
+
+     const buyConfirmation = document.getElementById('alchemist-store-confirmation-container');
+      const confirmationTxt = document.getElementById('alchemy-store-confirmation-txt');
+      const confirmationYesBtn = document.getElementById('confirm-yes-btn');
+      const confirmationNoBtn = document.getElementById('confirm-no-btn');
+
+      //alchemist store functions
+
+      let hpBtnsActive = false;
+      let energyBtnsActive = false;
+      let hpQuantity = parseInt(healthPotionQuantityInput.value);
+      let eQuantity = parseInt(energyPotionQuantityInput.value);
+
+      alchemistStoreBtn.addEventListener('click', () => {
+          
+          mapNav.style.display = 'none';
+          townMap.style.display = 'none';
+          alchemistStore.style.display = 'inline-block';
+    });
+
+       alchemistStoreBackBtn.addEventListener('click', () => {
+        alchemistStore.style.display = 'none';
+        mapNav.style.display = 'none';
+        alchemyStoreNotif.style.display = 'none';
+        buyHealthPotionBtns.style.display = 'none'; //make sure the btns will also close
+        buyEnergyPotionBtns.style.display = 'none'; //make sure the btns will also close
+        townMap.style.display = 'inline-block';
+    });
+
+    hpCancelBtn.addEventListener('click', () => {
+        buyHealthPotionBtns.style.display = 'none';
+         hpQuantity = 0;
+         healthPotionQuantityInput.value = hpQuantity;
+    });
+
+    energyCancelBtn.addEventListener('click', () => {
+        buyEnergyPotionBtns.style.display = 'none';
+             eQuantity = 0;
+             energyPotionQuantityInput.value = eQuantity;
+    });
+
+    alchemyStoreNotifBckBtn.addEventListener('click', () => {
+        alchemyStoreNotif.style.display = 'none';
+        hpQuantity = 0;
+        eQuantity = 0;
+
+        healthPotionConfirmBtn.disabled = false;
+        hpCancelBtn.disabled = false;
+        buyHealthPotionMinusBtn.disabled = false;
+        buyHealthPotionPlusBtn.disabled = false;
+        healthPotionQuantityInput.disabled = false;
+
+        energyPotionConfirmBtn.disabled = false;
+        energyCancelBtn.disabled = false;
+        buyEnergyPotionMinusBtn.disabled = false;
+        buyEnergyPotionPlusBtn.disabled = false;
+        energyPotionQuantityInput.disabled = false;
+    });
+
+    // Event listener for "Buy Health Potion" button
+    buyHealthPotionBtn.addEventListener('click', () => {
+        if (energyBtnsActive) {
+            buyEnergyPotionBtns.style.display = 'none';
+            energyBtnsActive = false;
+            eQuantity = 0;
+            energyPotionQuantityInput.value = eQuantity;
+            buyHealthPotionBtns.style.display = 'flex';
+            hpBtnsActive = true;
+        }else{
+            buyHealthPotionBtns.style.display = 'flex';
+            hpBtnsActive = true;
+        }
+        
+    });
+
+    // Event listener for minus button for adjusting quantity
+    buyHealthPotionMinusBtn.addEventListener('click', () => {
+       
+        if (hpQuantity > 0) {
+            hpQuantity--;
+            healthPotionQuantityInput.value = hpQuantity;
+        }
+    });
+
+    // Event listener for plus button for adjusting quantity
+    buyHealthPotionPlusBtn.addEventListener('click', () => {
+       
+        hpQuantity ++;
+        healthPotionQuantityInput.value = hpQuantity;
+    });
+
+    // Event listener for "Buy Energy Potion" button
+    buyEnergyPotionBtn.addEventListener('click', () => {
+
+        if (hpBtnsActive) {
+            buyHealthPotionBtns.style.display = 'none';
+            hpBtnsActive = false;
+            hpQuantity = 0;
+            healthPotionQuantityInput.value = hpQuantity;
+            buyEnergyPotionBtns.style.display = 'flex';
+             energyBtnsActive = true;
+        }else{
+            buyEnergyPotionBtns.style.display = 'flex';
+             energyBtnsActive = true;
+        }
+        
+    });
+
+    // Event listener for minus button for adjusting quantity
+    buyEnergyPotionMinusBtn.addEventListener('click', () => {
+        
+        if (eQuantity > 0) {
+            eQuantity--;
+            energyPotionQuantityInput.value = eQuantity;
+        }
+    });
+
+    // Event listener for plus button for adjusting quantity
+    buyEnergyPotionPlusBtn.addEventListener('click', () => {
+        
+        eQuantity++;
+        energyPotionQuantityInput.value = eQuantity;
+    });
+
+    // Event listener for "Confirm" button for buying health potion
+        healthPotionConfirmBtn.addEventListener('click', () => {
+
+            const healthPotionCost = items.healthPotion.itemCost;
+
+            if (hpQuantity > 0) {
+
+                if (playerGold >= healthPotionCost * hpQuantity) {
+                    showConfirmationDialog(hpQuantity, 'Health', healthPotionCost, () => {
+                        playerGold -= hpQuantity > 0 ? healthPotionCost * hpQuantity : healthPotionCost;
+                        for (let i = 0; i < hpQuantity; i++){
+                            playerInv.push(items.healthPotion);
+                        }
+                        gold.textContent = playerGold;
+                        alchemyStoreNotif.style.display = 'inline-block';
+                        alchemyStoreNotifTxt.textContent = `You successfully bought ${hpQuantity} Health Potion(s)`;
+                        buyHealthPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
+                        healthPotionQuantityInput.value = 0;
+                    });
+                } else {
+                    alchemyStoreNotif.style.display = 'inline-block';
+                    alchemyStoreNotifTxt.textContent = `You don't have enough gold to buy ${hpQuantity} Health Potion(s)`;
+                    healthPotionQuantityInput.value = 0;
+                    healthPotionConfirmBtn.disabled = true;
+                    hpCancelBtn.disabled = true;
+                    buyHealthPotionMinusBtn.disabled = true;
+                    buyHealthPotionPlusBtn.disabled = true;
+                    healthPotionQuantityInput.disabled = true;
+                    }
+                
+            } else {
+                alchemyStoreNotif.style.display = 'inline-block';
+                alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
+                healthPotionConfirmBtn.disabled = true;
+                hpCancelBtn.disabled = true;
+                buyHealthPotionMinusBtn.disabled = true;
+                buyHealthPotionPlusBtn.disabled = true;
+                healthPotionQuantityInput.disabled = true;
+            }
+
+            updatePlayerStatsUI();
+        });
+
+    // Event listener for "Confirm" button for buying energy potion
+    energyPotionConfirmBtn.addEventListener('click', () => {
+        const energyPotionCost = items.energyPotion.itemCost;
+
+        if (eQuantity > 0) {
+            if (playerGold >= energyPotionCost * eQuantity) {
+                showConfirmationDialog(eQuantity, 'Energy', energyPotionCost, () => {
+                    playerGold -= eQuantity > 0 ? energyPotionCost * eQuantity : energyPotionCost;
+                    for (let i = 0; i < eQuantity; i++) {
+                        playerInv.push(items.energyPotion);
+                    }
+                    gold.textContent = playerGold;
+                    alchemyStoreNotif.style.display = 'inline-block';
+                    alchemyStoreNotifTxt.textContent = `You successfully bought ${eQuantity} Energy Potion(s)`;
+                    buyEnergyPotionBtns.style.display = 'none'; // Hide the quantity adjustment buttons
+                    energyPotionQuantityInput.value = 0;
+                });
+            } else {
+                alchemyStoreNotif.style.display = 'inline-block';
+                alchemyStoreNotifTxt.textContent = `You don't have enough gold to buy ${eQuantity} Energy Potion(s)`;
+                energyPotionQuantityInput.value = 0;
+                energyPotionConfirmBtn.disabled = true;
+                energyCancelBtn.disabled = true;
+                buyEnergyPotionMinusBtn.disabled = true;
+                buyEnergyPotionPlusBtn.disabled = true;
+                energyPotionQuantityInput.disabled = true;
+            }
+        } else {
+            alchemyStoreNotif.style.display = 'inline-block';
+            alchemyStoreNotifTxt.textContent = 'Please enter a valid quantity.';
+            energyPotionConfirmBtn.disabled = true;
+            energyCancelBtn.disabled = true;
+            buyEnergyPotionMinusBtn.disabled = true;
+            buyEnergyPotionPlusBtn.disabled = true;
+            energyPotionQuantityInput.disabled = true;
+        }
+        updatePlayerStatsUI();
+    });
+
 
       //buy breastplate functions
        const buyBreastplate = () => {
@@ -2633,8 +2587,8 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
       
                     
 
-      //buy confirmation function
-      function showBsConfirmationDialog(armorType, armorCost, onConfirm) {
+        //blacksmit confirmation dialog function
+       function showBsConfirmationDialog(armorType, armorCost, onConfirm) {
                   bsBuyConfirmation.style.display = 'inline-block';
                   bsConfirmationTxt.textContent = `Are you sure you want to buy ${armorType} for ${armorCost} gold?`;
                         
@@ -2654,7 +2608,59 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
                   bsConfirmationYesBtn.addEventListener('click', confirmHandler);
                   bsConfirmationNoBtn.addEventListener('click', cancelHandler);
-              }
+              };
+
+          // Alchemist Confirmation dialog function
+        function showConfirmationDialog(quantity, potionType, potionCost, onConfirm) {
+        buyConfirmation.style.display = 'inline-block';
+        confirmationTxt.textContent = `Are you sure you want to buy ${quantity} ${potionType} Potion(s) for ${potionCost * quantity} gold?`;
+               
+                energyPotionConfirmBtn.disabled = true;
+                energyCancelBtn.disabled = true;
+                buyEnergyPotionMinusBtn.disabled = true;
+                buyEnergyPotionPlusBtn.disabled = true;
+                energyPotionQuantityInput.disabled = true;
+
+                healthPotionConfirmBtn.disabled = true;
+                hpCancelBtn.disabled = true;
+                buyHealthPotionMinusBtn.disabled = true;
+                buyHealthPotionPlusBtn.disabled = true;
+                healthPotionQuantityInput.disabled = true;
+
+        const confirmHandler = () => {
+            buyConfirmation.style.display = 'none';
+            confirmationYesBtn.removeEventListener('click', confirmHandler);
+            confirmationNoBtn.removeEventListener('click', cancelHandler);
+            energyPotionQuantityInput.value = 0;
+            healthPotionQuantityInput.value = 0;
+            onConfirm();
+            updatePlayerStatsUI();
+        };
+
+        const cancelHandler = () => {
+            buyConfirmation.style.display = 'none';
+            confirmationYesBtn.removeEventListener('click', confirmHandler);
+            confirmationNoBtn.removeEventListener('click', cancelHandler);
+             hpQuantity = 0;
+             eQuantity = 0;
+                
+                energyPotionConfirmBtn.disabled = false;
+                energyCancelBtn.disabled = false;
+                buyEnergyPotionMinusBtn.disabled = false;
+                buyEnergyPotionPlusBtn.disabled = false;
+                energyPotionQuantityInput.disabled = false;
+
+                healthPotionConfirmBtn.disabled = false;
+                hpCancelBtn.disabled = false;
+                buyHealthPotionMinusBtn.disabled = false;
+                buyHealthPotionPlusBtn.disabled = false;
+                healthPotionQuantityInput.disabled = false;
+        };
+
+        confirmationYesBtn.addEventListener('click', confirmHandler);
+        confirmationNoBtn.addEventListener('click', cancelHandler);
+        
+         }        
 
 
       const townBtn = document.getElementById('town-btn').addEventListener('click',townBtnFunction);
