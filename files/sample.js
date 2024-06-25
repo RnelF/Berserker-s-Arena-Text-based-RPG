@@ -52,21 +52,21 @@ const weapons = {
   },
   crossbow: {
     weaponName: 'Crossbow',
-    weaponDmg: 7,
-    weaponBonusAtt: 7,
-    weaponCost: 80
+    weaponDmg: 10,
+    weaponBonusAtt: 15,
+    weaponCost: 100
   },
   katana: {
     weaponName: 'Katana',
-    weaponDmg: 10,
-    weaponBonusAtt: 10,
-    weaponCost: 100
+    weaponDmg: 15,
+    weaponBonusAtt: 15,
+    weaponCost: 120
   },
   nunchuks: {
     weaponName: 'Nun-Chuks',
-    weaponDmg: 8,
-    weaponBonusAtt: 15,
-    weaponCost: 120
+    weaponDmg: 25,
+    weaponBonusAtt: 20,
+    weaponCost: 170
   },
 };
 
@@ -1565,7 +1565,7 @@ let isPlayerEquipmentUIActive = false;
             swordsmithStoreNotifTxt.style.display = 'inline-block';
             swordsmithStoreNotifTxt.textContent = `You equipped a ${weaponName}`;
             isWeaponEquipped = true;
-            playerStr += weapon.weaponBonusAtt;
+            weaponName === 'crossbow' ? playerLuck += weapon.weaponBonusAtt : playerStr += weapon.weaponBonusAtt;
             playerStr += weapon.weaponDmg;
             updatePlayerStatsUI();
             displayWeaponInventoryUI(); 
