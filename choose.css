@@ -145,6 +145,8 @@ body{
   
 }
 
+
+
 .martial-artists-class .class-tooltip{
   background-color: rgba(0,0,0,0.75);
   position: absolute;
@@ -372,6 +374,16 @@ body{
   text-decoration: none;
   border: 2px solid black;
   
+}
+
+.ma-play{
+  text-decoration: none;
+  color: white;
+  transition: 0.4s ease;
+}
+
+.ma-play:hover{
+  color: black;
 }
 
 #select-button:hover{
