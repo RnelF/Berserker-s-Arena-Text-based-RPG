@@ -1,4 +1,3 @@
-console.log('Test new branch for quest');
 let playerLvl = 1;
 let playerXp = 0;
 let playerHealth = 100;
@@ -1954,6 +1953,12 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
     const templeBtn = document.getElementById('temple-btn');
     const templeBackBtn = document.getElementById('temple-back-btn');
 
+    //guildhall
+    //temple
+    const guildhall = document.getElementById('guildhall');
+    const guildhallBtn = document.getElementById('guildhall-btn');
+    const guildhallBackBtn = document.getElementById('guildhall-back-btn');
+
     const townBackBtn = document.getElementById('town-back-btn');
 
     
@@ -2045,7 +2050,19 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
               townMap.style.display = 'inline-block';
               temple.style.display = 'none';
             })
-          })
+          });
+
+          guildhallBtn.addEventListener('click', () => {
+            mapNav.style.display = 'none';
+            townMap.style.display = 'none';
+            guildhall.style.display = 'inline-block';
+
+            guildhallBackBtn.addEventListener('click', () => {
+              mapNav.style.display = 'none';
+              townMap.style.display = 'inline-block';
+              guildhall.style.display = 'none';
+            })
+          });
 
           townBackBtn.addEventListener('click', () => {
               mapNav.style.display = 'inline-block';
