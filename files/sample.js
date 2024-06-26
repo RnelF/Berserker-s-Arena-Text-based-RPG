@@ -699,7 +699,7 @@ let selectedMonster = null;
 
     //Global variables to handle player level up
     let requiredExpToLvlUp = 10;
-    const rewardAttributes = 3;
+    let rewardAttributes = 3;
   
     const checkAndHandleLevelUp = () => {
       
@@ -723,7 +723,8 @@ let selectedMonster = null;
               ${rewardAttributes} Strength \n
               ${rewardAttributes} Luck \n
             `;
-          
+
+          rewardAttributes += 1;
       }
     
       updatePlayerStatsUI();
