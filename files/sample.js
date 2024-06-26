@@ -1,4 +1,4 @@
-
+console.log('Test new branch for quest');
 let playerLvl = 1;
 let playerXp = 0;
 let playerHealth = 100;
