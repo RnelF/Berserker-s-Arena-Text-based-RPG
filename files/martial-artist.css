@@ -256,7 +256,8 @@ background-color: white;
   position: absolute;
 }
 
-#town-inventory-container{
+#town-inventory-container,
+#quest-container{
   background-color: white;
   display: none;
   overflow: scroll;

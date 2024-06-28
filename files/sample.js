@@ -13,6 +13,7 @@ let playerEnergy = 100;
 let playerInv = [];
 let playerWeaponInv = [];
 let playerArmorInv = [];
+let PlayerQuests = [];
 
 let playerCurrentWeapon = null;
 let playerCurrentHelmet = null;
@@ -1161,6 +1162,7 @@ let isTownInvUIActive = false;
 let isWeaponInvUIActive = false;
 let isArmorInvUIActive = false;
 let isPlayerEquipmentUIActive = false;
+let isQuestUIActive = false;
 
     const toggleInventoryUI = () => {
         // Check if the inventory container is displayed
@@ -1268,6 +1270,12 @@ let isPlayerEquipmentUIActive = false;
             playerEquipmentBtn.textContent = 'Equipments';
             isPlayerEquipmentUIActive = false;
         }
+
+        if (isQuestUIActive) {
+            questContainer.style.display = 'none';
+            questListBtn.textContent = 'Quests';
+            isQuestUIActive = false;
+        }
     };
 
     const playerEquipment = () => {
@@ -1275,7 +1283,6 @@ let isPlayerEquipmentUIActive = false;
     };
 
     playerEquipmentBtn.addEventListener('click',togglePlayerEquipment);
-
 
         // Function to display the inventory UI
         const displayInventoryUI = () => {
@@ -1342,7 +1349,6 @@ let isPlayerEquipmentUIActive = false;
             const townItemElement = document.createElement('p');
             townItemElement.textContent = item.itemName;
 
-
             // Create a button to use the item
             const townItemBtn = document.createElement('button');
             townItemBtn.innerHTML = 'Use Item';
@@ -1361,19 +1367,15 @@ let isPlayerEquipmentUIActive = false;
                 }
             });
 
-                   const sellItemBtn = document.createElement('button');
-                  sellItemBtn.innerHTML = 'Sell Item';
+            const sellItemBtn = document.createElement('button');
+            sellItemBtn.innerHTML = 'Sell Item';
 
-                  sellItemBtn.addEventListener('click', () => {
+            sellItemBtn.addEventListener('click', () => {
 
-                      removeItemFromInventory(item);
-                      sellItem(item);
+                removeItemFromInventory(item);
+                sellItem(item);
                       
-                  });
-
-
-
-                    
+              });
 
             // Append the item element and button to the container
             townItemContainer.appendChild(townItemElement);
@@ -2827,7 +2829,83 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
         confirmationYesBtn.addEventListener('click', confirmHandler);
         confirmationNoBtn.addEventListener('click', cancelHandler);
         
-         }        
+         };
+
+
+         //Functions for quests list
+         const questListBtn = document.getElementById('quests-list-btn');
+         const ongoingQuestBtn = document.getElementById('ongoing-quest-btn');
+
+         const questContainer = document.getElementById('quest-container');
+
+        // toggle button for quest
+
+        const toggleQuestUI = () => {
+        // Check if the inventory container is displayed
+        if (window.getComputedStyle(questContainer).display !== 'none') {
+            // If it's displayed, hide it
+            questContainer.style.display = 'none';
+            questListBtn.textContent = 'Quests'; // Change button text back
+            isQuestUIActive = false;
+        }else{
+            // If it's not displayed, show it
+            closeAllUIs();
+            displayQuestsUI();
+            questListBtn.textContent = 'Close Quest'; // Change button text
+            isQuestUIActive = true;
+        }
+    };
+
+        //function for quest feature
+
+        const displayQuestsUI = () => {
+      
+        questContainer.innerHTML = '';
+
+        if(PlayerQuests.length === 0){
+          
+            questContainer.style.display = 'block';
+            
+        }else{
+            // Show the inventory UI
+            inventoryContainer.style.display = 'block';
+
+            PlayerQuests.forEach(item => {
+            // Create a container for the item and the button
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('item-container');
+
+            // Create a new paragraph element to display the item
+            const itemElement = document.createElement('p');
+            itemElement.textContent = item;
+
+
+            // Create a button to use the item
+            const itemBtn = document.createElement('button');
+            itemBtn.innerHTML = 'Use Item';
+
+            // Add an event listener to the button
+            itemBtn.addEventListener('click', () => {
+                // add function here for quest
+            });
+
+                    
+
+            // Append the item element and button to the container
+            itemContainer.appendChild(itemElement);
+            itemContainer.appendChild(itemBtn);
+
+            // Append the item container to the inventory container
+            inventoryContainer.appendChild(itemContainer);
+        });
+
+            
+        }
+    };
+
+    questListBtn.addEventListener('click', () => {
+        toggleQuestUI();
+    }); 
 
 
       const townBtn = document.getElementById('town-btn').addEventListener('click',townBtnFunction);
