@@ -1,3 +1,4 @@
+
 let playerLvl = 1;
 let playerXp = 0;
 let playerHealth = 100;
@@ -13,7 +14,37 @@ let playerEnergy = 100;
 let playerInv = [];
 let playerWeaponInv = [];
 let playerArmorInv = [];
-let PlayerQuests = [];
+let PlayerQuests = [
+  {
+    id: 1,
+    name: "Eliminate the Monster Rabbit's Threat",
+    description: "The nearby Grassland village is being terrorized by ferocious mutant Rabbits called Rabituzah. Eliminate the Rabituzahs to restore peace.",
+    status: "not started", // possible values: 'not started', 'in progress', 'completed'
+    requirements: {
+      level: 1,
+    },
+    objectives: [
+      {
+        monster: "Rabituzah",
+        targetCount: 10,
+        currentCount: 0,
+        completed: false,
+      },
+      {
+        monster: "Skunky",
+        targetCount: 1,
+        currentCount: 0,
+        completed: false,
+      }
+    ],
+    rewards: {
+      experience: 300,
+      gold: 15,
+    },
+    startDate: null,
+    endDate: null,
+  }
+];
 
 let playerCurrentWeapon = null;
 let playerCurrentHelmet = null;
@@ -115,7 +146,7 @@ const items = {
     potionEffectAmount: 30
   }
 };
-
+console.log(items.healthPotion.itemName);
 const darkValleyMonstersList = [
   {
     name: 'Ratooth',
@@ -893,6 +924,7 @@ let selectedMonster = null;
               playerGold += selectedMonster.monsterGoldReward;
               playerXp += selectedMonster.monsterExpReward;
 
+              updateQuestObjectives(selectedMonster.name);
 
               fightingConfirmBtn.addEventListener('click', () => {
                   valleyMapInner.style.display = 'inline-block';
@@ -1299,16 +1331,16 @@ let isQuestUIActive = false;
                   itemContainer.classList.add('item-container');
 
                   const itemElement = document.createElement('p');
-                  itemElement.textContent = item;
+                  itemElement.textContent = item.itemName;
 
                   const itemBtn = document.createElement('button');
                   itemBtn.innerHTML = 'Use Item';
 
                   itemBtn.addEventListener('click', () => {
-                      if (item === items.healthPotion.itemName) {
+                      if (item === items.healthPotion) {
                           useHealthPotion();
                           removeItemFromInventory(item);
-                      } else if (item === items.energyPotion.itemName) {
+                      } else if (item === items.energyPotion) {
                           useEnergyPotion();
                           removeItemFromInventory(item);
                       }
@@ -1355,12 +1387,12 @@ let isQuestUIActive = false;
 
             // Add an event listener to the button
             townItemBtn.addEventListener('click', () => {
-                if (item === items.healthPotion.itemName) {
+                if (item === items.healthPotion) {
 
                     useHealthPotion();
                     removeItemFromInventory(item);
 
-                } else if (item === items.energyPotion.itemName) {
+                } else if (item === items.energyPotion) {
 
                     useEnergyPotion();
                     removeItemFromInventory(item);
@@ -2833,79 +2865,148 @@ const valleyBtn = document.getElementById('valley-btn').addEventListener('click'
 
 
          //Functions for quests list
-         const questListBtn = document.getElementById('quests-list-btn');
-         const ongoingQuestBtn = document.getElementById('ongoing-quest-btn');
 
-         const questContainer = document.getElementById('quest-container');
+        const questListBtn = document.getElementById('quests-list-btn');
+const ongoingQuestBtn = document.getElementById('ongoing-quest-btn');
+const questContainer = document.getElementById('quest-container');
 
-        // toggle button for quest
+// toggle button for quest
+const toggleQuestUI = () => {
+  // Check if the quest container is displayed
+  if (window.getComputedStyle(questContainer).display !== 'none') {
+    questContainer.style.display = 'none';
+    questListBtn.textContent = 'Quests';
+    isQuestUIActive = false;
+  } else {
+    closeAllUIs();
+    displayQuestsUI();
+    questListBtn.textContent = 'Close Quest';
+    isQuestUIActive = true;
+  }
+};
 
-        const toggleQuestUI = () => {
-        // Check if the inventory container is displayed
-        if (window.getComputedStyle(questContainer).display !== 'none') {
-            // If it's displayed, hide it
-            questContainer.style.display = 'none';
-            questListBtn.textContent = 'Quests'; // Change button text back
-            isQuestUIActive = false;
-        }else{
-            // If it's not displayed, show it
-            closeAllUIs();
-            displayQuestsUI();
-            questListBtn.textContent = 'Close Quest'; // Change button text
-            isQuestUIActive = true;
-        }
-    };
+// function for quest feature
+const displayQuestsUI = () => {
+  questContainer.innerHTML = '';
 
-        //function for quest feature
+  if (PlayerQuests.length === 0) {
+    questContainer.style.display = 'block';
+    questContainer.innerHTML = '<p>No quests available.</p>';
+  } else {
+    // Show the quest UI
+    questContainer.style.display = 'block';
 
-        const displayQuestsUI = () => {
-      
-        questContainer.innerHTML = '';
+    PlayerQuests.forEach(quest => {
+      // Create a container for the quest
+      const questContainer = document.createElement('div');
+      questContainer.classList.add('quest-container');
 
-        if(PlayerQuests.length === 0){
-          
-            questContainer.style.display = 'block';
-            
-        }else{
-            // Show the inventory UI
-            inventoryContainer.style.display = 'block';
+      // Create elements to display quest details
+      const questName = document.createElement('h3');
+      questName.textContent = quest.name;
 
-            PlayerQuests.forEach(item => {
-            // Create a container for the item and the button
-            const itemContainer = document.createElement('div');
-            itemContainer.classList.add('item-container');
+      const questDescription = document.createElement('p');
+      questDescription.textContent = quest.description;
 
-            // Create a new paragraph element to display the item
-            const itemElement = document.createElement('p');
-            itemElement.textContent = item;
+      const questStatus = document.createElement('p');
+      questStatus.textContent = `Status: ${quest.status}`;
 
+      const questObjectives = document.createElement('ul');
+      quest.objectives.forEach(objective => {
+        const objectiveItem = document.createElement('li');
+        objectiveItem.textContent = `${objective.monster}: ${objective.currentCount}/${objective.targetCount}`;
+        questObjectives.appendChild(objectiveItem);
+      });
 
-            // Create a button to use the item
-            const itemBtn = document.createElement('button');
-            itemBtn.innerHTML = 'Use Item';
+      const questRewards = document.createElement('p');
+      questRewards.textContent = `Rewards: ${quest.rewards.experience} XP, Gold: ${quest.rewards.gold}`;
 
-            // Add an event listener to the button
-            itemBtn.addEventListener('click', () => {
-                // add function here for quest
-            });
+      // Create a button to start the quest
+      if (quest.status === "not started") {
+        const startQuestBtn = document.createElement('button');
+        startQuestBtn.textContent = 'Start Quest';
 
-                    
-
-            // Append the item element and button to the container
-            itemContainer.appendChild(itemElement);
-            itemContainer.appendChild(itemBtn);
-
-            // Append the item container to the inventory container
-            inventoryContainer.appendChild(itemContainer);
+        // Add event listener to the button
+        startQuestBtn.addEventListener('click', () => {
+          startQuest(quest.id);
+          displayQuestsUI();
         });
 
-            
-        }
-    };
+        // Append the start button to the quest container
+        questContainer.appendChild(startQuestBtn);
+      }
 
-    questListBtn.addEventListener('click', () => {
-        toggleQuestUI();
-    }); 
+      // Create a button to claim rewards if the quest is completed
+      if (quest.status === 'completed') {
+        const claimRewardsBtn = document.createElement('button');
+        claimRewardsBtn.textContent = 'Claim Rewards';
+
+        // Add event listener to the button
+        claimRewardsBtn.addEventListener('click', () => {
+          claimQuestRewards(quest.id);
+          displayQuestsUI();
+        });
+
+        // Append the claim rewards button to the quest container
+        questContainer.appendChild(claimRewardsBtn);
+      }
+
+      // Append elements to the quest container
+      questContainer.appendChild(questName);
+      questContainer.appendChild(questDescription);
+      questContainer.appendChild(questStatus);
+      questContainer.appendChild(questObjectives);
+      questContainer.appendChild(questRewards);
+
+      // Append the quest container to the main quest container
+      document.getElementById('quest-container').appendChild(questContainer);
+    });
+  }
+};
+
+// Function to start a quest
+function startQuest(questId) {
+  const quest = PlayerQuests.find(q => q.id === questId);
+  if (quest) {
+    quest.status = "in progress";
+    quest.startDate = new Date().toISOString();
+  }
+}
+
+// Function to claim quest rewards
+function claimQuestRewards(questId) {
+  const quest = PlayerQuests.find(q => q.id === questId);
+  if (quest && quest.status === 'completed') {
+    playerXp += quest.rewards.experience;
+    playerGold += quest.rewards.gold;
+    quest.status = 'claimed';
+  }
+}
+
+const updateQuestObjectives = (monsterName) => {
+  PlayerQuests.forEach(quest => {
+    quest.objectives.forEach(objective => {
+      if (objective.monster === monsterName && !objective.completed) {
+        objective.currentCount += 1;
+        if (objective.currentCount >= objective.targetCount) {
+          objective.completed = true;
+        }
+      }
+    });
+
+    // Check if all objectives are completed
+    const allObjectivesCompleted = quest.objectives.every(obj => obj.completed);
+    if (allObjectivesCompleted) {
+      quest.status = 'completed';
+      quest.endDate = new Date().toISOString();
+    }
+  });
+};
+
+// Add event listener to the quest list button
+questListBtn.addEventListener('click', () => {
+  toggleQuestUI();
+});
 
 
       const townBtn = document.getElementById('town-btn').addEventListener('click',townBtnFunction);
