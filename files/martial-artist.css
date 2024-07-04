@@ -1,15 +1,15 @@
-body{
+body {
   margin-top: 0;
   margin-bottom: 200px;
   margin-left: 0;
   margin-right: 0;
   padding: 0;
-  background: linear-gradient(to right,#452c08,#966212) ;
+  background: linear-gradient(to right, #452c08, #966212);
   position: relative;
-  font-family: Cinzel,arial,sans-serif;
+  font-family: Cinzel, arial, sans-serif;
 }
 
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,30 +17,31 @@ body{
   width: 100%;
 }
 
-.game-title{
-  font-family: 'Marcellus SC', serif;
+.game-title {
+  font-family: "Marcellus SC", serif;
   font-size: 2rem;
-  background-color: #b76e00;display: inline-block;
+  background-color: #b76e00;
+  display: inline-block;
   text-wrap: nowrap;
   padding: 5px 10px;
   border-radius: 30px;
   font-weight: bold;
-  margin:10px 10px;
+  margin: 10px 10px;
 }
 
-.game-title span{
+.game-title span {
   font-size: 1.7rem;
   font-weight: normal;
 }
 
-.navbar{
+.navbar {
   display: flex;
   justify-content: end;
   align-items: center;
   margin-right: 20px;
 }
 
-.navbar a{
+.navbar a {
   text-decoration: none;
   color: black;
   font-size: 1.7rem;
@@ -48,25 +49,25 @@ body{
   transition: 0.3s ease;
 }
 
-.navbar a:hover{
+.navbar a:hover {
   border-radius: 30px;
-  padding:3px 10px;
-  background-color: rgb(207, 128, 60)
+  padding: 3px 10px;
+  background-color: rgb(207, 128, 60);
 }
 
-.nav-link-left{
+.nav-link-left {
   margin-right: 10px;
 }
 
-.nav-link-right{
+.nav-link-right {
   margin-left: 10px;
 }
 
-.nav-link-middle{
+.nav-link-middle {
   margin: 5px 20px;
 }
 
-#stats{
+#stats {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -75,25 +76,24 @@ body{
   width: 60vw;
   border: 3px solid black;
   margin: 0 auto;
-  
-} 
-
-.stat-container{
-  width:10vw;
 }
 
-.stat{
+.stat-container {
+  width: 10vw;
+}
+
+.stat {
   font-size: 1.7rem;
   font-weight: 500;
   text-wrap: nowrap;
 }
 
-#game{
+#game {
   text-align: center;
   margin-top: 50px;
 }
 
-#map-nav{ 
+#map-nav {
   margin-top: 20px;
   margin-bottom: 20px;
   display: inline-block;
@@ -105,11 +105,11 @@ body{
   border-radius: 10px;
 }
 
-#dark-valley-map{
+#dark-valley-map {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/dark-valley.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -117,8 +117,8 @@ body{
   border-radius: 10px;
 }
 
-#dv-initial-btns{
-  display: flex;  
+#dv-initial-btns {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -126,11 +126,11 @@ body{
   margin-top: 250px;
 }
 
-#dark-valley-map-inner{
+#dark-valley-map-inner {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/dark-valley-inner.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -138,11 +138,11 @@ body{
   border-radius: 10px;
 }
 
-#valley-map{
+#valley-map {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/valley.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -150,11 +150,11 @@ body{
   border-radius: 10px;
 }
 
-#valley-map-inner{
+#valley-map-inner {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/valley-inner.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -162,20 +162,20 @@ body{
   border-radius: 10px;
 }
 
-.valey-map-notif-container{
-	margin-top: 200px;
+.valey-map-notif-container {
+  margin-top: 200px;
 }
 
-#valley-map-notif-btn{
-	display:none;
+#valley-map-notif-btn {
+  display: none;
 }
 
-  /* Fighting display Styles*/
-#fighting-display-container{
+/* Fighting display Styles*/
+#fighting-display-container {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/valley-grasslands.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -183,70 +183,70 @@ body{
   border-radius: 10px;
 }
 
-#fighting-display-main-container{
-	display:flex;
-	justify-content: space-between;
-	align-items:center;
+#fighting-display-main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#player-img, #fighting-monster-img{
-	border: 2px solid black;
-	width: 100px;
-	height: 100px;
+#player-img,
+#fighting-monster-img {
+  border: 2px solid black;
+  width: 100px;
+  height: 100px;
 }
 
-.fighting-monster-img-container, .player-img-container{
-	padding:10px 10px;
+.fighting-monster-img-container,
+.player-img-container {
+  padding: 10px 10px;
 }
 
-#player-stats-display-container{
-		width:300px;
-		display:flex;
-		flex-direction: column;
-	  text-align:center;
-		font-size: 0.8rem;
-		color: white;
-		text-wrap: no wrap;
+#player-stats-display-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 0.8rem;
+  color: white;
+  text-wrap: no wrap;
 }
 
- #fighting-monster-stats-container{
-		width:300px;
-		display:flex;
-		flex-direction: column;
-		font-size: 0.8rem;
-		color: white;
-		
- }
-#fighting-monster-stat{
-	text-align:left;
-	text-wrap: no wrap;
+#fighting-monster-stats-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  color: white;
+}
+#fighting-monster-stat {
+  text-align: left;
+  text-wrap: no wrap;
 }
 
 /*town*/
-#town-notif-container{
-background-color: white;
+#town-notif-container {
+  background-color: white;
   padding: 20px 20px;
   border-radius: 20px;
   border: 2px solid black;
   height: 40px;
   width: auto;
-  display:none;
+  display: none;
   top: 0;
-  left:0;
+  left: 0;
   bottom: 0;
   right: 0;
   margin-top: 160px;
-  position: absolute; 
+  position: absolute;
   z-index: 100;
 }
 
-#weapon-inv-container, 
-#armor-inv-container
-{
+#weapon-inv-container,
+#armor-inv-container {
   background-color: white;
   display: none;
   overflow: scroll;
-  margin:10px 10px;
+  margin: 10px 10px;
   border: 2px solid orangered;
   border-radius: 10px;
   height: 180px;
@@ -257,11 +257,11 @@ background-color: white;
 }
 
 #town-inventory-container,
-#quest-container{
+#quest-container {
   background-color: white;
   display: none;
   overflow: scroll;
-  margin:10px 10px;
+  margin: 10px 10px;
   border: 2px solid orangered;
   border-radius: 10px;
   height: 180px;
@@ -271,21 +271,21 @@ background-color: white;
   position: absolute;
 }
 
-.town-item-container{
-    display: flex;
-    align-items: center;
+.town-item-container {
+  display: flex;
+  align-items: center;
 }
 
-.town-item-container p{
+.town-item-container p {
   margin-left: 200px;
-  margin-right: 10px ;
+  margin-right: 10px;
   margin-bottom: 10px;
 }
 
-#equipments-container{
+#equipments-container {
   background-color: rgb(106, 106, 107);
   display: none;
-  margin:10px 10px;
+  margin: 10px 10px;
   border: 2px solid rgb(0, 0, 0);
   border-radius: 10px;
   height: 180px;
@@ -296,11 +296,11 @@ background-color: white;
   height: 380px;
 }
 
-#town-map{
+#town-map {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/town-main.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -309,8 +309,8 @@ background-color: white;
   position: relative;
 }
 
-#town-map-btns{
-  display:flex;
+#town-map-btns {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -331,43 +331,43 @@ background-color: white;
 
 /*alchemist store*/
 
-#alchemist-store{
+#alchemist-store {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/alchemy-shop.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
   border: 5px solid black;
   border-radius: 10px;
   position: relative;
-  
 }
 
-#alchemy-store-notif-container{
+#alchemy-store-notif-container {
   background-color: white;
   padding: 20px 20px;
   border-radius: 20px;
   border: 2px solid black;
   height: 40px;
   width: auto;
-  display:none;
+  display: none;
   top: 0;
-  left:0;
+  left: 0;
   bottom: 0;
   right: 0;
   margin: auto;
-  position: absolute; 
+  position: absolute;
 }
 
-#alchemy-store-notif{
+#alchemy-store-notif {
   font-weight: bold;
-  font-size: 1.0rem;
+  font-size: 1rem;
   line-height: 3;
-  
 }
-#alchemy-store-notif-bck-btn, #confirm-yes-btn, #confirm-no-btn{
+#alchemy-store-notif-bck-btn,
+#confirm-yes-btn,
+#confirm-no-btn {
   margin-left: 10px;
   display: inline-block;
   border: 1px solid rgb(103, 63, 18);
@@ -378,30 +378,29 @@ background-color: white;
   font-family: Cinzel;
 }
 
-#alchemist-store-confirmation-container{
+#alchemist-store-confirmation-container {
   background-color: white;
   padding: 20px 20px;
   border-radius: 20px;
   border: 2px solid black;
   height: 40px;
   width: auto;
-  display:none;
+  display: none;
   top: 0;
-  left:0;
+  left: 0;
   bottom: 0;
   right: 0;
   margin: auto;
-  position: absolute; 
+  position: absolute;
 }
 
-#alchemy-store-confirmation-txt{
+#alchemy-store-confirmation-txt {
   font-weight: bold;
   line-height: 1.6;
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 
-
-#buy-health-potion-btns{
+#buy-health-potion-btns {
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -420,7 +419,7 @@ background-color: white;
   box-shadow: 5px 10px 15px black;
 }
 
- #buy-energy-potion-btns{
+#buy-energy-potion-btns {
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -437,9 +436,10 @@ background-color: white;
   border-radius: 10px;
   border: 2px solid black;
   box-shadow: 5px 10px 15px black;
- }
+}
 
-#buy-health-potion-btns button, #buy-energy-potion-btns button{
+#buy-health-potion-btns button,
+#buy-energy-potion-btns button {
   width: 80px;
   height: 25px;
   border: 1px solid orangered;
@@ -449,13 +449,14 @@ background-color: white;
   font-weight: bold;
 }
 
-.quantity-btns-container button{
+.quantity-btns-container button {
   font-family: arial;
   font-size: 2rem;
   font-weight: bolder;
 }
 
- #buy-health-potion-btns input, #buy-energy-potion-btns input {
+#buy-health-potion-btns input,
+#buy-energy-potion-btns input {
   height: 25px;
   width: 50px;
   margin-bottom: 210px;
@@ -465,40 +466,43 @@ background-color: white;
   font-size: 1.3rem;
   font-weight: bold;
   font-family: Cinzel;
- }
+}
 
-  /*remove the spin btns in the number input*/
-  input[type=number]::-webkit-outer-spin-button,
-  input[type=number]::-webkit-inner-spin-button {
+/*remove the spin btns in the number input*/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
- .quantity-btns-container, .input-container,.buy-cancel-btns-container{
+.quantity-btns-container,
+.input-container,
+.buy-cancel-btns-container {
   display: block;
- }
+}
 
- #alchemy-store-btns-container{
+#alchemy-store-btns-container {
   margin-bottom: 10px;
   margin-top: 10px;
- }
+}
 
- #alchemy-store-btns-container button, #alchemist-store-back-btn{
+#alchemy-store-btns-container button,
+#alchemist-store-back-btn {
   border: 1px solid rgb(103, 63, 18);
   border-radius: 5px;
   text-align: center;
   font-size: 1rem;
   font-weight: bold;
   font-family: Cinzel;
- }
+}
 
 /*blacksmith store*/
 
-#blacksmith-store{
+#blacksmith-store {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/blacksmith-shop.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -507,16 +511,17 @@ background-color: white;
   position: relative;
 }
 
-#blacksmith-store-notif-container, #swordsmith-store-notif-container {
+#blacksmith-store-notif-container,
+#swordsmith-store-notif-container {
   background-color: white;
   padding: 20px 20px;
   border-radius: 20px;
   border: 2px solid black;
   height: 40px;
   width: auto;
-  display:none;
+  display: none;
   top: 0;
-  left:0;
+  left: 0;
   bottom: 0;
   right: 0;
   margin-top: 200px;
@@ -524,41 +529,44 @@ background-color: white;
   position: absolute;
 }
 
-#blacksmith-store-confirmation-container, #swordsmith-store-confirmation-container {
+#blacksmith-store-confirmation-container,
+#swordsmith-store-confirmation-container {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
   border: 2px solid black;
-  height: auto; 
-  width: auto; 
-  max-width: 80%; 
-  max-height: 80%; 
+  height: auto;
+  width: auto;
+  max-width: 80%;
+  max-height: 80%;
   display: none;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   position: absolute;
   z-index: 1000;
-  overflow-y: auto; 
-  text-align: center; 
+  overflow-y: auto;
+  text-align: center;
 }
 
-#blacksmith-store-confirmation-txt, #swordsmith-store-confirmation-txt{
+#blacksmith-store-confirmation-txt,
+#swordsmith-store-confirmation-txt {
   font-weight: bold;
   line-height: 1.6;
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 
-
-#blacksmith-store-notif, #swordsmith-store-notif{
+#blacksmith-store-notif,
+#swordsmith-store-notif {
   font-weight: bold;
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
-#blacksmith-store-notif-bck-btn, #swordsmith-store-notif-bck-btn{
+#blacksmith-store-notif-bck-btn,
+#swordsmith-store-notif-bck-btn {
   margin-top: 15px;
 }
 
-#breastplate-container, 
+#breastplate-container,
 #gauntlet-container,
 #boots-container,
 #helmet-container,
@@ -567,7 +575,7 @@ background-color: white;
 #dagger-container,
 #crossbow-container,
 #katana-container,
-#nunchuks-container{
+#nunchuks-container {
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -587,7 +595,7 @@ background-color: white;
   z-index: 1;
 }
 
-#breastplate-info-container, 
+#breastplate-info-container,
 #gauntlet-info-container,
 #boots-info-container,
 #helmet-info-container,
@@ -596,7 +604,7 @@ background-color: white;
 #sword-info-container,
 #dagger-info-container,
 #crossbow-info-container,
-#nunchuks-info-container{
+#nunchuks-info-container {
   background-color: rgba(0, 0, 0, 0.775);
   position: absolute;
   width: 100%;
@@ -606,16 +614,15 @@ background-color: white;
   border-radius: 5px;
   left: 0%;
   right: 0%;
-  bottom:0%;
+  bottom: 0%;
   overflow: hidden;
-  height:0;
-  transition: .5s ease;
-  margin:0 ;
-
+  height: 0;
+  transition: 0.5s ease;
+  margin: 0;
 }
 
-#breastplate-info-container p, 
-#gauntlet-info-container p, 
+#breastplate-info-container p,
+#gauntlet-info-container p,
 #boots-info-container p,
 #helmet-info-container p,
 #shield-info-container p,
@@ -623,7 +630,7 @@ background-color: white;
 #dagger-info-container p,
 #crossbow-info-container p,
 #katana-info-container p,
-#nunchuks-info-container p{
+#nunchuks-info-container p {
   color: white;
   text-align: center;
   font-size: 0.7rem;
@@ -633,21 +640,40 @@ background-color: white;
   text-align: left;
 }
 
-#breastplate-info-btn, #breastplate-buy-btn, #breastplate-cancel-btn,
-#gauntlet-info-btn, #gauntlet-buy-btn, #gauntlet-cancel-btn,
-#boots-info-btn, #boots-buy-btn, #boots-cancel-btn,
-#helmet-info-btn, #helmet-buy-btn, #helmet-cancel-btn,
-#shield-info-btn, #shield-buy-btn, #shield-cancel-btn,
-#sword-info-btn, #sword-buy-btn, #sword-cancel-btn,
-#dagger-info-btn, #dagger-buy-btn, #dagger-cancel-btn,
-#crossbow-info-btn, #crossbow-buy-btn, #crossbow-cancel-btn,
-#katana-info-btn, #katana-buy-btn, #katana-cancel-btn,
-#nunchuks-info-btn, #nunchuks-buy-btn, #nunchuks-cancel-btn
-{
+#breastplate-info-btn,
+#breastplate-buy-btn,
+#breastplate-cancel-btn,
+#gauntlet-info-btn,
+#gauntlet-buy-btn,
+#gauntlet-cancel-btn,
+#boots-info-btn,
+#boots-buy-btn,
+#boots-cancel-btn,
+#helmet-info-btn,
+#helmet-buy-btn,
+#helmet-cancel-btn,
+#shield-info-btn,
+#shield-buy-btn,
+#shield-cancel-btn,
+#sword-info-btn,
+#sword-buy-btn,
+#sword-cancel-btn,
+#dagger-info-btn,
+#dagger-buy-btn,
+#dagger-cancel-btn,
+#crossbow-info-btn,
+#crossbow-buy-btn,
+#crossbow-cancel-btn,
+#katana-info-btn,
+#katana-buy-btn,
+#katana-cancel-btn,
+#nunchuks-info-btn,
+#nunchuks-buy-btn,
+#nunchuks-cancel-btn {
   display: inline-block;
 }
-#breastplate-close-info, 
-#gauntlet-close-info, 
+#breastplate-close-info,
+#gauntlet-close-info,
 #boots-close-info,
 #helmet-close-info,
 #shield-close-info,
@@ -655,8 +681,7 @@ background-color: white;
 #dagger-close-info,
 #crossbow-close-info,
 #katana-close-info,
-#nunchuks-close-info
-{
+#nunchuks-close-info {
   width: 50px;
   height: 20px;
   margin-left: 88%;
@@ -670,8 +695,8 @@ background-color: white;
   border-radius: 3px;
 }
 
-#breastplate-close-info:hover , 
-#gauntlet-close-info:hover, 
+#breastplate-close-info:hover,
+#gauntlet-close-info:hover,
 #boots-close-info:hover,
 #helmet-close-info:hover,
 #shield-close-info:hover,
@@ -684,60 +709,57 @@ background-color: white;
   color: black;
 }
 
-.item-stats{
+.item-stats {
   font-size: 1.4rem;
 }
 
-#breastplate-container{
+#breastplate-container {
   background-image: url(../images/items/breastplate.jpg);
 }
 
-#gauntlet-container{
+#gauntlet-container {
   background-image: url(../images/items/gauntlet.jpg);
 }
 
-#boots-container{
+#boots-container {
   background-image: url(../images/items/boots.jpg);
 }
 
-#helmet-container{
+#helmet-container {
   background-image: url(../images/items/helmet.jpg);
 }
 
-#shield-container{
+#shield-container {
   background-image: url(../images/items/shield.jpg);
 }
 
-#sword-container{
+#sword-container {
   background-image: url(../images/items/sword.jpg);
 }
 
-#dagger-container{
+#dagger-container {
   background-image: url(../images/items/dagger.jpg);
 }
 
-#crossbow-container{
+#crossbow-container {
   background-image: url(../images/items/crossbow.jpg);
 }
 
-#katana-container{
+#katana-container {
   background-image: url(../images/items/katana.jpg);
 }
 
-#nunchuks-container{
+#nunchuks-container {
   background-image: url(../images/items/nun-chuks.jpg);
 }
 
-
-
-
 /*swordsmith store*/
 
-#swordsmith-store{
+#swordsmith-store {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/swordsmith-shop.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -746,7 +768,7 @@ background-color: white;
   position: relative;
 }
 
-#swordsmith-store-back-btn{
+#swordsmith-store-back-btn {
   display: block;
 
   margin-top: 10px;
@@ -756,11 +778,11 @@ background-color: white;
 
 /*Temple*/
 
-#temple{
+#temple {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/temple.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -770,11 +792,11 @@ background-color: white;
 
 /*guild hall*/
 
-#guildhall{
+#guildhall {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/guildhall.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -784,12 +806,11 @@ background-color: white;
 
 /*Fighting*/
 
-
-#monster-stats{
+#monster-stats {
   margin-top: 20px;
   margin-bottom: 20px;
   background-image: url(../images/map/valley-grasslands.jpg);
-  display:none;
+  display: none;
   background-size: cover;
   width: 550px;
   height: 550px;
@@ -797,7 +818,7 @@ background-color: white;
   border-radius: 10px;
 }
 
-.monster-stat{
+.monster-stat {
   font-size: 1.3rem;
   font-weight: 500;
   text-wrap: nowrap;
@@ -805,65 +826,63 @@ background-color: white;
   margin-right: 10px;
 }
 
-.last{
+.last {
   margin-bottom: 10px;
 }
 
-.monster-img-container{
-	display:inline-block;
+.monster-img-container {
+  display: inline-block;
 }
 
-#monster-img{
+#monster-img {
   width: 150px;
   height: 150px;
   border: 2px solid;
   border-image: linear-gradient(to right, #ff7e5f, #feb47b, #ffeda3);
   border-image-slice: 1;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
-
-#monster-stats-container{
+#monster-stats-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background:  #E8DED1;
+  background: #e8ded1;
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 3px solid #BFAA8C;
+  border: 3px solid #bfaa8c;
   margin: 20px 20px;
 }
-
 
 .fight-monster-btn,
 .flee-monster-btn {
   width: 100px;
   height: 40px;
   font-size: 1.2rem;
-  background: #E8DED1;
+  background: #e8ded1;
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 3px solid #BFAA8C;
+  border: 3px solid #bfaa8c;
   cursor: pointer;
-  transition:0.5s;
+  transition: 0.5s;
 }
 
 .fight-monster-btn:hover,
 .flee-monster-btn:hover {
-  background: #BFAA8C;
+  background: #bfaa8c;
   color: white;
   border: 3px solid white;
 }
 
-#controls{
+#controls {
   position: relative;
 }
 
-#fight-story-container{
+#fight-story-container {
   width: 450px;
-  height:250px;
+  height: 250px;
   font-weight: bold;
-  font-size: .8em;
+  font-size: 0.8em;
   background-color: white;
   border: 2px solid orangered;
   padding: 10px 10px;
@@ -873,220 +892,218 @@ background-color: white;
 }
 
 .fight-story-player-entry {
-    border-bottom: 2px solid #ad7a33; 
-    padding: 5px 0;
-    margin-bottom: 5px;
-    color: #dc1ae2;
-    font-weight: bold;
+  border-bottom: 2px solid #ad7a33;
+  padding: 5px 0;
+  margin-bottom: 5px;
+  color: #dc1ae2;
+  font-weight: bold;
 }
 
 .fight-story-monster-entry {
-    border-bottom: 2px solid #ad7a33; 
-    padding: 5px 0;
-    margin-bottom: 5px;
-    color: #0e00a8;
-    font-weight: bold;
+  border-bottom: 2px solid #ad7a33;
+  padding: 5px 0;
+  margin-bottom: 5px;
+  color: #0e00a8;
+  font-weight: bold;
 }
 
-.crit-dmg-fight-story{
-  border-bottom: 2px solid #ad7a33; 
+.crit-dmg-fight-story {
+  border-bottom: 2px solid #ad7a33;
   padding: 5px 0;
   margin-bottom: 5px;
   color: rgb(5, 161, 161);
   font-weight: bold;
 }
 
-.use-hp-potion-fight-story{
-  border-bottom: 2px solid #ad7a33; 
+.use-hp-potion-fight-story {
+  border-bottom: 2px solid #ad7a33;
   padding: 5px 0;
   margin-bottom: 5px;
   color: rgb(236, 11, 11);
   font-weight: bold;
 }
 
-.use-energy-potion-fight-story{
-  border-bottom: 2px solid #ad7a33; 
+.use-energy-potion-fight-story {
+  border-bottom: 2px solid #ad7a33;
   padding: 5px 0;
   margin-bottom: 5px;
   color: rgb(18, 240, 44);
   font-weight: bold;
 }
 
-#fighting-confirm-btn{
+#fighting-confirm-btn {
   display: none;
 }
 
-#inventory-container{
+#inventory-container {
   background-color: white;
   display: none;
   overflow: scroll;
-  margin:10px 10px;
+  margin: 10px 10px;
   border: 2px solid orangered;
   border-radius: 10px;
   height: 180px;
 }
 
-.item-container{
-    display: flex;
-    align-items: center;
+.item-container {
+  display: flex;
+  align-items: center;
 }
 
-.item-container p{
+.item-container p {
   margin-left: 200px;
-  margin-right: 10px ;
+  margin-right: 10px;
   margin-bottom: 10px;
 }
 
-#fighting-notif{
-  color:black;
+#fighting-notif {
+  color: black;
   font-size: 15px;
   font-weight: bold;
-  display:none;
+  display: none;
   background-color: white;
   border-radius: 20px;
   margin-top: 20px;
   padding: 10px 10px;
 }
 
-#fight-notif-back-button{
+#fight-notif-back-button {
   display: block;
   margin-left: 43%;
   margin-top: 15px;
 }
-
-
 
 /*Dark valley map*/
 
-#dark-valley-btn{
+#dark-valley-btn {
   position: absolute;
   top: 160px;
-  left:60px;
+  left: 60px;
   color: white;
   font-weight: bold;
-  padding:5px 10px;
+  padding: 5px 10px;
   box-shadow: 0px 0px 5px white;
-  background-color:rgb(67, 75, 81);
+  background-color: rgb(67, 75, 81);
   border-radius: 40px;
   transition: 0.3s ease;
 }
 
-#dark-valley-btn:hover{
+#dark-valley-btn:hover {
   background-color: aliceblue;
-  color:black;
+  color: black;
   box-shadow: 0px 0px 5px black;
 }
 
-#valley-btn{
+#valley-btn {
   position: absolute;
-  top:160px;
-  right:70px;
-   color: white;
+  top: 160px;
+  right: 70px;
+  color: white;
   font-weight: bold;
-  padding:5px 10px;
+  padding: 5px 10px;
   box-shadow: 0px 0px 5px white;
-  background-color:rgb(67, 75, 81);
+  background-color: rgb(67, 75, 81);
   border-radius: 40px;
   transition: 0.3s ease;
 }
 
-#valley-btn:hover{
+#valley-btn:hover {
   background-color: aliceblue;
-  color:black;
+  color: black;
   box-shadow: 0px 0px 5px black;
 }
 
-#arena-btn{
+#arena-btn {
   position: absolute;
-  top:220px;
+  top: 220px;
   right: 220px;
   color: white;
   font-weight: bold;
-  padding:5px 10px;
+  padding: 5px 10px;
   box-shadow: 0px 0px 5px white;
-  background-color:rgb(67, 75, 81);
+  background-color: rgb(67, 75, 81);
   border-radius: 40px;
   transition: 0.3s ease;
 }
 
-#arena-btn:hover{
+#arena-btn:hover {
   background-color: aliceblue;
-  color:black;
+  color: black;
   box-shadow: 0px 0px 5px black;
 }
 
-#town-btn{
+#town-btn {
   position: absolute;
-  top:450px;
+  top: 450px;
   right: 225px;
   color: white;
   font-weight: bold;
-  padding:5px 10px;
+  padding: 5px 10px;
   box-shadow: 0px 0px 5px white;
-  background-color:rgb(67, 75, 81);
+  background-color: rgb(67, 75, 81);
   border-radius: 40px;
   transition: 0.3s ease;
 }
 
-#town-btn:hover{
+#town-btn:hover {
   background-color: aliceblue;
-  color:black;
+  color: black;
   box-shadow: 0px 0px 5px black;
 }
 
-.bttn{
-  font-family:Cinzel,arial,sans-serif;
+.bttn {
+  font-family: Cinzel, arial, sans-serif;
   cursor: pointer;
 }
 
-#notif-container{
-  color:black;
+#notif-container {
+  color: black;
   font-size: 15px;
   font-weight: bold;
-  display:none;
+  display: none;
   background-color: white;
   border-radius: 20px;
   margin-top: 20px;
   padding: 10px 10px;
 }
 
-#notif-back-button{
+#notif-back-button {
   display: block;
   margin-left: 43%;
   margin-top: 15px;
 }
 
-.current-weapon-txt{
+.current-weapon-txt {
   background-color: #452c089b;
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 5px;
 }
-.current-helmet-txt{
+.current-helmet-txt {
   background-color: #0e00a885;
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 5px;
 }
-.current-armor-txt{
+.current-armor-txt {
   background-color: #cc1bd291;
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 5px;
 }
-.current-gauntlet-txt{
+.current-gauntlet-txt {
   background-color: rgba(0, 255, 255, 0.371);
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 5px;
 }
-.current-boots-txt{
+.current-boots-txt {
   background-color: rgba(43, 226, 76, 0.46);
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 5px;
 }
-.current-shield-txt{
+.current-shield-txt {
   background-color: rgba(165, 210, 30, 0.401);
   padding-top: 10px;
   padding-bottom: 10px;
